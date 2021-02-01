@@ -21,6 +21,25 @@ package body p_virus is
 
 	end PosPiece;
 
+	--------------- Contrôle du jeu
+
+	function Possible(Grille : in TV_Grille; coul : in T_CoulP; Dir : in T_Direction) return boolean is
+	-- {coul /= blanc}
+	--	=> {resultat = vrai si la pièce de couleur coul peut être déplacée dans la direction Dir}
+	begin
+
+	end Possible;
+
+	procedure MajGrille(Grille : in out TV_Grille; coul : in T_CoulP; Dir : in T_Direction) is
+	-- {la pièce de couleur coul peut être déplacée dans la direction Dir}
+	--	=> {Grille a été mis à jour suite au deplacement}
+	begin
+		if 
+		hg: -1 -1 T_Lig(pos-1) T_Col(pos-1)
+		hd: -1 +1 T_Lig(pos-1) T_Col(pos+1)
+		bg: +1 -1 T_Lig(pos+1) T_Col(pos-1)
+		bd: +1 +1 T_Lig(pos+1) T_Col(pos+1)
+	end MajGrille;
 
 	function Guerison(Grille : in TV_Grille) return boolean is
 	-- {} => {résultat = vrai si Grille(1,A) = Grille(2,B) = ROUGE}
