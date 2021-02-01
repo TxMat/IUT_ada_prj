@@ -32,13 +32,13 @@ package body p_virus is
 		for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
 				if Grille(i,j) = coul and rep then
 					if Dir = bg then -- deplacement en bas à gauche
-						rep := (grille(i+1,t_col'pred(j)) = vide or coul);
+						rep := (grille(i+1,t_col'pred(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
 					elsif Dir = hg then -- deplacement en haut à gauche
-						rep := (grille(i-1,t_col'pred(j)) = vide or coul);
+						rep := (grille(i-1,t_col'pred(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
 					elsif Dir = bd then -- deplacement en bas à droite
-						rep := (grille(i+1,t_col'succ(j)) = vide or coul);
+						rep := (grille(i+1,t_col'succ(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
 					else -- deplacement en haut à droite
-						rep := (grille(i-1,t_col'succ(j)) = vide or coul);
+						rep := (grille(i-1,t_col'succ(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
 					end if;
 				end if;
 		end loop;
