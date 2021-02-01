@@ -49,7 +49,7 @@ package body p_virus is
 							Grille(i+1,j-1) := coul; --bas (ligne+1), droite (colonne-1)
 							Grille(i,j) := VIDE;
 
-						elsif Dir = hd then
+						else
 							Grille(i+1,j+1) := coul; --bas (ligne+1), droite (colonne+1)
 							Grille(i,j) := VIDE;
 						end if;
