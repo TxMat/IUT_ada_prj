@@ -16,19 +16,23 @@ package body p_vuetxt is
     -- * une case de la couleur d’une pièce mobile contient le chiffre correspondant à la
     -- position de cette couleur dans le type T_Coul}
     package p_int_io is new integer_io(integer); use p_int_io;
+        u : string(1..2);
+        ok : character;
     begin
 
       put_line("    A B C D E F G");
       put_line("  S - - - - - - -");
       for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
+        put(image(i) & " | ");
         for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-          put(image(i) & " | ");
           if Grille(i,j) = VIDE then
             put(".");
           elsif Grille(i,j) = BLANC then
             put("F");
           elsif Grille(i,j) in T_Coul then
-            put(T_Coul'pos(Grille(i,j)));
+            u := Integer'image(T_Coul'pos(Grille(i,j)));
+            ok := u(2);
+            ecrire(ok);
           else
             put(" ");
           end if;
