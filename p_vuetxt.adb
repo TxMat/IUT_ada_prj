@@ -21,8 +21,8 @@ package body p_vuetxt is
       put_line("    A B C D E F G");
       put_line("  S - - - - - - -");
       for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
+        put(image(i) & " | ");
         for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-          put(image(i) & " | ");
           if Grille(i,j) = VIDE then
             put(".");
           elsif Grille(i,j) = BLANC then
