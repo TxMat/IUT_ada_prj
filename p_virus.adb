@@ -59,19 +59,19 @@ package body p_virus is
 			for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
 					if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
 						if Dir = hg then
-							Grille(i-1,j-1) := coul;	--déplacement vers le haut (ligne-1) et la gauche (colonne -1)
+							Grille(i-1,t_col'pred(j)) := coul;	--déplacement vers le haut (ligne-1) et la gauche (colonne -1)
 							Grille(i,j) := VIDE; --la case est de nouveau vide
 
 						elsif Dir = hd then
-							Grille(i-1,j+1) := coul; --haut (ligne-1), droite (colonne+1)
+							Grille(i-1,t_col'pred(j)) := coul; --haut (ligne-1), droite (colonne+1)
 							Grille(i,j) := VIDE;
 
 						elsif Dir = bg then
-							Grille(i+1,j-1) := coul; --bas (ligne+1), droite (colonne-1)
+							Grille(i+1,t_col'pred(j)) := coul; --bas (ligne+1), droite (colonne-1)
 							Grille(i,j) := VIDE;
 
 						else
-							Grille(i+1,j+1) := coul; --bas (ligne+1), droite (colonne+1)
+							Grille(i+1,t_col'pred(j)) := coul; --bas (ligne+1), droite (colonne+1)
 							Grille(i,j) := VIDE;
 						end if;
 					end if;
