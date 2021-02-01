@@ -26,11 +26,11 @@ package body p_virus is
 	function Possible (Grille : in TV_Grille; coul : T_CoulP; Dir : in T_Direction) return boolean is
 		-- {coul /= blanc}
 		-- => {résultat = vrai si la pièce de couleur coul peut être déplacée dans la direction Dir}
-	rep : boolean := false;
+	rep : boolean := true;
 	begin
 	for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
 		for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-				if Grille(i,j) = coul then
+				if Grille(i,j) = coul and rep then
 					if Dir = bg then -- deplacement en bas à gauche
 						rep := (grille(i+1,t_col'pred(j)) = vide);
 					elsif Dir = hg then -- deplacement en haut à gauche
