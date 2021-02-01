@@ -18,7 +18,7 @@ package body p_virus is
 				end if;
 		end loop;
 	end loop;
-
+	new_line;
 	end PosPiece;
 
 
