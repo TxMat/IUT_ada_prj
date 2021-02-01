@@ -1,8 +1,6 @@
 with p_virus; use p_virus;
 use p_virus.p_piece_io;
 with text_io; use text_io;
-with Ada.IO_Exceptions;
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 
 procedure testjeu is
@@ -10,6 +8,7 @@ procedure testjeu is
     Pieces : TV_Pieces;
     num_conf : integer range 1..20; -- pour la verif de saisie
     f : p_piece_io.file_type;
+    package p_int_io is new integer_io(integer); use p_int_io;
 begin
     put_line("Debut de la phase d'initialisation");
     InitPartie(Grille, Pieces);
@@ -18,10 +17,10 @@ begin
         begin
             put_line("Entrez un numero de configuration [1-20]");
             get(num_conf);
-            skip_line;
             exit;
         exception
-            when CONSTRAINT_ERROR | ADA.IO_EXCEPTIONS.DATA_ERROR => -- en cas de mauvaise saisie
+            when others => -- en cas de mauvaise saisie
+                skip_line;
                 put_line("Le numéro est invalide vous devez mettre un nombre");
                 put_line("entre 1 et 20");
         end;
