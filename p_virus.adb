@@ -34,11 +34,11 @@ package body p_virus is
 					if Dir = bg then -- deplacement en bas à gauche
 						rep := (grille(i+1,t_col'pred(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
 					elsif Dir = hg then -- deplacement en haut à gauche
-						rep := (grille(i-1,t_col'pred(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
+						rep := (grille(i-1,t_col'pred(j)) = vide or grille(i-1,t_col'pred(j)) = coul);
 					elsif Dir = bd then -- deplacement en bas à droite
-						rep := (grille(i+1,t_col'succ(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
+						rep := (grille(i+1,t_col'succ(j)) = vide or grille(i+1,t_col'succ(j)) = coul);
 					else -- deplacement en haut à droite
-						rep := (grille(i-1,t_col'succ(j)) = vide or grille(i+1,t_col'pred(j)) = coul);
+						rep := (grille(i-1,t_col'succ(j)) = vide or grille(i-1,t_col'succ(j)) = coul);
 					end if;
 				end if;
 		end loop;
@@ -46,7 +46,7 @@ package body p_virus is
 	return rep ;
 	exception
 		when constraint_error => -- la piece est collé a un bord
-			return false; -- on ne peux donc pas la deplace
+			return false; -- on ne peux donc pas la deplacer
 
 	end Possible;
 

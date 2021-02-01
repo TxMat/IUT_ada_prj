@@ -49,10 +49,14 @@ begin
                 lire(dir);
                 if Possible(Grille, coul, dir) then
                     put_line("ok");
+                    MajGrille(Grille, coul, dir);
+                    put_line("done");
                     exit;
                 else
                     put_line("deplacement impossible");
                 end if;
+            elsif coul = T_coulP'last then
+                put_line("Les pieces blanches ne peuvent pas etre deplacées");
             else
                 put_line("Cette piece n'existe pas dans la configuration actuelle");
             end if;
@@ -64,5 +68,20 @@ begin
                 new_line;
         end;
     end loop;
-    
+    put_line("Affichage des Pieces :");
+    for i in Pieces'range loop -- on parcours Pieces pour afficher toutes les couleurs de la grille
+        PosPiece(Grille, i);
+    end loop;
+    put_line("Affichage terminé");
+    put_line("Debut de la phase de reinitialisation");
+    InitPartie(Grille, Pieces);
+    put_line("Renitialisation terminée");
+    put_line("Debut de la phase de reconfiguration");
+    Configurer(f, num_conf, Grille, Pieces);
+    put_line("Reonfiguration terminée");
+    put_line("Affichage des Pieces :");
+    for i in Pieces'range loop -- on parcours Pieces pour afficher toutes les couleurs de la grille
+        PosPiece(Grille, i);
+    end loop;
+    put_line("Affichage terminé");
 end testjeu;
