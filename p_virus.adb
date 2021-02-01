@@ -10,11 +10,11 @@ package body p_virus is
 
 
 	begin
-	ecrire(coul & " : ");
+	ecrire(T_coulP'image(coul) & " : ");
 	for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
 		for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
 				if Grille(i,j) = coul then
-					ecrire(image(j) & image(i) & " ");
+					ecrire(j & integer'image(i) & " ");
 				end if;
 		end loop;
 	end loop;
