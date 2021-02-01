@@ -16,8 +16,6 @@ package body p_vuetxt is
     -- * une case de la couleur d’une pièce mobile contient le chiffre correspondant à la
     -- position de cette couleur dans le type T_Coul}
     package p_int_io is new integer_io(integer); use p_int_io;
-        u : string(1..2);
-        ok : character;
     begin
 
       put_line("     A B C D E F G");

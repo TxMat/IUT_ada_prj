@@ -26,7 +26,6 @@ procedure testjeu is
     end Aff;
 
 begin
-    loop
         -- INIT grille
         put_line("Debut de la phase d'initialisation");
         InitPartie(Grille, Pieces);
@@ -54,35 +53,27 @@ begin
         new_line;
         AfficheGrille(grille);
         -- Deplacement pieces
-        loop
-            put_line("Choissisez la couleur d'une piece a deplacer");
-            lire(coul); -- demande couleur
-            if Pieces(coul) and coul /= T_coulP'last then -- si la couleur est dans la gille et n'est pas blanche on entre
-                put_line("dans quelle direction voulez vous deplacer la piece ?");
-                lire(dir); -- demande direction
-                if Possible(Grille, coul, dir) then -- check si Possible + deplacement
-                    put_line("ok");
-                    MajGrille(Grille, coul, dir);
-                    put_line("done");
-                    exit;
-                else -- si Possible renvoie False
-                    put_line("deplacement impossible");
+        while not Guerison(Grille) loop
+            loop
+                put_line("Choissisez la couleur d'une piece a deplacer");
+                lire(coul); -- demande couleur
+                if Pieces(coul) and coul /= T_coulP'last then -- si la couleur est dans la gille et n'est pas blanche on entre
+                    put_line("dans quelle direction voulez vous deplacer la piece ?");
+                    lire(dir); -- demande direction
+                    if Possible(Grille, coul, dir) then -- check si Possible + deplacement
+                        put_line("ok");
+                        MajGrille(Grille, coul, dir);
+                        put_line("done");
+                        exit;
+                    else -- si Possible renvoie False
+                        put_line("deplacement impossible");
+                    end if;
+                elsif coul = T_coulP'last then -- message d'erreur piece blanche
+                    put_line("Les pieces blanches ne peuvent pas etre deplacées");
+                else -- message d'erreur piece inexistante
+                    put_line("Cette piece n'existe pas dans la configuration actuelle");
                 end if;
-            elsif coul = T_coulP'last then -- message d'erreur piece blanche
-                put_line("Les pieces blanches ne peuvent pas etre deplacées");
-            else -- message d'erreur piece inexistante
-                put_line("Cette piece n'existe pas dans la configuration actuelle");
-            end if;
+            end loop;
+            AfficheGrille(Grille);
         end loop;
-        -- Affichage nouvelle Grille
-        AfficheGrille(Grille);
-        -- reinitialisation
-            -- put_line("Debut de la phase de reinitialisation");
-            -- InitPartie(Grille, Pieces);
-            -- put_line("Renitialisation terminée");
-            -- put_line("Debut de la phase de reconfiguration");
-            -- Configurer(f, num_conf, Grille, Pieces);
-            -- put_line("Reonfiguration terminée");
-            -- Aff(Grille);
-    end loop;
 end testjeu;
