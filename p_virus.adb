@@ -21,20 +21,6 @@ package body p_virus is
 
 	end PosPiece;
 
-	procedure InitPartie(Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
-	-- {} => {Tous les éléments de Grille ont été initialisés avec la couleur VIDE, y compris les cases inutilisables
-	--				Tous les élements de Pieces ont été initialisés à false}
-
-    begin
-	for i in T_Col'range loop
-	    for j in T_lig'range loop
-		Grille(i,j) := vide;
-	    end loop;
-	end loop;
-	for k in T_coulP'range loop
-	    Pieces(k) := false;
-	end loop;
-    end InitPartie;
 
 	function Guerison(Grille : in TV_Grille) return boolean is
 	-- {} => {résultat = vrai si Grille(1,A) = Grille(2,B) = ROUGE}
