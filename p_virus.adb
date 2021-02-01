@@ -82,7 +82,7 @@ package body p_virus is
 	function Guerison(Grille : in TV_Grille) return boolean is
 	-- {} => {résultat = vrai si Grille(1,A) = Grille(2,B) = ROUGE}
 	begin
-		return (Grille(1,"A") and Grille(2,"B")) = ROUGE;
+		return Grille(1,'A') = ROUGE and Grille(2,'B') = ROUGE;
 	end Guerison;
 
 	procedure InitPartie(Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
@@ -100,8 +100,8 @@ package body p_virus is
         end loop;
     end InitPartie;
 
-	procedure Configurer(f : in out p_piece_io.file_type; num : in integer is
-											 Grille : in out TV_Grille; Pieces : in out TV_Pieces);
+	procedure Configurer(f : in out p_piece_io.file_type; num : in integer;
+											 Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
 	-- {f ouvert, non vide, num est un numéro de défi
 	--	dans f, un défi est représenté par une suite d'éléments :
 	--	* les éléments d'une même pièce (même couleur) sont stockés consécutivement
@@ -109,11 +109,11 @@ package body p_virus is
 	-- 			=> {Grille a été mis à jour par lecture dans f de la configuration de numéro num
 	--					Pieces a été mis à jour en fonction des pièces de cette configuration}
         tmp_elem_p_new : TR_ElemP := (T_Col'first, T_Lig'first, T_CoulP'last);
-        tmp_elem_p_old : TR_ElemP
+        tmp_elem_p_old : TR_ElemP;
         counter : integer := 1;
     begin
         reset(f,in_file);
-        while not end_of_file(f) and then not num > counter  loop
+        while not end_of_file(f) and then not (num > counter)  loop
             tmp_elem_p_old := tmp_elem_p_new;
             read(f,tmp_elem_p_new);
             if tmp_elem_p_old.couleur = rouge and tmp_elem_p_new.couleur /= rouge then --Tant que défi actuel != défi passé en param, on skip
@@ -128,6 +128,7 @@ package body p_virus is
 	function CaseGrille(lig : in T_lig; col : in T_col) return boolean is
 	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utisable}
 	--------------------------------------------------------------------------------------------
+	begin
 		return false;
 	end CaseGrille;
 
@@ -135,15 +136,21 @@ package body p_virus is
 	--{fg ouvert}  =>
 	--		{fg a été resetté en position d'écriture, G a été écrit dans fg, nbelem = 1}
 	--------------------------------------------------------------------------------------------
+	begin
+		put_line("todo");
 	end InitMemoG;
 	procedure AddMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : in out positive) is
 	--{fg ouvert, nbelem est le nombre d'éléments de fg}  =>
 	--		{G a été ajouté en fin de fg, nbelem a été incrémenté}
 	--------------------------------------------------------------------------------------------
+	begin
+		put_line("todo");
 	end AddMemoG;
 	procedure SupMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : in out positive) is
 	--{fg ouvert, nbelem est le nombre d'éléments de fg, nbelm > 1}  =>
 	--		{G = dernier élement de fg, le dernier élément de fg a été supprimé, nbelem est décrémenté}
 	--------------------------------------------------------------------------------------------
+	begin
+		put_line("todo");
 	end SupMemoG;
 end p_virus;
