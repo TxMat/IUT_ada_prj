@@ -23,12 +23,33 @@ package body p_virus is
 
 	--------------- Contrôle du jeu
 
-	function Possible(Grille : in TV_Grille; coul : in T_CoulP; Dir : in T_Direction) return boolean is
-	-- {coul /= blanc}
-	--	=> {resultat = vrai si la pièce de couleur coul peut être déplacée dans la direction Dir}
+	function Possible (Grille : in TV_Grille; coul : T_CoulP; Dir : in T_Direction) return boolean is
+		-- {coul /= blanc}
+		-- => {résultat = vrai si la pièce de couleur coul peut être déplacée dans la direction Dir}
+	rep : boolean := false;
 	begin
+	for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
+		for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
+				if Grille(i,j) = coul then
+					if Dir = bg then -- deplacement en bas à gauche
+						rep := (grille(i+1,t_col'pred(j)) = vide);
+					elsif Dir = hg then -- deplacement en haut à gauche
+						rep := (grille(i-1,t_col'pred(j)) = vide);
+					elsif Dir = bd then -- deplacement en bas à droite
+						rep := (grille(i+1,t_col'succ(j)) = vide);
+					else -- deplacement en haut à droite
+						rep := (grille(i-1,t_col'succ(j)) = vide);
+					end if;
+				end if;
+		end loop;
+	end loop;
+	return rep ;
+	exception
+		when constraint_error => -- la piece est collé a un bord
+			return false; -- on ne peux donc pas la deplace
 
 	end Possible;
+
 
 	procedure MajGrille(Grille : in out TV_Grille; coul : in T_CoulP; Dir : in T_Direction) is
 	-- {la pièce de couleur coul peut être déplacée dans la direction Dir}
@@ -64,30 +85,3 @@ package body p_virus is
 		return (Grille(1,A) and Grille(2,B)) = ROUGE;
 	end Guerison;
 end p_virus;
-
-function Possible (Grille : in TV_Grille; coul : T_CoulP; Dir : in T_Direction) return boolean is
-	-- {coul /= blanc}
-	-- => {résultat = vrai si la pièce de couleur coul peut être déplacée dans la direction Dir}
-rep : boolean := false;
-begin
-for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
-	for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-			if Grille(i,j) = coul then
-				if Dir = bg then -- deplacement en bas à gauche
-					rep := (grille(i+1,t_col'pred(j)) = vide);
-				elsif Dir = hg then -- deplacement en haut à gauche
-					rep := (grille(i-1,t_col'pred(j)) = vide);
-				elsif Dir = bd then -- deplacement en bas à droite
-					rep := (grille(i+1,t_col'succ(j)) = vide);
-				else -- deplacement en haut à droite
-					rep := (grille(i-1,t_col'succ(j)) = vide);
-				end if;
-			end if;
-	end loop;
-end loop;
-return rep ;
-exception
-	when constraint_error => -- la piece est collé a un bord
-		return false; -- on ne peux donc pas la deplace
-
-end Possible;
