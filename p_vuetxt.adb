@@ -31,8 +31,6 @@ package body p_vuetxt is
           elsif Grille(i,j) = BLANC then
             put(" F");
           elsif Grille(i,j) in T_Coul then
-            -- u := Integer'image(T_Coul'pos(Grille(i,j)));
-            -- ok := u(2);
             ecrire(T_Coul'pos(Grille(i,j)));
           else
             put(" ");
@@ -40,13 +38,6 @@ package body p_vuetxt is
         end loop;
         new_line;
       end loop;
-
-      -- put("2 | ");
-      -- put("3 | ");
-      -- put("4 | ");
-      -- put("5 | ");
-      -- put("6 | ");
-      -- put("7 | ");
     end AfficheGrille;
 
     procedure annulemouv (grille : in out TV_Grille; dir : in T_Direction; coul : in T_coulP) is
