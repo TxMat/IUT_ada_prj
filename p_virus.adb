@@ -84,7 +84,7 @@ package body p_virus is
 	begin
 		return (Grille(1,"A") and Grille(2,"B")) = ROUGE;
 	end Guerison;
-	
+
 	procedure InitPartie(Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
 	-- {} => {Tous les éléments de Grille ont été initialisés avec la couleur VIDE, y compris les cases inutilisables
 	--				Tous les élements de Pieces ont été initialisés à false}
@@ -124,5 +124,26 @@ package body p_virus is
             end if;
         end loop;
     end Configurer;
+
+	function CaseGrille(lig : in T_lig; col : in T_col) return boolean is
+	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utisable}
+	--------------------------------------------------------------------------------------------
+		return false;
+	end CaseGrille;
+
+	procedure InitMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : out positive) is
+	--{fg ouvert}  =>
+	--		{fg a été resetté en position d'écriture, G a été écrit dans fg, nbelem = 1}
+	--------------------------------------------------------------------------------------------
+	end InitMemoG;
+	procedure AddMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : in out positive) is
+	--{fg ouvert, nbelem est le nombre d'éléments de fg}  =>
+	--		{G a été ajouté en fin de fg, nbelem a été incrémenté}
+	--------------------------------------------------------------------------------------------
+	end AddMemoG;
+	procedure SupMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : in out positive) is
+	--{fg ouvert, nbelem est le nombre d'éléments de fg, nbelm > 1}  =>
+	--		{G = dernier élement de fg, le dernier élément de fg a été supprimé, nbelem est décrémenté}
+	--------------------------------------------------------------------------------------------
+	end SupMemoG;
 end p_virus;
---wesh
