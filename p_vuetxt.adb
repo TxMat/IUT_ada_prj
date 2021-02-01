@@ -26,8 +26,12 @@ package body p_vuetxt is
         put(image(i) & " |");
         for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
             --impair = impair
-          if Grille(i,j) = VIDE then -- and (i/2 = T_Col'pos(j)/2)
-            put(" .");
+          if Grille(i,j) = VIDE then -- and
+              if (i/2 = T_Col'pos(j)/2) then
+                  put(" .");
+              else
+                  put("  ");
+              end if;
           elsif Grille(i,j) = BLANC then
             put(" F");
           elsif Grille(i,j) in T_Coul then
