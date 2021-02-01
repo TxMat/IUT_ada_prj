@@ -36,4 +36,9 @@ package body p_virus is
 	end loop;
     end InitPartie;
 
+	function Guerison(Grille : in TV_Grille) return boolean is
+	-- {} => {résultat = vrai si Grille(1,A) = Grille(2,B) = ROUGE}
+	begin
+		return (Grille(1,A) and Grille(2,B)) = ROUGE;
+	end Guerison;
 end p_virus;
