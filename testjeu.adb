@@ -1,10 +1,14 @@
 with p_virus; use p_virus;
+use p_virus.p_piece_io;
 with text_io; use text_io;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+
 
 procedure testjeu is
     Grille : TV_Grille;
     Pieces : TV_Pieces;
     num_conf : integer range 1..20; -- pour la verif de saisie
+    f : p_piece_io.file_type;
 begin
     put_line("Debut de la phase d'initialisation");
     InitPartie(Grille, Pieces);
@@ -21,7 +25,8 @@ begin
         end;
     end loop;
     put_line("Debut de la phase de configuration");
-    Configurer(Defis.bin num_conf, Grille, Pieces);
+    open(f, in_file, "Defis.bin");
+    Configurer(f, num_conf, Grille, Pieces);
     put_line("Configuration terminée");
     put_line("Affichage des Pieces :");
     for i in Pieces'range loop -- on parcours Pieces pour afficher toutes les couleurs de la grille
