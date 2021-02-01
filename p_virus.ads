@@ -28,6 +28,7 @@ package p_virus is
 
 	---- type pour les directions de déplacement des pièces
 	type T_Direction is (bg, hg, bd, hd);
+
 	package p_dir_io is new p_enum(T_Direction); use p_dir_io;
 
 	--------------- Primitives d'nitialisation d'une partie
