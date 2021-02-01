@@ -23,16 +23,17 @@ package body p_vuetxt is
       put_line("     A B C D E F G");
       put_line("   S - - - - - - -");
       for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
-        put(image(i) & " | ");
+        put(image(i) & " |");
         for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-          if Grille(i,j) = VIDE then
-            put(".");
+            --impair = impair
+          if Grille(i,j) = VIDE then -- and (i/2 = T_Col'pos(j)/2)
+            put(" .");
           elsif Grille(i,j) = BLANC then
-            put("F");
+            put(" F");
           elsif Grille(i,j) in T_Coul then
-            u := Integer'image(T_Coul'pos(Grille(i,j)));
-            ok := u(2);
-            ecrire(ok);
+            -- u := Integer'image(T_Coul'pos(Grille(i,j)));
+            -- ok := u(2);
+            ecrire(T_Coul'pos(Grille(i,j)));
           else
             put(" ");
           end if;
