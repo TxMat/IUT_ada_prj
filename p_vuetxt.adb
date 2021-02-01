@@ -26,12 +26,8 @@ package body p_vuetxt is
         put(image(i) & " |");
         for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
             --impair = impair
-          if Grille(i,j) = VIDE then -- and
-              if (i/2 = T_Col'pos(j)/2) then
-                  put(" .");
-              else
-                  put("  ");
-              end if;
+          if Grille(i,j) = VIDE then -- and (i/2 = T_Col'pos(j)/2)
+            put(" .");
           elsif Grille(i,j) = BLANC then
             put(" F");
           elsif Grille(i,j) in T_Coul then
@@ -52,4 +48,41 @@ package body p_vuetxt is
       -- put("6 | ");
       -- put("7 | ");
     end AfficheGrille;
+
+    procedure annulemouv (grille : in out TV_Grille; dir : in T_Direction; coul : in T_coulP) is
+
+      type TV_ElemP is array (1..3) of TR_ElemP;
+      nouv_pos_vect : TV_ElemP; --Stockage des future positions
+      counter : integer := 0;
+
+    begin
+
+      for i in TV_Grille'range(1) loop -- navigation a travers les lignes de la grille
+        for j in TV_Grille'range(2) loop-- navigation a travers les colonnes de la grille
+            if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
+                          counter := counter+1;
+              if Dir = hg then
+                              nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); -- recuperation de l'ancienne pos
+                Grille(i,j) := VIDE; --la case est de nouveau vide
+
+              elsif Dir = hd then
+                              nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); -- recuperation de l'ancienne pos
+                Grille(i,j) := VIDE;
+
+              elsif Dir = bg then
+                              nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); -- recuperation de l'ancienne pos
+                Grille(i,j) := VIDE;
+
+              else
+                              nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- recuperation de l'ancienne pos
+                Grille(i,j) := VIDE;
+              end if;
+            end if;
+          end loop;
+        end loop;
+          for i in 1..counter loop
+              Grille(nouv_pos_vect(i).ligne,nouv_pos_vect(i).colonne) := coul;
+          end loop;
+
+    end annulemouv;
 end p_vuetxt;

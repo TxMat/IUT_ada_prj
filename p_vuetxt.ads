@@ -10,4 +10,5 @@ package p_vuetxt is
 
     procedure AfficheGrille (Grille : in TV_Grille);
 
+    procedure annulemouv (grille : in out TV_Grille; dir : T_Direction; coul : in T_coulP);
 end p_vuetxt;
