@@ -54,6 +54,7 @@ package body p_virus is
 	procedure MajGrille(Grille : in out TV_Grille; coul : in T_CoulP; Dir : in T_Direction) is
 	-- {la pièce de couleur coul peut être déplacée dans la direction Dir}
 	--	=> {Grille a été mis à jour suite au deplacement}
+
 	begin
 		for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
 			for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
@@ -63,7 +64,7 @@ package body p_virus is
 							Grille(i,j) := VIDE; --la case est de nouveau vide
 
 						elsif Dir = hd then
-							Grille(i-1,t_col'pred(j)) := coul; --haut (ligne-1), droite (colonne+1)
+							Grille(i-1,t_col'succ(j)) := coul; --haut (ligne-1), droite (colonne+1)
 							Grille(i,j) := VIDE;
 
 						elsif Dir = bg then
@@ -71,7 +72,7 @@ package body p_virus is
 							Grille(i,j) := VIDE;
 
 						else
-							Grille(i+1,t_col'pred(j)) := coul; --bas (ligne+1), droite (colonne+1)
+							Grille(i+1,t_col'succ(j)) := coul; --bas (ligne+1), droite (colonne+1)
 							Grille(i,j) := VIDE;
 						end if;
 					end if;
