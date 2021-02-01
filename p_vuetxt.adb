@@ -18,8 +18,8 @@ package body p_vuetxt is
     package p_int_io is new integer_io(integer); use p_int_io;
     begin
 
-      put_line("    A B C D E F G");
-      put_line("  S - - - - - - -");
+      put_line("     A B C D E F G");
+      put_line("   S - - - - - - -");
       for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
         put(image(i) & " | ");
         for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
