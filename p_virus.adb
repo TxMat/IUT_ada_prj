@@ -51,33 +51,39 @@ package body p_virus is
 	end Possible;
 
 
-	procedure MajGrille(Grille : in out TV_Grille; coul : in T_CoulP; Dir : in T_Direction) is
+		procedure MajGrille(Grille : in out TV_Grille; coul : in T_CoulP; Dir : in T_Direction) is
 	-- {la pièce de couleur coul peut être déplacée dans la direction Dir}
 	--	=> {Grille a été mis à jour suite au deplacement}
-
+    type TV_ElemP is array (1..3) of TR_ElemP;
+    nouv_pos_vect : TV_ElemP; --Stockage des nouvelles positions
+    counter : integer := 0;
 	begin
-		for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
-			for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
+		for i in TV_Grille'range(1) loop -- navigation a travers les lignes de la grille
+			for j in TV_Grille'range(2) loop-- navigation a travers les colonnes de la grille
 					if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
+                        counter := counter+1;
 						if Dir = hg then
-							Grille(i-1,t_col'pred(j)) := coul;	--déplacement vers le haut (ligne-1) et la gauche (colonne -1)
+                            nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- haut (ligne-1) gauche (colonne -1)
 							Grille(i,j) := VIDE; --la case est de nouveau vide
 
 						elsif Dir = hd then
-							Grille(i-1,t_col'succ(j)) := coul; --haut (ligne-1), droite (colonne+1)
+                            nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); --haut (ligne-1) droite (colonne+1)
 							Grille(i,j) := VIDE;
 
 						elsif Dir = bg then
-							Grille(i+1,t_col'pred(j)) := coul; --bas (ligne+1), droite (colonne-1)
+                            nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); --bas (ligne+1) droite (colonne-1)
 							Grille(i,j) := VIDE;
 
 						else
-							Grille(i+1,t_col'succ(j)) := coul; --bas (ligne+1), droite (colonne+1)
+                            nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); --bas (ligne+1) droite (colonne+1)
 							Grille(i,j) := VIDE;
 						end if;
 					end if;
 				end loop;
 			end loop;
+        for i in 1..counter loop
+            Grille(nouv_pos_vect(i).ligne,nouv_pos_vect(i).colonne) := coul;
+        end loop;
 	end MajGrille;
 
 	function Guerison(Grille : in TV_Grille) return boolean is
