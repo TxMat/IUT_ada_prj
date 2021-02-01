@@ -2,6 +2,8 @@ with sequential_io; with p_esiut; use p_esiut;
 
 package p_virus is
 
+	-- salut les zouzous
+
 	--------------- Types pour representer la grille de jeu
 	subtype T_Col is character range 'A'..'G';
 	subtype T_Lig is integer range 1..7;
