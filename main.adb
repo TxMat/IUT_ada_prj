@@ -1,5 +1,4 @@
-with p_esiut; use p_esiut;
-with text_IO; use text_IO;
+with p_virus; use p_virus;
 
 procedure main is
 	-- declare here
