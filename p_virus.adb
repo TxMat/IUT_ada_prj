@@ -42,7 +42,7 @@ package p_virus is
                 Grille(i,j) := vide;
             end loop;
         end loop;
-        for k in T_coulP loop
+        for k in T_coulP'range loop
             Pieces(k) := false;
         end loop;
     end InitPartie;
