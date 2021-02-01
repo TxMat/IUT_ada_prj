@@ -100,30 +100,37 @@ package body p_virus is
         end loop;
     end InitPartie;
 
-	procedure Configurer(f : in out p_piece_io.file_type; num : in integer;
-											 Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
+	procedure Configurer(f : in out p_piece_io.file_type; num : in integer; Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
 	-- {f ouvert, non vide, num est un numéro de défi
 	--	dans f, un défi est représenté par une suite d'éléments :
 	--	* les éléments d'une même pièce (même couleur) sont stockés consécutivement
 	--	* les deux éléments constituant le virus (couleur rouge) terminent le défi}
 	-- 			=> {Grille a été mis à jour par lecture dans f de la configuration de numéro num
 	--					Pieces a été mis à jour en fonction des pièces de cette configuration}
+
         tmp_elem_p_new : TR_ElemP := (T_Col'first, T_Lig'first, T_CoulP'last);
         tmp_elem_p_old : TR_ElemP;
-        counter : integer := 1;
+    	counter : integer := 1;
     begin
-        reset(f,in_file);
-        while not end_of_file(f) and then not (num > counter)  loop
-            tmp_elem_p_old := tmp_elem_p_new;
-            read(f,tmp_elem_p_new);
-            if tmp_elem_p_old.couleur = rouge and tmp_elem_p_new.couleur /= rouge then --Tant que défi actuel != défi passé en param, on skip
-                counter := counter+1;
-            elsif counter = num then
-                Grille(tmp_elem_p_new.ligne,tmp_elem_p_new.colonne) := tmp_elem_p_new.couleur; --Placement des pièces sur la grille
-                Pieces(tmp_elem_p_new.couleur) := true; --Ajout $tmp_elem_p_new.couleur à la liste des couleurs présentes dans cette config
-            end if;
+    	reset(f,in_file);
+    	while not end_of_file(f) and then (num > counter)  loop
+        	tmp_elem_p_old := tmp_elem_p_new;
+        	read(f,tmp_elem_p_new);
+        	if tmp_elem_p_old.couleur = rouge and tmp_elem_p_new.couleur /= rouge then --Tant que défi actuel != défi passé en param, on skip
+            	counter := counter + 1;
+			end if;
         end loop;
+		while not end_of_file(f) and num = counter loop
+			Grille(tmp_elem_p_new.ligne,tmp_elem_p_new.colonne) := tmp_elem_p_new.couleur; --Placement des pièces sur la grille
+            Pieces(tmp_elem_p_new.couleur) := true; --Ajout $tmp_elem_p_new.couleur à la liste des couleurs présentes dans cette config
+			tmp_elem_p_old := tmp_elem_p_new;
+			read(f,tmp_elem_p_new);
+			if tmp_elem_p_old.couleur = rouge and tmp_elem_p_new.couleur /= rouge then --Tant que défi actuel != défi passé en param, on skip
+            	counter := counter + 1;
+			end if;
+		end loop;
     end Configurer;
+
 
 	function CaseGrille(lig : in T_lig; col : in T_col) return boolean is
 	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utisable}

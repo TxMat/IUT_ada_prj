@@ -1,6 +1,7 @@
 with p_virus; use p_virus;
 use p_virus.p_piece_io;
 with text_io; use text_io;
+with Ada.IO_Exceptions;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 
@@ -17,9 +18,10 @@ begin
         begin
             put_line("Entrez un numero de configuration [1-20]");
             get(num_conf);
+            skip_line;
             exit;
         exception
-            when CONSTRAINT_ERROR => -- en cas de mauvaise saisie
+            when CONSTRAINT_ERROR | ADA.IO_EXCEPTIONS.DATA_ERROR => -- en cas de mauvaise saisie
                 put_line("Le numéro est invalide vous devez mettre un nombre");
                 put_line("entre 1 et 20");
         end;
