@@ -4,6 +4,7 @@ with p_esiut; use p_esiut;
 use p_virus.p_piece_io;
 use p_virus.p_coul_io;
 with sequential_io;
+with ada.characters.latin_1; use ada.characters.latin_1;
 
 package body p_vuetxt is
 
@@ -15,7 +16,7 @@ package body p_vuetxt is
     -- * une case de couleur blanche contient le caractère F (Fixe)
     -- * une case de la couleur d’une pièce mobile contient le chiffre correspondant à la
     -- position de cette couleur dans le type T_Coul}
-    package p_int_io is new integer_io(integer); use p_int_io; -- integer_io
+    package p_int_io is new integer_io(integer); use p_int_io;
     begin
         ecrire_ligne("     A B C D E F G");
         ecrire_ligne("   S - - - - - - -");
@@ -31,7 +32,12 @@ package body p_vuetxt is
                 elsif Grille(i,j) = BLANC then
                     ecrire(" F");
                 elsif Grille(i,j) in T_Coul then
-                    ecrire(T_Coul'pos(Grille(i,j)));
+                    put(ESC);
+                    put(Code_Couleur(Grille(i,j)));
+                    put(T_Coul'pos(Grille(i,j)), 0);
+                    put(' ');
+                    put(ESC);
+                    put("[0m");
                 end if;
             end loop;
             a_la_ligne;

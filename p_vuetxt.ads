@@ -8,6 +8,10 @@ with sequential_io;
 
 package p_vuetxt is
 
+
+	type TV_Code_Coul is array (T_CoulP) of String(1..10);
+	Code_Couleur: TV_Code_Coul := ("[38;5;196m", "[38;5;033m", "[38;5;202m", "[38;5;206m", "[38;5;052m", "[38;5;021m", "[38;5;055m", "[38;5;028m", "[38;5;220m", "[38;5;231m");
+
     type TV_ElemP is array (1..3) of TR_ElemP;
 
     procedure AfficheGrille (Grille : in TV_Grille);
