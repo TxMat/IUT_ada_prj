@@ -15,7 +15,7 @@ package body p_vuetxt is
     -- * une case de couleur blanche contient le caractère F (Fixe)
     -- * une case de la couleur d’une pièce mobile contient le chiffre correspondant à la
     -- position de cette couleur dans le type T_Coul}
-    package p_int_io is new integer_io(integer); use p_int_io; -- ???????????
+    package p_int_io is new integer_io(integer); use p_int_io; -- integer_io
     begin
         ecrire_ligne("     A B C D E F G");
         ecrire_ligne("   S - - - - - - -");
@@ -38,39 +38,33 @@ package body p_vuetxt is
         end loop;
     end AfficheGrille;
 
-    procedure annulemouv (grille : in out TV_Grille; dir : in T_Direction; coul : in T_coulP) is
+    function checkpossible (coul : in T_coulP) return boolean is
+    begin
+        return ((Possible(Grille, coul, hg)) or (Possible(Grille, coul, hg)) or (Possible(Grille, coul, hg)) or (Possible(Grille, coul, hg)));
+    end checkpossible;
 
-      type TV_ElemP is array (1..3) of TR_ElemP;
-      nouv_pos_vect : TV_ElemP; --Stockage des future positions
+    procedure annulemouv (grille : in out TV_Grille; pos_vect : in TV_ElemP; dir : in T_Direction; coul : in T_coulP) is
       counter : integer := 0;
-
     begin
 
       for i in TV_Grille'range(1) loop -- navigation a travers les lignes de la grille
         for j in TV_Grille'range(2) loop-- navigation a travers les colonnes de la grille
             if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
                           counter := counter+1;
-              if Dir = hg then
-                              nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); -- recuperation de l'ancienne pos
-                Grille(i,j) := VIDE; --la case est de nouveau vide
-
-              elsif Dir = hd then
-                              nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); -- recuperation de l'ancienne pos
-                Grille(i,j) := VIDE;
-
-              elsif Dir = bg then
-                              nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); -- recuperation de l'ancienne pos
-                Grille(i,j) := VIDE;
-
-              else
-                              nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- recuperation de l'ancienne pos
-                Grille(i,j) := VIDE;
-              end if;
+                          Grille(i,j) := VIDE;
             end if;
           end loop;
         end loop;
           for i in 1..counter loop
-              Grille(nouv_pos_vect(i).ligne,nouv_pos_vect(i).colonne) := coul;
+              if Dir = hg then
+                  Grille(pos_vect(i).ligne + 1,T_col'succ(pos_vect(i).colonne)) := coul;
+              elsif Dir = bg then
+                  Grille(pos_vect(i).ligne - 1,T_col'succ(pos_vect(i).colonne)) := coul;
+              elsif Dir = hd then
+                  Grille(pos_vect(i).ligne + 1,T_col'pred(pos_vect(i).colonne)) := coul;
+              else
+                  Grille(pos_vect(i).ligne - 1,T_col'pred(pos_vect(i).colonne)) := coul;
+              end if;
           end loop;
 
     end annulemouv;
