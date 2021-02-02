@@ -6,7 +6,6 @@ package p_virus is
 	subtype T_Col is character range 'A'..'G';
 	subtype T_Lig is integer range 1..7;
 	type T_Coul is (rouge, turquoise, orange, rose, marron, bleu, violet, vert, jaune, blanc, vide);
-
 	type TV_Grille is array (T_lig,T_col) of T_Coul;
 
 	---- type pour les pièces du jeu
