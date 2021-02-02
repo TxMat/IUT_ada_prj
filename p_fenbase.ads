@@ -71,8 +71,6 @@ package p_fenbase is
                             Largeur, -- largeur du bouton en pixels
                             Hauteur : in Positive; -- hauteur du bouton en pixels
                             TypeBouton : in FL_Button_Type := FL_NORMAL_BUTTON); -- type du bouton (optionnel)
-   M1103 - Semaine bloquée programmation - 11 - 1
-     ère Année – 2020/2021
    -- types de boutons : cf documentation XForms
    -- FL_NORMAL_BUTTON (retourne une valeur quand relâché)
    -- FL_PUSH_BUTTON (retourne une valeur si relâché, reste enfoncé jusqu'à nouveau clic)
@@ -85,7 +83,7 @@ package p_fenbase is
                                 F : in out TR_Fenetre; -- la fenêtre où on ajoute
                                 NomElement : in String; -- le nom du bouton (unique)
                                 Texte : in String; -- le texte affiché dans le bouton
-                                X -- abscisse coin HG du carré englobant en pixels
+                                X, -- abscisse coin HG du carré englobant en pixels
                                   Y : in Natural; -- ordonnée coin HG du carré englobant en pixels
                                 Diam : in Positive ); -- diamètre du bouton en pixels
 
@@ -146,9 +144,7 @@ package p_fenbase is
    procedure AjouterTexteAscenseur (
                                     F : in out TR_Fenetre; -- la fenêtre où on ajoute
                                     NomElement : in String; -- le nom de la zone de texte
-                                    M1103 - Semaine bloquée programmation - 12 - 1
-                                      ère Année – 2020/2021
-                                        Texte : in String; -- le texte affiché en légende
+                                    Texte : in String; -- le texte affiché en légende
                                     Contenu : in String; -- le contenu de la zone
                                     X, -- abscisse du coin HG de la zone
                                     Y : in Natural; -- abscisse du coin HG de la zone
