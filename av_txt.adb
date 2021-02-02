@@ -28,13 +28,13 @@ begin
             begin
                 put_line("Entrez un numero de configuration [1-20]");
                 get(num_conf);
-                skip_line;
                 exit;
             exception
                 when others => -- en cas de mauvaise saisie
                     skip_line;
                     put_line("Le numéro est invalide vous devez mettre un nombre");
                     put_line("entre 1 et 20");
+
             end;
         end loop;
         -- Debut config
@@ -90,6 +90,7 @@ begin
                     Configurer(f, num_conf, Grille, Pieces);
                 when 'q' =>
                     put_line("vous avez abandonné :(");
+
                     exit;
                 when others =>
                     put_line("relisez bien les actions possibles celle que vous avez mis n'existe pas");
