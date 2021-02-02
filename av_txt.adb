@@ -48,7 +48,7 @@ begin
             a_la_ligne;
             AfficheGrille(grille);
             a_la_ligne;
-            put_line("Choissisez une action :");
+            put_line("Choisissez une action :");
             put_line("  -- [p] bouger une piece");
             put_line("  -- [a] annuler le dernier mouvement");
             put_line("  -- [r] recommencer");
@@ -88,7 +88,11 @@ begin
                     nb_err := 0;
                     nb_coups := 0;
                     Configurer(f, num_conf, Grille, Pieces);
-                when others => exit;
+                when 'q' =>
+                    put_line("vous avez abandonné :(");
+                    exit;
+                when others =>
+                    put_line("relisez bien les actions possibles celle que vous avez mis n'existe pas");
             end case;
         end loop;
 
