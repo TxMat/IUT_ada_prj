@@ -38,9 +38,9 @@ package body p_vuetxt is
         end loop;
     end AfficheGrille;
 
-    function checkpossible (coul : in T_coulP) return boolean is
+    function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
     begin
-        return ((Possible(Grille, coul, hg)) or (Possible(Grille, coul, hg)) or (Possible(Grille, coul, hg)) or (Possible(Grille, coul, hg)));
+        return ((Possible(Grille, coul, hg)) or (Possible(Grille, coul, bg)) or (Possible(Grille, coul, hd)) or (Possible(Grille, coul, bd)));
     end checkpossible;
 
     procedure annulemouv (grille : in out TV_Grille; pos_vect : in TV_ElemP; dir : in T_Direction; coul : in T_coulP) is

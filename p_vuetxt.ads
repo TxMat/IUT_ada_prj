@@ -12,7 +12,7 @@ package p_vuetxt is
 
     procedure AfficheGrille (Grille : in TV_Grille);
 
-    function checkpossible (coul : in T_coulP) return boolean;
+    function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean;
 
     procedure annulemouv (grille : in out TV_Grille; pos_vect : in TV_ElemP; dir : in T_Direction; coul : in T_coulP);
 
