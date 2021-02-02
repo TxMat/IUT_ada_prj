@@ -45,7 +45,6 @@ begin
         -- Debut partie
         while not Guerison(Grille) loop
             clr_ECRAN;
-            a_la_ligne;
             AfficheGrille(grille);
             a_la_ligne;
             put_line("Choisissez une action :");
@@ -58,6 +57,7 @@ begin
             case rep is
                 when 'p' => -- Deplacement pieces
                     loop
+                        a_la_ligne;
                         put_line("Choissisez la couleur d'une piece a deplacer");
                         lire(coul); -- demande couleur
                         if Pieces(coul) and coul /= T_coulP'last and checkpossible(Grille, coul) then -- si la couleur est dans la gille et n'est pas blanche on entre
@@ -66,8 +66,8 @@ begin
                             a_la_ligne;
                             if Possible(Grille, coul, dir) then -- check si Possible + deplacement
                                 MajGrille(Grille, coul, dir);
-                                a_la_ligne;
                                 nb_coups := nb_coups + 1;
+                                a_la_ligne;
                                 exit;
                             else -- si Possible renvoie False
                                 put_line("deplacement impossible");
@@ -89,12 +89,17 @@ begin
                     nb_coups := 0;
                     Configurer(f, num_conf, Grille, Pieces);
                 when 'q' =>
-                    put_line("vous avez abandonné :(");
-
+                    put_line("vous avez abandonné");
+                    put_line("apres" & integer'image(nb_coups) & " coups");
+                    put_line("et" & integer'image(nb_err) & " erreurs");
                     exit;
                 when others =>
                     put_line("relisez bien les actions possibles celle que vous avez mis n'existe pas");
             end case;
         end loop;
-
+        put_line("=======================================");
+        put_line("-------------__BRAVO !!!__-------------");
+        put_line("-- Vous avez gagné apres" & integer'image(nb_coups) & " coups");
+        put_line("-- et" & integer'image(nb_err) & " erreurs");
+        put_line("=======================================");
 end av_txt;
