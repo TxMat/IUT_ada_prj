@@ -40,32 +40,10 @@ package body p_vuetxt is
 
     function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
     begin
-        return ((Possible(Grille, coul, hg)) or (Possible(Grille, coul, bg)) or (Possible(Grille, coul, hd)) or (Possible(Grille, coul, bd)));
+        return ((Possible(Grille, coul, hg)) or
+                (Possible(Grille, coul, hd)) or
+                (Possible(Grille, coul, bg)) or
+                (Possible(Grille, coul, bd)));
     end checkpossible;
 
-    procedure annulemouv (grille : in out TV_Grille; pos_vect : in TV_ElemP; dir : in T_Direction; coul : in T_coulP) is
-      counter : integer := 0;
-    begin
-
-      for i in TV_Grille'range(1) loop -- navigation a travers les lignes de la grille
-        for j in TV_Grille'range(2) loop-- navigation a travers les colonnes de la grille
-            if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
-                          counter := counter+1;
-                          Grille(i,j) := VIDE;
-            end if;
-          end loop;
-        end loop;
-          for i in 1..counter loop
-              if Dir = hg then
-                  Grille(pos_vect(i).ligne + 1,T_col'succ(pos_vect(i).colonne)) := coul;
-              elsif Dir = bg then
-                  Grille(pos_vect(i).ligne - 1,T_col'succ(pos_vect(i).colonne)) := coul;
-              elsif Dir = hd then
-                  Grille(pos_vect(i).ligne + 1,T_col'pred(pos_vect(i).colonne)) := coul;
-              else
-                  Grille(pos_vect(i).ligne - 1,T_col'pred(pos_vect(i).colonne)) := coul;
-              end if;
-          end loop;
-
-    end annulemouv;
 end p_vuetxt;
