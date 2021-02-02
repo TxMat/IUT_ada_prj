@@ -38,7 +38,7 @@ package body p_vuetxt is
         end loop;
     end AfficheGrille;
 
-    function checkpossible (coul : in T_coulP) return boolean is
+    function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
     --Teste si déplacement hg, hd, bg, bd sont possibles
     begin
         return ((Possible(Grille, coul, hg)) or
@@ -58,6 +58,6 @@ package body p_vuetxt is
             when bg => dir := hd;
             when others => ecrire_ligne("ERREUR : Direction inexistante");
         end case;
-    end
+    end;
 
 end p_vuetxt;
