@@ -53,7 +53,7 @@ package  body p_fenbase is
   ------------------------------------------------------------------------------
   -- primitives publiques
   ------------------------------------------------------------------------------
-  
+
   ------------------------------------------------------------------------------
   -- Initialisation du mode graphique, définition fenêtres et groupes d'éléments
 	------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ package  body p_fenbase is
   end InitialiserFenetres;
 
   -- définir une nouvelle fenêtre ----------------------------------------------
-  function DebutFenetre (											
+  function DebutFenetre (
         Titre			: in  String;									--	son nom
         Largeur,                                --	sa largeur en pixels
         Hauteur 	: in	Positive)           		--	sa hauteur en pixels
@@ -89,7 +89,7 @@ package  body p_fenbase is
   end;
 
   -- définir un groupe d'éléments graphiques -----------------------------------
-  procedure DebutGroupe (                       
+  procedure DebutGroupe (
         F          : in out TR_Fenetre;         --  la fenêtre du groupe
         NomGroupe  : in     String ) is					--	le nom du groupe
   begin
@@ -107,7 +107,7 @@ package  body p_fenbase is
 	------------------------------------------------------------------------------
 
   -- ajouter un bouton de forme rectangulaire ----------------------------------
-  procedure AjouterBouton (                     
+  procedure AjouterBouton (
         F          : in out TR_Fenetre;         --  la fenêtre où on ajoute
         NomElement : in     String;             --  le nom du bouton (unique)
         Texte      : in     String;             --  le texte affiché dans le bouton
@@ -126,7 +126,7 @@ package  body p_fenbase is
   end AjouterBouton;
 
   -- ajouter un bouton de forme circulaire -------------------------------------
-  procedure AjouterBoutonRond (                 
+  procedure AjouterBoutonRond (
         F          : in out TR_Fenetre;         --  la fenêtre où on ajoute
         NomElement : in     String;             --  le nom du bouton (unique)
         Texte      : in     String;             --  le texte affiché dans le bouton
@@ -143,7 +143,7 @@ package  body p_fenbase is
   end AjouterBoutonRond;
 
   -- ajouter une boîte à cocher ------------------------------------------------
-  procedure AjouterBoiteCocher (                
+  procedure AjouterBoiteCocher (
         F          : in out TR_Fenetre;         --	la fenêtre où on ajoute
         NomElement : in     String;							--	le nom de la boîte à cocher (unique)
         Texte      : in     String;             --  le texte affiché en légende
@@ -161,7 +161,7 @@ package  body p_fenbase is
   end AjouterBoiteCocher;
 
 	-- ajouter un bouton radio ---------------------------------------------------
-  procedure AjouterBoutonRadio (                
+  procedure AjouterBoutonRadio (
         F          : in out TR_Fenetre;         --	la fenêtre où on ajoute
         NomElement : in     String;							--	le nom du bouton radio (unique)
         Texte      : in     String;             --  le texte affiché en légende
@@ -180,9 +180,9 @@ package  body p_fenbase is
       end if;
     end if;
   end AjouterBoutonRadio;
-    
+
 	-- ajouter un bouton décoré d'une image (format XPM) ------------------------
-  procedure AjouterBoutonImage (                
+  procedure AjouterBoutonImage (
         F          : in out TR_Fenetre;        	--	la fenêtre où on ajoute
         NomElement : in     String;							--	le nom du bouton (unique)
         Texte      : in     String;            	--  le texte affiché en légende
@@ -201,8 +201,8 @@ package  body p_fenbase is
     end if;
   end AjouterBoutonImage;
 
- -- ajouter une zone de texte non modifiable ----------------------------------  
-  procedure AjouterTexte (                      
+ -- ajouter une zone de texte non modifiable ----------------------------------
+  procedure AjouterTexte (
         F          : in out TR_Fenetre;         --	la fenêtre où on ajoute
         NomElement : in     String;							--	le nom de la zone de texte
         Texte      : in     String;             --  son contenu
@@ -222,8 +222,8 @@ package  body p_fenbase is
     end if;
   end AjouterTexte;
 
- -- ajouter un champ de saisie  -----------------------------------------------  
-  procedure AjouterChamp (                      
+ -- ajouter un champ de saisie  -----------------------------------------------
+  procedure AjouterChamp (
         F          : in out TR_Fenetre;					-- 	la fenêtre où on ajoute
         NomElement : in     String;							-- 	le nom du champ
         Texte      : in     String;             -- 	le texte affiché en légende
@@ -243,8 +243,8 @@ package  body p_fenbase is
     end if;
   end AjouterChamp;
 
- -- ajouter une zone de texte avec ascenseur  --------------------------------- 
-  procedure AjouterTexteAscenseur (             
+ -- ajouter une zone de texte avec ascenseur  ---------------------------------
+  procedure AjouterTexteAscenseur (
         F          : in out TR_Fenetre;         -- 	la fenêtre où on ajoute
         NomElement : in     String;							--	le nom de la zone de texte
         Texte      : in     String;             --  le texte affiché en légende
@@ -266,12 +266,12 @@ package  body p_fenbase is
   end AjouterTexteAscenseur;
 
  -- ajouter une horloge analogique  -------------------------------------------
-  procedure AjouterHorlogeAna (                    
+  procedure AjouterHorlogeAna (
         F          : in out TR_Fenetre;         --  la fenêtre où on joute
         NomElement : in     String;							--	le nom de l'horloge
         Texte      : in     String;             --  le texte affiché en légende
-        X,																			-- 	abscisse du coin HG 
-        Y          : in     Natural;						-- 	ordonnée du coin HG 
+        X,																			-- 	abscisse du coin HG
+        Y          : in     Natural;						-- 	ordonnée du coin HG
         Largeur,																-- 	largeur
         Hauteur    : in     Positive    ) is		--	hauteur
     Obj : FL_OBJECT_Access;
@@ -286,12 +286,12 @@ package  body p_fenbase is
   end AjouterHorlogeAna;
 
  -- ajouter une horloge digitale  _-------------------------------------------
-  procedure AjouterHorlogeDigi (                    
+  procedure AjouterHorlogeDigi (
         F          : in out TR_Fenetre;         --  la fenêtre où on joute
         NomElement : in     String;							--	le nom de l'horloge
         Texte      : in     String;             --  le texte affiché en légende
-        X,																			-- 	abscisse du coin HG 
-        Y          : in     Natural;						-- 	ordonnée du coin HG 
+        X,																			-- 	abscisse du coin HG
+        Y          : in     Natural;						-- 	ordonnée du coin HG
         Largeur,																-- 	largeur
         Hauteur    : in     Positive ) is				--	hauteur
     Obj : FL_OBJECT_Access;
@@ -306,12 +306,12 @@ package  body p_fenbase is
   end AjouterHorlogeDigi;
 
  -- ajouter un minuteur  ----------------------------------------------------
-  procedure AjouterMinuteur(                      
+  procedure AjouterMinuteur(
         F          : in out TR_Fenetre;					--	la fenêtre où on ajoute
         NomElement : in     String;							-- 	le nom du minuteur
         Texte      : in     String;             --  le texte affiché en légende
-        X,																			-- 	abscisse du coin HG 
-        Y          : in     Natural;						-- 	ordonnée du coin HG 
+        X,																			-- 	abscisse du coin HG
+        Y          : in     Natural;						-- 	ordonnée du coin HG
         Largeur,																-- 	largeur
         Hauteur    : in     Positive 		) is		--	hauteur
     Obj : FL_OBJECT_Access;
@@ -323,14 +323,14 @@ package  body p_fenbase is
       Fl_Set_Timer_Countup(Obj, X11.Int(0));
     end if;
   end AjouterMinuteur;
- 
+
 	-- ajouter un chronomètre  ----------------------------------------------------
-  procedure AjouterChrono (                      
+  procedure AjouterChrono (
         F          : in out TR_Fenetre;					--	la fenêtre où on ajoute
         NomElement : in     String;							-- 	le nom du chronomètre
         Texte      : in     String;             --  le texte affiché en légende
-        X,																			-- 	abscisse du coin HG 
-        Y          : in     Natural;						-- 	ordonnée du coin HG 
+        X,																			-- 	abscisse du coin HG
+        Y          : in     Natural;						-- 	ordonnée du coin HG
         Largeur,																-- 	largeur
         Hauteur    : in     Positive 		) is		--	hauteur
     Obj : FL_OBJECT_Access;
@@ -344,14 +344,14 @@ package  body p_fenbase is
   end AjouterChrono;
 
   -- ajouter une image  --------------------------------------------------------
-  procedure AjouterImage (                      
+  procedure AjouterImage (
         F          : in out TR_Fenetre;         -- 	la fenêtre où on ajoute
         NomElement : in     String;							-- 	le nom de l'élément
 				NomImage	 : in 		String;							--	le nom de l'image
         Texte      : in     String;             -- 	le texte affiché en légende, en bas de l'image
         X	,																			-- 	son abscisse en pixels
         Y          : in     Natural;            -- 	son ordonnée en pixels
-        Largeur,																-- 	largeur 
+        Largeur,																-- 	largeur
         Hauteur    : in     Positive    ) is    -- 	hauteur
     Obj : FL_OBJECT_Access;
   begin
@@ -368,7 +368,7 @@ package  body p_fenbase is
 	------------------------------------------------------------------------------
 
  	-- récupérer le nom du bouton cliqué  ----------------------------------------
-  function AttendreBouton (                     
+  function AttendreBouton (
         F : in     TR_Fenetre )                 -- 	nom de la fenêtre
     return String is                            -- 	Résultat = nom du bouton pressé
     Pelement : TA_Element;
@@ -379,14 +379,14 @@ package  body p_fenbase is
     end loop;
     return Pelement.NomElement.all;
   end AttendreBouton;
-      
+
 	-- récupérer le contenu d'un champ de saisie  --------------------------------
-  function ConsulterContenu (                   
+  function ConsulterContenu (
         F          : in     TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String      )       -- 	nom du champ de saisie
     return String is                             -- 	Résultat : la chaîne saisie !
-    P : TA_Element;  
-    S : X11.Strings.Const_Charp;  
+    P : TA_Element;
+    S : X11.Strings.Const_Charp;
   begin
     P:=GetElement(F.PElements,NomElement);
     if P/=null and then P.TypeElement=ChampDeSaisie then
@@ -398,7 +398,7 @@ package  body p_fenbase is
   end;
 
 	-- récupérer le temps résiduel d'un minuteur  --------------------------------
-  function ConsulterTimer (                     
+  function ConsulterTimer (
         F          : in     TR_Fenetre;         --	nom de la fenêtre
         NomElement : in     String      )       -- 	nom du minuteur
     return Float is                             -- 	Résultat : le temps restant !
@@ -413,7 +413,7 @@ package  body p_fenbase is
   end ConsulterTimer;
 
 	-- récupérer l'état d'une boîte à cocher ou d'un bouton radio  ---------------
-  function ConsulterEtatBCRB (                   	
+  function ConsulterEtatBCRB (
         F          : in     TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String      )				-- 	nom de l'élément
     return boolean is                           -- 	Résultat :true si coché, false sinon
@@ -434,7 +434,7 @@ package  body p_fenbase is
 	------------------------------------------------------------------------------
 
 	-- rendre visible une fenêtre  ------------------------------------------------
-	procedure MontrerFenetre (                    
+	procedure MontrerFenetre (
         F : in     TR_Fenetre ) is							--	nom de la fenêtre
   begin
     Fl_Show_Form(F.Pfenetre,FL_PLACE_CENTER,FL_FULLBORDER,X11.Strings.
@@ -448,14 +448,14 @@ package  body p_fenbase is
   end MontrerFenetre;
 
 	-- masquer une fenêtre  -------------------------------------------------------
-  procedure CacherFenetre (                     
+  procedure CacherFenetre (
         F : in     TR_Fenetre ) is							--	nom de la fenêtre
   begin
     Fl_Hide_Form(F.Pfenetre);
   end CacherFenetre;
 
 	-- rendre visible un élément graphique caché jusque là  ----------------------
-  procedure MontrerElem (                     	
+  procedure MontrerElem (
         F          : in out TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String ) is					-- 	nom de l'élément
 	P : TA_Element;
@@ -467,7 +467,7 @@ package  body p_fenbase is
 	end MontrerElem;
 
 	-- rendre invisible un élément graphique jusque-là visible  ------------------
-  procedure CacherElem (                      	
+  procedure CacherElem (
         F          : in out TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String ) is					-- 	nom de l'élément
 	P : TA_Element;
@@ -479,7 +479,7 @@ package  body p_fenbase is
 	end CacherElem;
 
 	-- activer ou désactiver un bouton  -----------------------------------------
-  procedure ChangerEtatBouton (                 
+  procedure ChangerEtatBouton (
         F          : in out TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String;             -- 	nom du bouton
         Etat       : in     T_EtatBouton ) is   -- 	valeur : marche (cliquable) ou arret (désactivé)
@@ -496,7 +496,7 @@ package  body p_fenbase is
   end ChangerEtatBouton;
 
 	-- forcer l'état d'un bouton radio  -----------------------------------------
-  procedure ChangerEtatBoutonRadio (            
+  procedure ChangerEtatBoutonRadio (
         F          : in out TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String;							-- 	nom du bouton
         Etat       : in     Boolean      ) is   -- 	valeur : true (coché) ou false (non coché)
@@ -509,7 +509,7 @@ package  body p_fenbase is
   end ChangerEtatBoutonRadio;
 
 	-- forcer l'état d'une boîte à cocher ----------------------------------------
-  procedure ChangerEtatBoiteCocher (            
+  procedure ChangerEtatBoiteCocher (
         F          : in out TR_Fenetre;         -- 	nom de la fenêtre
         NomElement : in     String;							-- 	nom de la boîte à cocher
         Etat       : in     Boolean      ) is   -- 	valeur : true (coché) ou false (non coché)
@@ -523,7 +523,7 @@ package  body p_fenbase is
 
  	-- passer d'un mode minuteur à un mode chronomètre ---------------------------
 	-- le temps s'incrémente au lieu de se décrémenter
- 	procedure ChangerMinuteurEnChrono (              
+ 	procedure ChangerMinuteurEnChrono (
         F               : in out TR_Fenetre;    	--  nom de la fenêtre
         NomElement      : in     String    ) is   --  nom de l'élément
     P : TA_Element;
@@ -536,7 +536,7 @@ package  body p_fenbase is
 
  	-- passer d'un mode chronomètre à un mode minuteur ---------------------------
 	-- le temps se décrémente au lieu de s'incrémenter
-  procedure ChangerChronoEnMinuteur(              
+  procedure ChangerChronoEnMinuteur(
         F               : in out TR_Fenetre;    	--  nom de la fenêtre
         NomElement      : in     String    ) is		-- 	nom de l'élément
     P : TA_Element;
@@ -548,7 +548,7 @@ package  body p_fenbase is
 	end ChangerChronoEnMinuteur;
 
  	-- mettre en pause en timer en marche ----------------------------------------
-  procedure PauseTimer (                        
+  procedure PauseTimer (
         F               : in out TR_Fenetre;    	--  nom de la fenêtre
         NomElement      : in     String    ) is		-- 	nom de l'élément
     P : TA_Element;
@@ -560,7 +560,7 @@ package  body p_fenbase is
   end PauseTimer;
 
  	-- mettre en marche en timer en pause ----------------------------------------
-  procedure RepriseTimer (                      
+  procedure RepriseTimer (
         F               : in out TR_Fenetre;    	--  nom de la fenêtre
         NomElement      : in     String    ) is		-- 	nom de l'élément
     P : TA_Element;
@@ -577,18 +577,18 @@ package  body p_fenbase is
 
   -- minimiser la bordure extérieure d'un bouton	------------------------------
 	  procedure NoBorder(
-	  		F 							: in out TR_Fenetre; 
-	  		Nomelement 			: in string				)  is 
+	  		F 							: in out TR_Fenetre;
+	  		Nomelement 			: in string				)  is
 	  	P : TA_element;
 	  begin
 			P:=GetElement(F.PElements,NomElement);
 			if P/=null then
 				Fl_Set_Object_bw(P.Pelement,interfaces.C.int(-1));
 			end if;
-	  end;	 
+	  end;
 
   -- modifier la couleur du fond d'un élément graphique ------------------------
-  procedure ChangerCouleurFond (                
+  procedure ChangerCouleurFond (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         NouvelleCouleur : in     T_Couleur  ) is--  La nouvelle couleur !
@@ -601,7 +601,7 @@ package  body p_fenbase is
   end ChangerCouleurFond;
 
   -- modifier la couleur du label d'un élément ou d'un texte fixe  -------------
-  procedure ChangerCouleurTexte (             
+  procedure ChangerCouleurTexte (
         F               : in out TR_Fenetre;    -- 	nom de la fenêtre
         NomElement      : in     String;        -- 	nom de l'élément
         NouvelleCouleur : in     T_Couleur   )is-- 	La nouvelle couleur !
@@ -614,7 +614,7 @@ package  body p_fenbase is
   end ChangerCouleurTexte;
 
   -- modifier le style du label d'un élément ou d'un texte fixe  ---------------
-  procedure ChangerStyleTexte (                	
+  procedure ChangerStyleTexte (
         F               : in out TR_Fenetre;    		--	nom de la fenêtre
         NomElement      : in     String;        		--	nom de l'élément
         NouveauStyle 		: in    FL_TEXT_STYLE   )is	--  Le nouveau style !
@@ -627,7 +627,7 @@ package  body p_fenbase is
   end ChangerStyleTexte;
 
   -- modifier la taille du label d'un élément ou d'un texte fixe  --------------
-  procedure ChangerTailleTexte (                
+  procedure ChangerTailleTexte (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         Taille 					: in     X11.Int   ) is --  La nouvelle taille !
@@ -640,7 +640,7 @@ package  body p_fenbase is
   end ChangerTailleTexte;
 
   -- modifier l'alignement du label d'un élément ou d'un texte fixe ------------
-  procedure ChangerAlignementTexte (            
+  procedure ChangerAlignementTexte (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         Alignement      : in     FL_ALIGN    )is--  Le nouvel alignement !
@@ -653,10 +653,10 @@ package  body p_fenbase is
   end ChangerAlignementTexte;
 
 	-- modifier le label d'un élément graphique ou la valeur d'un texte fixe------
-  procedure ChangerTexte (                      
+  procedure ChangerTexte (
         F            : in out TR_Fenetre;       --  nom de la fenêtre
         NomElement   : in     String;           --  Le nom de l'élément à modifier
-        NouveauTexte : in     String      ) is  --  La nouvelle valeur de légende 
+        NouveauTexte : in     String      ) is  --  La nouvelle valeur de légende
     P : TA_Element;
   begin
     P:=GetElement(F.PElements,NomElement);
@@ -666,7 +666,7 @@ package  body p_fenbase is
   end ChangerTexte;
 
   -- modifier le style du contenu d'une zone de texte ascenseur ----------------
-  procedure ChangerStyleContenu (               
+  procedure ChangerStyleContenu (
         F               : in out TR_Fenetre;    	--  nom de la fenêtre
         NomElement      : in     String;        	--  nom de la zone de texte
         NouveauStyle : in     FL_TEXT_STYLE   ) is--  Le nouveau style !
@@ -680,7 +680,7 @@ package  body p_fenbase is
   end ChangerStyleContenu;
 
   -- modifier la taille du contenu d'une zone de texte ascenseur ---------------
-  procedure ChangerTailleContenu (              
+  procedure ChangerTailleContenu (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         Taille : in     X11.Int   ) is 					--  La nouvelle taille !
@@ -693,7 +693,7 @@ package  body p_fenbase is
   end ChangerTailleContenu;
 
  	-- modifier le contenu d'un champ de saisie ou d'une zone de texte ascenseur---
-  procedure ChangerContenu (                    
+  procedure ChangerContenu (
         F              : in out TR_Fenetre;     --  nom de la fenêtre
         NomElement     : in     String;         --  nom de l'élément
         NouveauContenu : in     String      ) is--  La nouvelle valeur de contenu
@@ -712,7 +712,7 @@ package  body p_fenbase is
   end ChangerContenu;
 
  -- effacer le contenu d'un champ de saisie ou d'une zone de texte ascenseur---
-  procedure EffacerContenu (                   
+  procedure EffacerContenu (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String      )is--  nom de l'élément
     P : TA_Element;
@@ -728,7 +728,7 @@ package  body p_fenbase is
   end EffacerContenu;
 
 	-- ajouter une nouvelle ligne dans une zone de texte avec ascenseur------------
-  procedure AjouterNouvelleLigne (              
+  procedure AjouterNouvelleLigne (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         NouvelleLigne   : in     String      )is--  Le contenu de la nouvelle ligne
@@ -741,7 +741,7 @@ package  body p_fenbase is
   end AjouterNouvelleLigne;
 
 	-- modifier une ligne dans une zone de texte avec ascenseur-------------------
-  procedure ChangerLigne (                      
+  procedure ChangerLigne (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         NumeroLigne     : in     Natural;       --  numéro de ligne à modifier
@@ -756,7 +756,7 @@ package  body p_fenbase is
   end ChangerLigne;
 
 	-- supprimer une ligne dans une zone de texte avec ascenseur------------------
-  procedure SupprimerLigne (                    
+  procedure SupprimerLigne (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;        --  nom de l'élément
         NumeroLigne     : in     Natural     )is--  Le numéro de ligne à supprimer
@@ -769,7 +769,7 @@ package  body p_fenbase is
   end SupprimerLigne;
 
 	-- changer la durée du temps résiduel d'un minuteur --------------------------
-  procedure ChangerTempsMinuteur (                 
+  procedure ChangerTempsMinuteur (
         F               : in out TR_Fenetre;    --  nom de la fenêtre
         NomElement      : in     String;				-- 	nom du minuteur
         NouveauTemps    : in     Float  		) is--  La durée du décompte !
@@ -782,7 +782,7 @@ package  body p_fenbase is
   end ChangerTempsMinuteur;
 
 	-- changer l'image d'un bouton image -----------------------------------------
-  procedure ChangerImageBouton (              	
+  procedure ChangerImageBouton (
         F								: in out TR_Fenetre;		-- nom de la fenêtre
         NomElement 			: in     String;				-- nom de l'élément
         NomImage				: in     String      )is-- nom de la nouvelle image décor
@@ -798,7 +798,7 @@ package  body p_fenbase is
   procedure ChangerImage (              	      -- Change l'image d'un champ image
         F								: in out TR_Fenetre;		-- nom de la fenêtre
         NomElement 			: in     String;				-- nom de l'élément
-        NomImage				: in     String      )is-- nom de la nouvelle image 
+        NomImage				: in     String      )is-- nom de la nouvelle image
      P : TA_Element;
   begin
     P:=GetElement(F.PElements,NomElement);
@@ -812,7 +812,7 @@ package  body p_fenbase is
 	------------------------------------------------------------------------------
 
 	-- tester si l'utilisateur a utilisé le bouton droit de la souris pour
-	-- sélectionner un objet graphique 
+	-- sélectionner un objet graphique
   function ClickDroit return boolean 	is			-- vrai si on a pressé le bouton droit de la souris
   begin
     return fl_mousebutton = FL_RIGHTMOUSE;
