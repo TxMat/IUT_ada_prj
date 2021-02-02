@@ -14,6 +14,6 @@ package p_vuetxt is
 
     function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean;
 
-    procedure annulemouv (grille : in out TV_Grille; pos_vect : in TV_ElemP; dir : in T_Direction; coul : in T_coulP);
+    procedure oppose (dir : in out T_Direction);
 
 end p_vuetxt;
