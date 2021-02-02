@@ -15,27 +15,27 @@ package body p_vuetxt is
     -- * une case de couleur blanche contient le caractère F (Fixe)
     -- * une case de la couleur d’une pièce mobile contient le chiffre correspondant à la
     -- position de cette couleur dans le type T_Coul}
-    package p_int_io is new integer_io(integer); use p_int_io;
+    package p_int_io is new integer_io(integer); use p_int_io; -- ???????????
     begin
-
-      put_line("     A B C D E F G");
-      put_line("   S - - - - - - -");
-      for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
-        put(image(i) & " |");
-        for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-            --impair = impair
-          if Grille(i,j) = VIDE then -- and (i/2 = T_Col'pos(j)/2)
-            put(" .");
-          elsif Grille(i,j) = BLANC then
-            put(" F");
-          elsif Grille(i,j) in T_Coul then
-            ecrire(T_Coul'pos(Grille(i,j)));
-          else
-            put(" ");
-          end if;
+        ecrire_ligne("     A B C D E F G");
+        ecrire_ligne("   S - - - - - - -");
+        for i in T_Lig'range loop
+            ecrire(image(i) & " |");
+            for j in T_Col'range loop
+                if Grille(i,j) = VIDE then
+                    if (i mod 2 = T_Col'pos(j) mod 2) then
+                        ecrire(" .");
+                    else
+                        ecrire("  ");
+                    end if;
+                elsif Grille(i,j) = BLANC then
+                    ecrire(" F");
+                elsif Grille(i,j) in T_Coul then
+                    ecrire(T_Coul'pos(Grille(i,j)));
+                end if;
+            end loop;
+            a_la_ligne;
         end loop;
-        new_line;
-      end loop;
     end AfficheGrille;
 
     procedure annulemouv (grille : in out TV_Grille; dir : in T_Direction; coul : in T_coulP) is
