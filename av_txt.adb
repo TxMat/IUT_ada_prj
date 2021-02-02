@@ -49,36 +49,33 @@ begin
             put_line("  -- [r] recommencer");
             put_line("  -- [q] abandonner");
             lire(rep);
-            if rep = 'p' then -- Deplacement pieces
-                loop
-                    put_line("Choissisez la couleur d'une piece a deplacer");
-                    lire(coul); -- demande couleur
-                    if Pieces(coul) and coul /= T_coulP'last and checkpossible(Grille, coul) then -- si la couleur est dans la gille et n'est pas blanche on entre
-                        put_line("dans quelle direction voulez vous deplacer la piece ? ");
-                        lire(dir); -- demande direction
-                        if Possible(Grille, coul, dir) then -- check si Possible + deplacement
-                            put_line("ok");
-                            MajGrille(Grille, coul, dir);
-                            put_line("done");
-                            exit;
-                        else -- si Possible renvoie False
-                            put_line("deplacement impossible");
+            case rep is
+                when 'p' => -- Deplacement pieces
+                    loop
+                        put_line("Choissisez la couleur d'une piece a deplacer");
+                        lire(coul); -- demande couleur
+                        if Pieces(coul) and coul /= T_coulP'last and checkpossible(Grille, coul) then -- si la couleur est dans la gille et n'est pas blanche on entre
+                            put_line("dans quelle direction voulez vous deplacer la piece ? [hg / bg / bd / hd /]");
+                            lire(); -- demande direction
+                            if Possible(Grille, coul, dir) then -- check si Possible + deplacement
+                                exit;
+                            else -- si Possible renvoie False
+                                put_line("deplacement impossible");
+                            end if;
+                        elsif coul = T_coulP'last then -- message d'erreur piece blanche
+                            put_line("Les pieces blanches ne peuvent pas etre deplacées");
+                        elsif not checkpossible(Grille, coul) then
+                            put_line("cette piece ne peux bouger nul part");
+                        else -- message d'erreur piece inexistante
+                            put_line("Cette piece n'existe pas dans la configuration actuelle");
                         end if;
-                    elsif coul = T_coulP'last then -- message d'erreur piece blanche
-                        put_line("Les pieces blanches ne peuvent pas etre deplacées");
-                    elsif not checkpossible(Grille, coul) then
-                        put_line("cette piece ne peux bouger nul part");
-                    else -- message d'erreur piece inexistante
-                        put_line("Cette piece n'existe pas dans la configuration actuelle");
-                    end if;
-                end loop;
-            elsif rep = 'a' then -- Undo
-                oppose(dir);
-                MajGrille(Grille, coul, dir);
-            elsif rep = 'r' then
-                Configurer(f, num_conf, Grille, Pieces);
-            else
-                exit;
-            end if;
+                    end loop;
+                when 'a' => -- Undo
+                    oppose(dir);
+                    MajGrille(Grille, coul, dir);
+                when 'r' =>
+                    Configurer(f, num_conf, Grille, Pieces);
+                when others => exit;
+            end case;
         end loop;
 end av_txt;
