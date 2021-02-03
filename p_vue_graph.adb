@@ -83,9 +83,9 @@ procedure creefin (Ffin : in out TR_fenetre; score : tr_score ) is
 begin
   Ffin:=DebutFenetre("Resultats",400,400);
   -- création des champ/bouton/
-  AjouterTexte(Ffin,"txtnom","joueur " score.nom,120,30,200,30);
-  AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n°" score.defi,120,70,200,30);
-  AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & string(score.nb_moves) & " mouvements.",120,110,250,30);
+  AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
+  AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n°" & integer'image(score.defi),120,70,200,30);
+  AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & integer'image(score.nb_moves) & " mouvements.",120,110,250,30);
   AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,200,75,30);
   AjouterBouton(Ffin,"Boutonquitter","quitter",100,200,75,30);
 

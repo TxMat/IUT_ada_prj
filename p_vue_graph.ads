@@ -2,6 +2,7 @@ with p_fenbase ; use p_fenbase ;
 with Forms ; use Forms;
 with p_virus; use p_virus;
 with p_esiut; use p_esiut;
+with p_score; use p_score;
 with sequential_io;
 
 
@@ -19,7 +20,7 @@ procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in s
 
 procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille);
 
-procedure creefin (Ffin : in out TR_fenetre; scorer : tr_score );
+procedure creefin (Ffin : in out TR_fenetre; score : tr_score );
 
 function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean;
 

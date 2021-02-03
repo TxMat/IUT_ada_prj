@@ -13,6 +13,7 @@ procedure av_graph is
   Grille : TV_Grille;
   Pieces : TV_Pieces;
   defichoisie : boolean := false;
+  f : p_piece_io.file_type;
 
 begin
 
@@ -55,19 +56,21 @@ begin
     while not Guerison(Grille) loop
         declare
            Bouton : String := (Attendrebouton(fGrille));
+           I, J : integer;
         begin
            if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
-               ChangerCouleurFond(Fjeu, Bouton, FL_DEEPPINK);
+               ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
                I:=Character'Pos(Bouton(Bouton'First)) - Character'Pos('0');
                J:=Character'Pos(Bouton(Bouton'Last)) - Character'Pos('0');
                ecrire_ligne(I);
                ecrire_ligne(J);
            elsif Bouton = "Reset" then
-               d
+               exit;
            elsif Bouton = "Annul" then
-
+               exit;
            elsif Bouton = "Quit" then
                exit;
+           end if;
         end;
     end loop;
 
