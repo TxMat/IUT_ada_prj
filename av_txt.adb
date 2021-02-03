@@ -182,6 +182,9 @@ begin
                         put_line("BRAVO VOUS AVEZ FINI LE JEU !!");
                         put_line("Nous esperons qu'il vous a plu :)");
                         put_line("Vous pouvez refaire les anciens niveaux");
+                        exit;
+                    else
+                        exit;
                     end if;
                 else
                     put_line("Niveau suivant ? [y/n]");
