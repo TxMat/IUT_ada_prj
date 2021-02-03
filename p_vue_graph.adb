@@ -56,4 +56,13 @@ procedure AfficheGrille(Grille) is
     end loop;
 end AfficheGrille;
 
+
+procedure creefin (Ffin : in out TR_fenetre; Nom := ) is
+
+
+
+
+end creefin;
+
+
 end p_vue_graph;

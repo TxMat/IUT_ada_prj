@@ -12,4 +12,6 @@ procedure creemenu (fmenu : in out TR_fenetre);
 
 procedure AfficheGrille(Grille);
 
+procedure creefin (Ffin : in out TR_fenetre);
+
 end p_vue_graph;
