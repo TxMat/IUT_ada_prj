@@ -56,15 +56,17 @@ begin
                     clr_ECRAN; -- ne marche pas sous windows
                     AfficheGrille(grille);
                     a_la_ligne;
-                    put_line("Choisissez une action :");
-                    put_line("  -- [p] bouger une piece");
-                    put_line("  -- [x] mode jeu optimisé");
-                    put_line("  -- [a] annuler le dernier mouvement");
-                    put_line("  -- [r] recommencer");
-                    put_line("  -- [q] abandonner");
-                    a_la_ligne;
                     if not Mode_Opti then
+                        put_line("Choisissez une action :");
+                        put_line("  -- [p] bouger une piece");
+                        put_line("  -- [x] mode jeu optimisé");
+                        put_line("  -- [a] annuler le dernier mouvement");
+                        put_line("  -- [r] recommencer");
+                        put_line("  -- [q] abandonner");
+                        a_la_ligne;
                         lire(rep);
+                    else
+                        put_line("  -- Mode jeu optimisé --");
                     end if;
                     a_la_ligne;
                     -- case non supporté avec les types sting on utilise un if --
