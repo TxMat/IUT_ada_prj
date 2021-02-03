@@ -147,13 +147,8 @@ begin
                         end if;
                     elsif rep = "r" then -- Restart
                         put_line("/!\ VOULEZ VOUS VRAIMENT RECOMMENCER ? /!\");
-<<<<<<< Updated upstream
                         put_line("Il est impossible de revenir en arrière");
                         put_line("'y' pour confirmer, n'importe quoi d'autre pour annuler");
-=======
-                        put_line("il est impossible de revenir en arriere");
-                        put_line("'y' pour confirmer n'importe quoi d'autre pour annuler");
->>>>>>> Stashed changes
                         lire(rep);
                         if rep = "y" then
                             nb_err := 0;
@@ -171,7 +166,7 @@ begin
                     elsif rep = "x" then
                         put_line("-- Bienvenue dans le mode optimisé --");
                         put_line("Vous n'aurez pas à taper P à chaque fois pour jouer une pièce !");
-                        put_line("Mettez un numéro de pièce invalide pour en sortir (supérieur à 8");
+                        put_line("Mettez un numéro de pièce invalide pour en sortir (supérieur à 8 par exemple)");
                         pause;
                         Mode_Opti := True;
                     else
@@ -187,6 +182,9 @@ begin
                 end;
             end loop;
             if Guerison(Grille) then -- car Possible de sortir de la boucle pour abandonner
+                clr_ECRAN;
+                AfficheGrille(Grille);
+                a_la_ligne;
                 put_line("=======================================");
                 put_line("-------------__BRAVO !!!__-------------");
                 put_line("-- Vous avez gagné après" & integer'image(nb_coups) & " coups");
