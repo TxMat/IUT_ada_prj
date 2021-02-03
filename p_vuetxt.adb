@@ -34,8 +34,8 @@ package body p_vuetxt is
                 elsif Grille(i,j)'valid then
                     put(ESC);
                     put(Code_Couleur(Grille(i,j)));
+                    put(" ");
                     put(T_Coul'pos(Grille(i,j)), 0);
-                    put(' ');
                     put(ESC);
                     put("[0m");
                 end if;
@@ -64,6 +64,6 @@ package body p_vuetxt is
             when bg => dir := hd;
             when others => ecrire_ligne("ERREUR : Direction inexistante");
         end case;
-    end;
+    end oppose;
 
 end p_vuetxt;

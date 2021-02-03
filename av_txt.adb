@@ -144,6 +144,7 @@ begin
                             nb_coups := nb_coups + 1;
                         else
                             put_line("Vous ne pouvez rien annuler car vous n'avez pas joué !");
+                            delay 1.0;
                         end if;
                     elsif rep = "r" then -- Restart
                         put_line("/!\ VOULEZ VOUS VRAIMENT RECOMMENCER ? /!\");
@@ -167,18 +168,21 @@ begin
                         put_line("-- Bienvenue dans le mode optimisé --");
                         put_line("Vous n'aurez pas à taper P à chaque fois pour jouer une pièce !");
                         put_line("Mettez un numéro de pièce invalide pour en sortir (supérieur à 8 par exemple)");
-                        pause;
+                        delay 5.0;
                         Mode_Opti := True;
                     else
                         put_line("Relisez bien les actions possibles, celle que vous avez mis n'existe pas");
+                        delay 1.0;
                     end if;
                 exception
                     when OPTI_OFF =>
                     Mode_Opti := False;
                     put_line("__Mode optimisé off__");
+                    delay 1.0;
 
                     when ANNUL_MOVE =>
                     put_line("-> Mouvement annulé");
+                    delay 1.0;
                 end;
             end loop;
             if Guerison(Grille) then -- car Possible de sortir de la boucle pour abandonner

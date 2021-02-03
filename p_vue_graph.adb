@@ -92,4 +92,26 @@ begin
 
 end creefin;
 
+function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
+--Teste si déplacement hg, hd, bg, bd sont possibles
+begin
+    return ((Possible(Grille, coul, hg)) or
+            (Possible(Grille, coul, hd)) or
+            (Possible(Grille, coul, bg)) or
+            (Possible(Grille, coul, bd)));
+end checkpossible;
+
+procedure oppose (dir : in out T_Direction) is
+--Inverse la position de dir :
+-- bg <-> hd; bd <-> hg
+begin
+    case dir is
+        when hd => dir := bg;
+        when hg => dir := bd;
+        when bd => dir := hg;
+        when bg => dir := hd;
+        when others => ecrire_ligne("ERREUR : Direction inexistante");
+    end case;
+end oppose;
+
 end p_vue_graph;

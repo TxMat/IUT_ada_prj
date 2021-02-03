@@ -51,9 +51,24 @@ begin
     Configurer(f, numd, Grille, Pieces);
     creegrille (FGrille, numd, ConsulterContenu(Fmenu, "ChampNom"),Grille);
     MontrerFenetre(FGrille);
-    --------------- Fin init ----------------------------
-    loop
-       exit when Attendrebouton(FGrille) = "Quit";  --fermeture de la fenêtre
+    --------------- Fin init ---------------------------
+    while not Guerison(Grille) loop
+        declare
+           Bouton : String := (Attendrebouton(fGrille));
+        begin
+           if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
+               ChangerCouleurFond(Fjeu, Bouton, FL_DEEPPINK);
+               I:=Character'Pos(Bouton(Bouton'First)) - Character'Pos('0');
+               J:=Character'Pos(Bouton(Bouton'Last)) - Character'Pos('0');
+               ecrire_ligne(I);
+               ecrire_ligne(J);
+           elsif Bouton = "Reset" then
+               d
+           elsif Bouton = "Annul" then
+
+           elsif Bouton = "Quit" then
+               exit;
+        end;
     end loop;
 
 end av_graph;
