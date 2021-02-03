@@ -44,7 +44,7 @@ début travail sur les scores
 (essai) fenetre graphique de la grille
 </Elsa>
 <Emmanuel>
-
+debut procedure creemenu
 </Emmanuel>
 </02-02-2021>
 
@@ -53,5 +53,8 @@ début travail sur les scores
 <Quentin></Quentin>
 <François></François>
 <Elsa></Elsa>
-<Emmanuel></Emmanuel>
+<Emmanuel>
+fin procedure creemenu
+gestion du menu dans av_graph
+</Emmanuel>
 </03-02-2021>
