@@ -9,7 +9,7 @@ use p_virus.p_piece_io;
 procedure av_graph is
 
   numd : integer range 1..20 ; -- numero defi
-  Fmenu, FGrille : TR_fenetre;
+  Fmenu, FGrille, Ffin : TR_fenetre;
   Grille : TV_Grille;
   Pieces : TV_Pieces;
   defichoisie : boolean := false;

@@ -19,6 +19,11 @@ procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in s
 
 procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille);
 
-procedure creefin (Ffin : in out TR_fenetre);
+procedure creefin (Ffin : in out TR_fenetre; scorer : tr_score );
+
+
+
+
+
 
 end p_vue_graph;
