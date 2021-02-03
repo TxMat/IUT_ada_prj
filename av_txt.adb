@@ -22,6 +22,7 @@ procedure av_txt is
     Premier_tour : boolean;
     Play : boolean := True;
     Mode_Opti : boolean := False;
+    OPTI_OFF : exception;
 begin
         -- INIT grille
         put_line("Debut de la phase d'initialisation");
