@@ -21,6 +21,7 @@ procedure av_txt is
     nb_err : natural;
     Premier_tour : boolean;
     Play : boolean := True;
+    Mode_Opti : boolean := False;
 begin
         -- INIT grille
         put_line("Debut de la phase d'initialisation");
@@ -57,14 +58,17 @@ begin
                     a_la_ligne;
                     put_line("Choisissez une action :");
                     put_line("  -- [p] bouger une piece");
+                    put_line("  -- [x] mode jeu optimisé");
                     put_line("  -- [a] annuler le dernier mouvement");
                     put_line("  -- [r] recommencer");
                     put_line("  -- [q] abandonner");
                     a_la_ligne;
-                    lire(rep);
+                    if not Mode_Opti then
+                        lire(rep);
+                    end if;
                     a_la_ligne;
                     -- case non supporté avec les types sting on utilise un if --
-                    if rep = "p" then -- Deplacement pieces
+                    if rep = "p" or Mode_Opti then -- Deplacement pieces
                         loop -- loop si piece invalide
                             put_line("Choissisez le numero d'une piece a deplacer");
                             loop -- loop de saisie du numero
@@ -74,7 +78,36 @@ begin
                                     exit;
                                 exception
                                     when CONSTRAINT_ERROR =>
-                                        put_line("La couleur doit etre contenue entre 0 et 8 !");
+                                        if Mode_Opti then
+                                            loop
+                                                put_line("Choisissez une action :");
+                                                put_line("  -- [y] sortir du mode optimisé");
+                                                put_line("  -- [a] annuler le dernier mouvement");
+                                                put_line("  -- [n] rester en mode optimisé");
+                                                lire(rep);
+                                                if rep = "y" then
+                                                    Mode_Opti := False;
+                                                    put_line("__Mode optimisé off__");
+                                                    put_line("Entrez un le numero d'une piece a deplacer");
+                                                    exit;
+                                                elsif rep = "n" then
+                                                    put_line("Dans ce cas mettez le numero d'une piece entre 0 et 8 sur la grille !");
+                                                    exit;
+                                                elsif rep = "a" then
+                                                    if not Premier_tour then -- pour verif qu'on a joué au moins une fois
+                                                        oppose(dir);
+                                                        MajGrille(Grille, coul, dir);
+                                                        nb_coups := nb_coups + 1;
+                                                    else
+                                                        put_line("Vous ne pouvez rien annuler car vous n'avez pas joué !");
+                                                    end if;
+                                                else
+                                                    put_line("repondez avec 'y' ou 'n'");
+                                                end if;
+                                            end loop;
+                                        else
+                                            put_line("La couleur doit etre contenue entre 0 et 8 !");
+                                        end if;
                                 end;
                             end loop;
                             if Pieces(coul) and coul /= T_coulP'last and checkpossible(Grille, coul) then -- si la couleur est dans la gille et n'est pas blanche on entre
@@ -100,7 +133,7 @@ begin
                                 put_line("Cette piece n'existe pas dans la configuration actuelle");
                             end if;
                         end loop;
-                    elsif rep = "p" then     -- Undo
+                    elsif rep = "a" then  -- Undo
                         if not Premier_tour then -- pour verif qu'on a joué au moins une fois
                             oppose(dir);
                             MajGrille(Grille, coul, dir);
@@ -126,6 +159,13 @@ begin
                         put_line("-- et" & integer'image(nb_err) & " erreurs");
                         put_line("=======================================");
                         exit;
+                    elsif rep = "x" then
+                        put_line("-- Bienvenue dans le mode optimisé --");
+                        put_line("vous n'aurez pas a taper P a chaque fois pour jouer une piece!");
+                        put_line("mettez un numero de piece invalide pour en sortir");
+                        put_line("cela ne vous contera pas de coup ou d'erreur");
+                        Mode_Opti := True;
+                        pause;
                     else
                         put_line("relisez bien les actions possibles celle que vous avez mis n'existe pas");
                     end if;
@@ -137,34 +177,33 @@ begin
                     put_line("-- et" & integer'image(nb_err) & " erreurs");
                     put_line("=======================================");
                 end if;
-                put_line("Niveau suivant ? [y/n]");
-                loop
-                    lire(rep);
-                    if rep = "y" then
-                        if num_conf < 20 then -- pour ne pas depasser le nombre max de lvl
+                if num_conf = 20 then
+                    if Guerison(grille) then
+                        put_line("BRAVO VOUS AVEZ FINI LE JEU !!");
+                        put_line("Nous esperons qu'il vous a plu :)");
+                        put_line("Vous pouvez refaire les anciens niveaux");
+                    end if;
+                else
+                    put_line("Niveau suivant ? [y/n]");
+                    loop
+                        lire(rep);
+                        if rep = "y" then
                             num_conf := num_conf + 1;
                             InitPartie(Grille, Pieces); -- Reset grille
                             exit;
-                        else
-                            put_line("impossible vous avez fini le jeu !"); -- l'user est motivé qd meme
-                            exit;
-                        end if;
-                    elsif rep = "n" then
-                            if Guerison(grille) and num_conf < 20 then
+                        elsif rep = "n" then
+                            if Guerison(grille) then
                                 num_conf := num_conf + 1;
                             end if;
-                            if num_conf = 20 then
-                                put_line("Felicitations vous avez fini le jeu !");
-                            else
-                                put_line("pensez a repartir du niveau" & Integer'image(num_conf) & " pour continuer le jeu");
-                                put_line("Bonne journée :)");
-                            end if;
+                            put_line("pensez a repartir du niveau" & Integer'image(num_conf) & " pour continuer le jeu");
+                            put_line("Bonne journée :)");
                             Play := False;
                             exit;
-                    else
-                        put_line("repondez avec 'y' ou 'n'");
-                    end if;
-                end loop;
+                        else
+                            put_line("repondez avec 'y' ou 'n'");
+                        end if;
+                    end loop;
+                end if;
             end loop;
             pause;
 end av_txt;

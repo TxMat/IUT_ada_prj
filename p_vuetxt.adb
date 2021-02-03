@@ -31,7 +31,7 @@ package body p_vuetxt is
                     end if;
                 elsif Grille(i,j) = BLANC then
                     ecrire(" F");
-                elsif Grille(i,j) in T_Coul then
+                elsif Grille(i,j)'valid then
                     put(ESC);
                     put(Code_Couleur(Grille(i,j)));
                     put(T_Coul'pos(Grille(i,j)), 0);
