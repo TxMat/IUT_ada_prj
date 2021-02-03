@@ -23,6 +23,7 @@ procedure av_txt is
     Play : boolean := True;
     Mode_Opti : boolean := False;
     OPTI_OFF : exception;
+    ANNUL_MOVE : exception;
 begin
         -- INIT grille
         put_line("Debut de la phase d'initialisation");
@@ -53,7 +54,7 @@ begin
             put_line("Configuration terminée");
             -- Debut partie
             while not Guerison(Grille) loop -- boucle de jeu
-                begin
+            begin -- pour gerer les exception
                     -- affichage grille + options --
                     clr_ECRAN; -- ne marche pas sous windows
                     AfficheGrille(grille);
@@ -99,8 +100,8 @@ begin
                                                     if not Premier_tour then -- pour verif qu'on a joué au moins une fois
                                                         oppose(dir);
                                                         MajGrille(Grille, coul, dir);
-                                                        AfficheGrille(grille);
                                                         nb_coups := nb_coups + 1;
+                                                        raise ANNUL_MOVE; -- on gere l'erreur sur le bloc principal pour repartir au debut de la boucle de jeu
                                                     else
                                                         put_line("Vous ne pouvez rien annuler car vous n'avez pas joué !");
                                                     end if;
@@ -165,10 +166,9 @@ begin
                     elsif rep = "x" then
                         put_line("-- Bienvenue dans le mode optimisé --");
                         put_line("vous n'aurez pas a taper P a chaque fois pour jouer une piece!");
-                        put_line("mettez un numero de piece invalide pour en sortir");
-                        put_line("cela ne vous contera pas de coup ou d'erreur");
-                        Mode_Opti := True;
+                        put_line("mettez un numero de piece invalide pour en sortir ()");
                         pause;
+                        Mode_Opti := True;
                     else
                         put_line("relisez bien les actions possibles celle que vous avez mis n'existe pas");
                     end if;
@@ -176,6 +176,9 @@ begin
                     when OPTI_OFF =>
                     Mode_Opti := False;
                     put_line("__Mode optimisé off__");
+
+                    when ANNUL_MOVE =>
+                    put_line("mouvement annulé");
                 end;
             end loop;
             if Guerison(Grille) then -- car Possible de sortir de la boucle pour abandonner
