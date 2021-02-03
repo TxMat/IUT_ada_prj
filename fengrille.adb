@@ -17,7 +17,7 @@ procedure test is
   FGrille: TR_Fenetre;
 
   nom:string(1..20);
-  NumConf, NBcoups:integer:=0;
+  numd, NBcoups:integer:=0;
   f : p_piece_io.file_type;
 
   subtype T_Col is character range 'A'..'G';
@@ -30,12 +30,12 @@ begin -- test
 
   InitialiserFenetres;
   open(f, in_file, "Defis.bin");
-  ecrire("Conf: "); lire(NumConf);
+  ecrire("Conf: "); lire(numd);
   ecrire("nom : "); lire(nom);
-  Configurer(f, NumConf, Grille, Pieces);
+  Configurer(f, numd, Grille, Pieces);
 
   --Fenetre jeu
-  FGrille :=DebutFenetre("Grille" & image(NumConf),650,500);
+  FGrille :=DebutFenetre("Grille" & image(numd),650,500);
   AjouterTexte(FGrille, "nomj","Nom du joueur : " & nom,10,10,280,30);
   AjouterTexte(FGrille, "info","Cliquez sur la piece a deplacer.",30,40,280,30);
   AjouterTexte(FGrille, "nbcoups","Nombre de coups : " & image(nbcoups),450,100,280,30);
@@ -50,7 +50,7 @@ begin -- test
 
 
 
-  FinFenetre(FGrille);
+
 
   MontrerFenetre(FGrille);
   loop

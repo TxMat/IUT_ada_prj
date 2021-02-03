@@ -56,4 +56,23 @@ procedure AfficheGrille(Grille) is
     end loop;
 end AfficheGrille;
 
+procedure creegrille (FGrille : in out TR_fenetre, numd : in integer, nom : in string) is
+begin
+    --Fenetre jeu
+    FGrille :=DebutFenetre("Grille" & image(numd),650,500);
+    AjouterTexte(FGrille, "nomj","Nom du joueur : " & nom,10,10,280,30);
+    AjouterTexte(FGrille, "info","Cliquez sur la piece a deplacer.",30,40,280,30);
+    AjouterTexte(FGrille, "nbcoups","Nombre de coups : " & image(nbcoups),450,100,280,30);
+
+    --Boutons sur le côté
+    AjouterBouton(FGrille,"Annul","Annuler le coup",450,140,150,30);
+    AjouterBouton(FGrille,"Reset","Recommencer la grille",450,170,150,30);
+    AjouterBouton(FGrille,"Quit","Quitter",450,200,150,30);
+    ChangerCouleurFond(FGrille,"Annul",FL_SLATEBLUE);
+    ChangerCouleurFond(FGrille,"Reset",FL_INDIANRED);
+    ChangerCouleurFond(FGrille,"Quit",FL_TOMATO);
+    AfficheGrille(FGrille);
+    FinFenetre(FGrille);
+end creegrille;
+
 end p_vue_graph;
