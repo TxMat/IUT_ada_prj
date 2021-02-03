@@ -24,6 +24,9 @@ package p_score is
     -- ouverture du fichier score, création sinon
     procedure ouvrir_fichier(io_type : in integer);
 
+    -- fermeture du fichier
+    procedure fermer_fichier;
+
     -- fonction privée (à rendre privée) Récupère les scores *relevant*
     function analyse_fichier(mode,defi : in integer := 0; nom : in string := ""; tableau_score : in out TV_Score) return integer;
 
@@ -40,6 +43,6 @@ package p_score is
     function recup_score(infos : in TR_Score) return TR_Score;
 
     -- Pour debug & co
-    procedure afficher_scores(scores : in TV_Score);
+    procedure afficher_scores;
 
 end p_score;

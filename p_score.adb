@@ -22,14 +22,19 @@ package body p_score is
                 case io_type is
                 when 1 => -- lecture
                     open(f, in_file, NOM_FICHIER);
-                when 2 => -- écriture
+                when 2 => -- écriture/écrasement
                     open(f, out_file, NOM_FICHIER);
-                when 3 => -- append
+                when 3 => -- écriture/append
                     open(f, append_file, NOM_FICHIER);
                 when others => -- Impossible, en théorie
                     null;
                 end case;
             end ouvrir_fichier;
+
+    procedure fermer_fichier is
+    begin
+        close(f);
+    end fermer_fichier;
 
     -- fonction privée (à rendre privée) Récupère les scores *relevant*
     function analyse_fichier(mode,defi : in integer := 0; nom : in string := ""; tableau_score : in out TV_Score) return integer is
@@ -62,8 +67,7 @@ package body p_score is
         -- Ajoute le nouveau score ------------------------------------
         i := i + 1;
         scores_existants(i) := score;
-        ouvrir_fichier(2);
-        reset(f, out_file);
+        ouvrir_fichier(2); --Vide le fichier
         for j in 1..i loop
             write(f, scores_existants(j));
         end loop;
@@ -100,9 +104,32 @@ package body p_score is
         return scores_existants(1);
     end recup_score;
 
-    procedure afficher_scores(scores : in TV_Score) is
+    -- Pour debug & co
+    procedure afficher_scores is
+        scores : TV_Score(1..400);
+        j : integer := 0;
     begin
-        null;
+        for i in 1..400 loop
+            scores(i).defi := 2;
+            scores(i).nom := "test                ";
+            scores(i).temps := 1.0;
+            scores(i).nb_moves := 3;
+        end loop;
+        ouvrir_fichier(1);
+        while not end_of_file(f) loop
+            j := j+1;
+            read(f,scores(j));
+        end loop;
+        for i in 1..40 loop
+            ecrire_ligne("indice n°"&image(i));
+            ecrire_ligne("défi : " &image(scores(i).defi));
+            ecrire_ligne("nom : " &scores(i).nom);
+            ecrire_ligne("temps : ");
+            -- ecrire_ligne(scores(i).temps);
+            ecrire_ligne("moves : "&image(scores(i).nb_moves));
+            a_la_ligne;
+        end loop;
+        close(f);
     end afficher_scores;
 
 end p_score;
