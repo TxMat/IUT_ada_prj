@@ -42,16 +42,17 @@ begin
             end;
         end loop;
         open(f, in_file, "Defis.bin");
-            while Play loop -- pour verifier que l'user veut bien jouer
-                nb_err := 0;
-                nb_coups := 0;
-                Premier_tour := True;
-                -- Debut config
-                put_line("Debut de la phase de configuration");
-                Configurer(f, num_conf, Grille, Pieces);
-                put_line("Configuration terminée");
-                -- Debut partie
-                while not Guerison(Grille) loop -- boucle de jeu
+        while Play loop -- pour verifier que l'user veut bien jouer
+            nb_err := 0;
+            nb_coups := 0;
+            Premier_tour := True;
+            -- Debut config
+            put_line("Debut de la phase de configuration");
+            Configurer(f, num_conf, Grille, Pieces);
+            put_line("Configuration terminée");
+            -- Debut partie
+            while not Guerison(Grille) loop -- boucle de jeu
+                begin
                     -- affichage grille + options --
                     clr_ECRAN; -- ne marche pas sous windows
                     AfficheGrille(grille);
@@ -88,10 +89,8 @@ begin
                                                 put_line("  -- [n] rester en mode optimisé");
                                                 lire(rep);
                                                 if rep = "y" then
-                                                    Mode_Opti := False;
-                                                    put_line("__Mode optimisé off__");
-                                                    put_line("Entrez un le numero d'une piece a deplacer");
-                                                    exit;
+                                                    raise OPTI_OFF; -- on gere l'erreur sur le bloc principal pour repartir au debut                                                        -- put_line("Entrez un le numero d'une piece a deplacer");
+                                                    -- exit;
                                                 elsif rep = "n" then
                                                     put_line("Dans ce cas mettez le numero d'une piece entre 0 et 8 sur la grille !");
                                                     exit;
@@ -99,6 +98,7 @@ begin
                                                     if not Premier_tour then -- pour verif qu'on a joué au moins une fois
                                                         oppose(dir);
                                                         MajGrille(Grille, coul, dir);
+                                                        AfficheGrille(grille);
                                                         nb_coups := nb_coups + 1;
                                                     else
                                                         put_line("Vous ne pouvez rien annuler car vous n'avez pas joué !");
@@ -171,44 +171,49 @@ begin
                     else
                         put_line("relisez bien les actions possibles celle que vous avez mis n'existe pas");
                     end if;
-                end loop;
-                if Guerison(Grille) then -- car Possible de sortir de la boucle pour abandonner
-                    put_line("=======================================");
-                    put_line("-------------__BRAVO !!!__-------------");
-                    put_line("-- Vous avez gagné apres" & integer'image(nb_coups) & " coups");
-                    put_line("-- et" & integer'image(nb_err) & " erreurs");
-                    put_line("=======================================");
+                exception
+                    when OPTI_OFF =>
+                    Mode_Opti := False;
+                    put_line("__Mode optimisé off__");
+                end;
+            end loop;
+            if Guerison(Grille) then -- car Possible de sortir de la boucle pour abandonner
+                put_line("=======================================");
+                put_line("-------------__BRAVO !!!__-------------");
+                put_line("-- Vous avez gagné apres" & integer'image(nb_coups) & " coups");
+                put_line("-- et" & integer'image(nb_err) & " erreurs");
+                put_line("=======================================");
+            end if;
+            if num_conf = 20 then
+                if Guerison(grille) then
+                    put_line("BRAVO VOUS AVEZ FINI LE JEU !!");
+                    put_line("Nous esperons qu'il vous a plu :)");
+                    put_line("Vous pouvez refaire les anciens niveaux");
+                    exit;
+                else
+                    exit;
                 end if;
-                if num_conf = 20 then
-                    if Guerison(grille) then
-                        put_line("BRAVO VOUS AVEZ FINI LE JEU !!");
-                        put_line("Nous esperons qu'il vous a plu :)");
-                        put_line("Vous pouvez refaire les anciens niveaux");
+            else
+                put_line("Niveau suivant ? [y/n]");
+                loop
+                    lire(rep);
+                    if rep = "y" then
+                        num_conf := num_conf + 1;
+                        InitPartie(Grille, Pieces); -- Reset grille
+                        exit;
+                    elsif rep = "n" then
+                        if Guerison(grille) then
+                            num_conf := num_conf + 1;
+                        end if;
+                        put_line("pensez a repartir du niveau" & Integer'image(num_conf) & " pour continuer le jeu");
+                        put_line("Bonne journée :)");
+                        Play := False;
                         exit;
                     else
-                        exit;
+                        put_line("repondez avec 'y' ou 'n'");
                     end if;
-                else
-                    put_line("Niveau suivant ? [y/n]");
-                    loop
-                        lire(rep);
-                        if rep = "y" then
-                            num_conf := num_conf + 1;
-                            InitPartie(Grille, Pieces); -- Reset grille
-                            exit;
-                        elsif rep = "n" then
-                            if Guerison(grille) then
-                                num_conf := num_conf + 1;
-                            end if;
-                            put_line("pensez a repartir du niveau" & Integer'image(num_conf) & " pour continuer le jeu");
-                            put_line("Bonne journée :)");
-                            Play := False;
-                            exit;
-                        else
-                            put_line("repondez avec 'y' ou 'n'");
-                        end if;
-                    end loop;
-                end if;
-            end loop;
-            pause;
+                end loop;
+            end if;
+        end loop;
+        pause;
 end av_txt;
