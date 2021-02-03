@@ -49,10 +49,16 @@ debut procedure creemenu
 </02-02-2021>
 
 <03-02-2021>
-<Mathieu></Mathieu>
+<Mathieu>
+ajout mode optimisé pour AV txt
+debug av txt
+</Mathieu>
 <Quentin></Quentin>
 <François></François>
-<Elsa></Elsa>
+<Elsa>
+grille AV graph
+test av txt
+</Elsa>
 <Emmanuel>
 fin procedure creemenu
 gestion du menu dans av_graph
