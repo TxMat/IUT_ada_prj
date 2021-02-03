@@ -23,7 +23,7 @@ begin
   FinFenetre(Fmenu);
 end creemenu;
 
-procedure AfficheGrille(Grille) is
+procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille) is
         ligne, colonne : natural := 0;
         taillebout : positive := 50; --Taille des cases
     begin
@@ -56,23 +56,13 @@ procedure AfficheGrille(Grille) is
     end loop;
 end AfficheGrille;
 
-<<<<<<< HEAD
-
-procedure creefin (Ffin : in out TR_fenetre; Nom := ) is
-
-
-
-
-end creefin;
-
-=======
-procedure creegrille (FGrille : in out TR_fenetre, numd : in integer, nom : in string) is
+procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille) is
 begin
     --Fenetre jeu
     FGrille :=DebutFenetre("Grille" & image(numd),650,500);
     AjouterTexte(FGrille, "nomj","Nom du joueur : " & nom,10,10,280,30);
     AjouterTexte(FGrille, "info","Cliquez sur la piece a deplacer.",30,40,280,30);
-    AjouterTexte(FGrille, "nbcoups","Nombre de coups : " & image(nbcoups),450,100,280,30);
+    AjouterTexte(FGrille, "nbcoups","Nombre de coups : 0",450,100,280,30);
 
     --Boutons sur le côté
     AjouterBouton(FGrille,"Annul","Annuler le coup",450,140,150,30);
@@ -81,9 +71,8 @@ begin
     ChangerCouleurFond(FGrille,"Annul",FL_SLATEBLUE);
     ChangerCouleurFond(FGrille,"Reset",FL_INDIANRED);
     ChangerCouleurFond(FGrille,"Quit",FL_TOMATO);
-    AfficheGrille(FGrille);
+    AfficheGrille(FGrille,Grille);
     FinFenetre(FGrille);
 end creegrille;
->>>>>>> 7beeb0682d9028ac925485c2b8dc11925b41724c
 
 end p_vue_graph;

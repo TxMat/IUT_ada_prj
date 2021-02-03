@@ -2,6 +2,9 @@ with p_vue_graph; use p_vue_graph;
 with p_esiut; use p_esiut;
 with p_fenbase; use p_fenbase;
 with Forms; use Forms;
+with sequential_io;
+with p_virus; use p_virus;
+use p_virus.p_piece_io;
 
 procedure av_graph is
 
@@ -46,7 +49,11 @@ begin
     InitPartie(Grille, Pieces);
     open(f, in_file, "Defis.bin");
     Configurer(f, numd, Grille, Pieces);
-    creegrille (FGrille, numd, ConsulterContenu(Fmenu, "ChampNom"));
+    creegrille (FGrille, numd, ConsulterContenu(Fmenu, "ChampNom"),Grille);
     MontrerFenetre(FGrille);
+    --------------- Fin init ----------------------------
+    loop
+       exit when Attendrebouton(FGrille) = "Quit";  --fermeture de la fenêtre
+    end loop;
 
 end av_graph;
