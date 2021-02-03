@@ -10,6 +10,8 @@ Couleur_Bouton: TV_Coul_Graph:=(FL_RED,FL_CYAN,FL_DARKORANGE,FL_MAGENTA,FL_DARKT
 
 procedure creemenu (fmenu : in out TR_fenetre);
 
+procedure creegrille (FGrille : in out TR_fenetre, numd : in integer, nom : in string);
+
 procedure AfficheGrille(Grille);
 
 procedure creefin (Ffin : in out TR_fenetre);
