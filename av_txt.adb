@@ -147,8 +147,13 @@ begin
                         end if;
                     elsif rep = "r" then -- Restart
                         put_line("/!\ VOULEZ VOUS VRAIMENT RECOMMENCER ? /!\");
+<<<<<<< Updated upstream
                         put_line("Il est impossible de revenir en arrière");
                         put_line("'y' pour confirmer, n'importe quoi d'autre pour annuler");
+=======
+                        put_line("il est impossible de revenir en arriere");
+                        put_line("'y' pour confirmer n'importe quoi d'autre pour annuler");
+>>>>>>> Stashed changes
                         lire(rep);
                         if rep = "y" then
                             nb_err := 0;

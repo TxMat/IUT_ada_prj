@@ -19,8 +19,41 @@ begin
     ChangerCouleurTexte(fmenu,"ChampNom", FL_WHITE);
     ChangerCouleurTexte(fmenu,"ChampDefi", FL_WHITE);
     ChangerCouleurTexte(fmenu,"mesmenu_defi", FL_WHITE);
-    
+
   FinFenetre(Fmenu);
 end creemenu;
+
+procedure AfficheGrille(Grille) is
+        ligne, colonne : natural := 0;
+        taillebout : positive := 50; --Taille des cases
+    begin
+    --Création de la Grille
+    for l in T_Lig'range loop
+      for c in T_Col'range loop
+
+        if Grille(l,c) = VIDE then
+          if (l mod 2 = T_Col'pos(c) mod 2) then
+            AjouterBouton(FGrille,"Case" & image(l) & c," ",70+ligne,100+colonne,taillebout,taillebout);
+            ChangerCouleurFond(FGrille,"Case" & image(l) & c,FL_MCOL);
+            ligne:=ligne+taillebout;
+          else
+            AjouterTexte(FGrille,"Case" & image(l) & c, " ",70+ligne,100+colonne,taillebout,taillebout);
+            ChangerCouleurFond(FGrille,"Case" & image(l) & c,FL_LEFT_BCOL);
+            ligne:=ligne+taillebout;
+          end if;
+        elsif Grille(l,c) = BLANC then
+          AjouterBouton(FGrille,"Case" & image(l) & c," ",70+ligne,100+colonne,taillebout,taillebout);
+          ChangerCouleurFond(FGrille,"Case" & image(l) & c,FL_WHITE);
+          ligne:=ligne+taillebout;
+        elsif Grille(l,c)'Valid then
+            AjouterBouton(FGrille,"Case" & image(l) & c," ",70+ligne,100+colonne,taillebout,taillebout);
+            ChangerCouleurFond(FGrille,"Case" & image(l) & c,Couleur_Bouton(Grille(l,c)));
+            ligne:=ligne+taillebout;
+        end if;
+      end loop;
+      colonne:=colonne+taillebout;
+      ligne:=0;
+    end loop;
+end AfficheGrille;
 
 end p_vue_graph;
