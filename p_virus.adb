@@ -63,19 +63,19 @@ package body p_virus is
 					if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
                         counter := counter+1;
 						if Dir = hg then
-              nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- haut (ligne-1) gauche (colonne -1)
+                            nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- haut (ligne-1) gauche (colonne -1)
 							Grille(i,j) := VIDE; --la case est de nouveau vide
 
 						elsif Dir = hd then
-              nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); --haut (ligne-1) droite (colonne+1)
+                            nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); --haut (ligne-1) droite (colonne+1)
 							Grille(i,j) := VIDE;
 
 						elsif Dir = bg then
-              nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); --bas (ligne+1) droite (colonne-1)
+                            nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); --bas (ligne+1) droite (colonne-1)
 							Grille(i,j) := VIDE;
 
 						else
-              nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); --bas (ligne+1) droite (colonne+1)
+                            nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); --bas (ligne+1) droite (colonne+1)
 							Grille(i,j) := VIDE;
 						end if;
 					end if;
@@ -181,26 +181,21 @@ package body p_virus is
 
     begin
         if (ligne_piece < ligne_cible) and (colonne_piece < colonne_cible) then
+            ecrire_ligne("bd");
             return bd;
         elsif (ligne_piece < ligne_cible) and (colonne_piece > colonne_cible) then
+            ecrire_ligne("bg");
             return bg;
         elsif (ligne_piece > ligne_cible) and (colonne_piece < colonne_cible) then
+            ecrire_ligne("hd");
             return hd;
         elsif (ligne_piece > ligne_cible) and (colonne_piece > colonne_cible) then
+            ecrire_ligne("hg");
             return hg;
         else
+            ecrire_ligne("erreur");
             null;
             -- raise error
         end if;
     end calcul_dir;
-
-	function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
-	--Teste si déplacement hg, hd, bg, bd sont possibles
-	begin
-		return ((Possible(Grille, coul, hg)) or
-				(Possible(Grille, coul, hd)) or
-				(Possible(Grille, coul, bg)) or
-				(Possible(Grille, coul, bd)));
-	end checkpossible;
-
 end p_virus;
