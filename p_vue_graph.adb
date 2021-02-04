@@ -111,4 +111,26 @@ begin
 
 end creefin;
 
+procedure Preparation_Grille(fGrille, Grille, coul, lig, col);
+    type Cliquable is array (integer range <>) of Bouton;
+    ok : Cliquable(1..4);
+begin
+    if Possible(grille, coul, hg) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l - 1) & col'pred, FL_PALEGREEN);
+
+    elsif Possible(grille, coul, bg) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l + 1) & col'pred, FL_PALEGREEN);
+    elsif Possible(grille, coul, hd) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l - 1) & col'succ, FL_PALEGREEN);
+    elsif Possible(grille, coul, bd) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l + 1) & col'succ, FL_PALEGREEN);
+    end if;
+    for I in T_lig loop
+        for J in T_col loop
+            if
+        end loop;
+
+    end loop;
+end Preparation_Grille;
+
 end p_vue_graph;
