@@ -144,7 +144,7 @@ package body p_score is
     -- Tri $scores selon les critères passés par $mode
     procedure tri_score(mode : in integer; scores : in out TV_Score) is
         score_tmp : TV_Score(1..NB_SCORE_MAX);
-        i : TR_Score := V'first;
+        i : integer := scores'first;
         onapermute : boolean := true;
     begin
         case mode is
@@ -161,13 +161,15 @@ package body p_score is
             when 2 => -- meilleur temps
                 while onapermute loop
                     onapermute := false;
-                    for j in reverse i+1..V'last loop
+                    for j in reverse i+1..scores'last loop
                         if scores(j).temps < scores(j-1).temps then
                             permut(scores(j), scores(j-1));
                             onapermute := true;
                         end if;
                     end loop;i := i+1;
                 end loop;
+            when others =>
+                null;
         end case;
         null;
     end tri_score;

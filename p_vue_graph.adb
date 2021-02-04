@@ -104,10 +104,10 @@ begin
   tv_meilleur := recup_score(score.defi);
   tri_score(1,tv_meilleur);
   for I in 1..3 loop
-   AjouterTexte(Ffin,"txtnomclas" & string(I),tv_meilleur(I).nom & " : " & tv_meilleur(I).temps,80+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
-   changercouleurfond(Ffin,"txtnomclas" & string(I),FL_BOTTOM_BCOL)
-   AjouterTexte(Ffin,"txtmouvclas" & string(I),tv_meilleur(I).nb_moves & " mouvements.",110+(I * 70),110,250,30); -- affichage du nombre de mouvements
-   changercouleurfond(Ffin,"txtmouvclas" & string(I),FL_BOTTOM_BCOL)
+   AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & image(tv_meilleur(I).temps),80+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
+   changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
+   AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110+(I * 70),110,250,30); -- affichage du nombre de mouvements
+   changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
   end loop;
 
 end creefin;
