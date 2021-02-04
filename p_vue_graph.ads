@@ -9,19 +9,22 @@ with sequential_io;
 
 package p_vue_graph is
 
-Fmenu : TR_fenetre;
+    Fmenu : TR_fenetre;
 
-type TV_Coul_Graph is array (T_CoulP) of FL_PD_COL;
-Couleur_Bouton: TV_Coul_Graph:=(FL_RED,FL_CYAN,FL_DARKORANGE,FL_MAGENTA,FL_DARKTOMATO,FL_BLUE,FL_DARKVIOLET,FL_CHARTREUSE,FL_YELLOW,FL_WHITE);
+    type TV_Coul_Graph is array (T_CoulP) of FL_PD_COL;
+    Couleur_Bouton: TV_Coul_Graph:=(FL_RED,FL_CYAN,FL_DARKORANGE,FL_MAGENTA,FL_DARKTOMATO,FL_BLUE,FL_DARKVIOLET,FL_CHARTREUSE,FL_YELLOW,FL_WHITE);
 
-procedure creemenu (fmenu : in out TR_fenetre);
+    -- création des menus
+    procedure creemenu (fmenu : in out TR_fenetre);
 
-procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille);
+    -- affiche & màj la grille
+    procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille);
 
-procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille);
+    -- création de la grille
+    procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille);
 
-procedure creefin (Ffin : in out TR_fenetre; score : tr_score );
-
+    -- création des champs & boutons
+    procedure creefin (Ffin : in out TR_fenetre; score : tr_score );
 
 
 
