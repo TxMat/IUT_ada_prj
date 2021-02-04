@@ -114,6 +114,13 @@ end creefin;
 
 procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character) is
 begin
+    for l in T_Lig'range loop
+      for c in T_Col'range loop
+          InitPartie(Grille, Pieces);
+      end loop;
+    end loop;
+
+    end loop;
     if Possible(grille, coul, hg) then
         ChangerCouleurFond(fGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), FL_PALEGREEN);
         ChangerEtatBouton(FGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), Marche);
