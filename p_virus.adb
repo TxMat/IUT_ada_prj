@@ -162,4 +162,35 @@ package body p_virus is
 	begin
 		put_line("todo");
 	end SupMemoG;
+    
+        procedure oppose (dir : in out T_Direction) is
+    --Inverse la position de dir :
+    -- bg <-> hd; bd <-> hg
+    begin
+        case dir is
+            when hd => dir := bg;
+            when hg => dir := bd;
+            when bd => dir := hg;
+            when bg => dir := hd;
+            when others => ecrire_ligne("ERREUR : Direction inexistante");
+        end case;
+    end oppose;
+
+    -- Calcule la direction dans laquelle l'utilisateur veut déplacer sa pièce
+    function calcul_dir(ligne_piece, ligne_cible : in integer; colonne_piece, colonne_cible : in character) return T_Direction is
+
+    begin
+        if (ligne_piece < ligne_cible) and (colonne_piece < colonne_cible) then
+            return bd;
+        elsif (ligne_piece < ligne_cible) and (colonne_piece > colonne_cible) then
+            return bg;
+        elsif (ligne_piece > ligne_cible) and (colonne_piece < colonne_cible) then
+            return hd;
+        elsif (ligne_piece > ligne_cible) and (colonne_piece > colonne_cible) then
+            return hg;
+        else
+            null;
+            -- raise error
+        end if;
+    end calcul_dir;
 end p_virus;
