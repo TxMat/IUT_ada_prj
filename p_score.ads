@@ -4,10 +4,10 @@ package p_score is
 
     -- Représentation des scores
     type TR_Score is record
-        defi : integer range 1..20;
-        nom : string(1..20);
-        temps : float;
-        nb_moves : integer;
+        defi : integer range 1..21 := 21;
+        nom : string(1..20) := "testtesttesttesttest";
+        temps : float := 9999.99;
+        nb_moves : integer := 9999;
     end record;
 
     type TV_Score is array (integer range <>) of TR_Score;
@@ -21,10 +21,13 @@ package p_score is
 
     f : p_score_io.file_type;
 
+    -- A remplacer par un quicksort dès que j'aurais compris comment ça marche
+    procedure permut(i,j : in out TR_Score);
+    
     -- ouverture du fichier score, création sinon
     procedure ouvrir_fichier(io_type : in integer);
 
-    -- fermeture du fichier
+    -- fermeture du fichier (nécessaire car infaisable depuis l'extérieur)
     procedure fermer_fichier;
 
     -- fonction privée (à rendre privée) Récupère les scores *relevant*
