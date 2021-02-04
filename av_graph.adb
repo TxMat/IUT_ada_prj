@@ -35,7 +35,7 @@ begin
       begin
         if bouton = "BoutonAnnuler" then --si le bouton annuler est appuié
           cacherfenetre(fmenu); -- on cache la fenetre
-          bouton = "quit";
+          bouton := "quit";
         elsif  bouton = "BoutonValider" then --si le bouton Valider est appuié
           -- ici controle de la saisie defi
           declare
@@ -51,9 +51,9 @@ begin
         exit when (bouton = "BoutonValider" and defichoisie ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
       end;
     end loop;
-    if bouton = "BoutonAnnuler" then
-        exit;
-    end if;
+    -- if bouton = "BoutonAnnuler" then
+    --     exit;
+    -- end if;
     cacherFenetre(fmenu);
     --------------- Fin du Menu -------------------------
 
@@ -103,7 +103,7 @@ begin
                    Premier_tour := false;
                  end if;
            elsif Bouton = "Reset" then
-              nb_coups := 0;
+             nb_coups := 0;
               InitPartie(Grille, Pieces);
               Configurer(f, numd, Grille, Pieces);
               AfficheGrille(fGrille, Grille, nb_coups);
