@@ -84,15 +84,31 @@ end creegrille;
 
 
 procedure creefin (Ffin : in out TR_fenetre; score : tr_score ) is
-
+tv_meilleur;
 begin
   Ffin:=DebutFenetre("Resultats",400,400);
-  -- création des champ/bouton/messages
   AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
   AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n°" & integer'image(score.defi),120,70,200,30);
   AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & integer'image(score.nb_moves) & " mouvements.",120,110,250,30);
-  AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,200,75,30);
-  AjouterBouton(Ffin,"Boutonquitter","quitter",100,200,75,30);
+  AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,350,75,30);
+  AjouterBouton(Ffin,"Boutonquitter","quitter",100,350,75,30);
+  -- ajout des couleurs
+  changercouleurfond(Ffin,"fond",FL_BOTTOM_BCOL);
+  changercouleurfond(Ffin,"txtnom",FL_BOTTOM_BCOL);
+  changercouleurfond(Ffin,"txtdefi",FL_BOTTOM_BCOL);
+  changercouleurfond(Ffin,"txtnbcoups",FL_BOTTOM_BCOL);
+  changercouleurfond(Ffin,"Boutonrejouer",FL_PALEGREEN);
+  changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
+  -- creation d'un tableau de clasement
+  --vv--vv--vv--vv--vv-- en attentente de Quentin --vv--
+  (Score.defi,tv_meilleur);
+  for I in 0..2 loop  -- 150 310
+   AjouterTexte(Ffin,"txtnomclas" & string(I),tv_meilleur(I).nom & " : " & tv_meilleur(I).temps,150+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
+   changercouleurfond(Ffin,"txtnomclas" & string(I),FL_BOTTOM_BCOL)
+   AjouterTexte(Ffin,"txtmouvclas" & string(I),tv_meilleur(I).nb_moves & " mouvements.",180+(I * 70),110,250,30); -- affichage du nombre de mouvements
+   changercouleurfond(Ffin,"txtmouvclas" & string(I),FL_BOTTOM_BCOL)
+  end loop;
+
 end creefin;
 
 end p_vue_graph;
