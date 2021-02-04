@@ -116,16 +116,20 @@ begin
     if Possible(grille, coul, hg) then
         ChangerCouleurFond(fGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), FL_PALEGREEN);
         ChangerEtatBouton(FGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), Marche);
-    elsif Possible(grille, coul, bg) then
+    end if;
+    if Possible(grille, coul, bg) then
         ChangerCouleurFond(fGrille, "Case" & integer'image(lig + 1) & T_Col'pred(col), FL_PALEGREEN);
         ChangerEtatBouton(FGrille, "Case" & integer'image(lig + 1) & T_Col'pred(col), Marche);
-    elsif Possible(grille, coul, hd) then
+    end if;
+    if Possible(grille, coul, hd) then
         ChangerCouleurFond(fGrille, "Case" & integer'image(lig - 1) & T_Col'succ(col), FL_PALEGREEN);
         ChangerEtatBouton(FGrille, "Case" & integer'image(lig - 1) & T_Col'succ(col), Marche);
-    elsif Possible(grille, coul, bd) then
+    end if;
+    if Possible(grille, coul, bd) then
         ChangerCouleurFond(fGrille, "Case" & integer'image(lig + 1) & T_Col'succ(col), FL_PALEGREEN);
         ChangerEtatBouton(FGrille, "Case" & integer'image(lig + 1) & T_Col'succ(col), Marche);
     end if;
+    ChangerEtatBouton(FGrille, "Case" & integer'image(lig) & T_Col(col), Arret);
 end Preparation_Grille;
 
 end p_vue_graph;
