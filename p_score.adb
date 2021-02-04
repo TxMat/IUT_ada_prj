@@ -132,4 +132,10 @@ package body p_score is
         close(f);
     end afficher_scores;
 
+    -- Tri $scores selon les critères passés par $mode
+    procedure tri_score(mode : in integer; scores : in out TV_Score) is
+    begin
+        null;
+    end tri_score;
+
 end p_score;

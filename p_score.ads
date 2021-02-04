@@ -45,4 +45,8 @@ package p_score is
     -- Pour debug & co
     procedure afficher_scores;
 
+    -- Tri $scores selon les critères passés par $mode
+    procedure tri_score(mode : in integer; scores : in out TV_Score);
+
+
 end p_score;
