@@ -3,7 +3,7 @@ with p_esiut; use p_esiut;
 
 package p_virus is
 
-	-- Types pour representer la grille de jeu
+	-- Types pour représenter la grille de jeu
 	subtype T_Col is character range 'A'..'G';
 	subtype T_Lig is integer range 1..7;
 	type T_Coul is (rouge, turquoise, orange, rose, marron, bleu, violet, vert, jaune, blanc, vide);
@@ -19,7 +19,7 @@ package p_virus is
 	-- éléments constitutif d'une pièce
 	type TR_ElemP is record	-- 	un élément constituant une pièce
 		colonne	:	T_Col;			-- 	la colonne qu'il occupe dans la grille
-		ligne	:	T_Lig;				-- 	la ligne qu'il occupe dans la grille
+		ligne	:	T_Lig;			-- 	la ligne qu'il occupe dans la grille
 		couleur	:	T_CoulP;		--	sa couleur
 	end record;
 
@@ -33,7 +33,7 @@ package p_virus is
 
 	package p_dir_io is new p_enum(T_Direction); use p_dir_io;
 
-	--------------- Primitives d'nitialisation d'une partie
+	--------------- Primitives d'initialisation d'une partie
 
 	procedure InitPartie(Grille : in out TV_Grille; Pieces : in out TV_Pieces);
 	-- {} => {Tous les éléments de Grille ont été initialisés avec la couleur VIDE, y compris les cases inutilisables
@@ -73,7 +73,7 @@ package p_virus is
 	package p_Grille_io is new sequential_io(TV_Grille); use p_Grille_io;
 	--------------------------------------------------------------------------------------------
 	function CaseGrille(lig : in T_lig; col : in T_col) return boolean;
-	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utisable}
+	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utilisable}
 	--------------------------------------------------------------------------------------------
 	procedure InitMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : out positive);
 	--{fg ouvert}  =>

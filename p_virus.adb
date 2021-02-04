@@ -4,21 +4,60 @@ with sequential_io;
 
 package body p_virus is
 
+    	procedure InitPartie(Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
+    	-- {} => {Tous les éléments de Grille ont été initialisés avec la couleur VIDE, y compris les cases inutilisables
+    	--				Tous les élements de Pieces ont été initialisés à false}
+
+        begin
+            for i in TV_Grille'range(1) loop
+                for j in TV_Grille'range(2) loop
+                    Grille(i,j) := vide;
+                end loop;
+            end loop;
+            for k in T_coulP'range loop
+                Pieces(k) := false;
+            end loop;
+        end InitPartie;
+
+        procedure Configurer(f : in out p_piece_io.file_type; num : in integer;
+    											 Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
+    	-- {f ouvert, non vide, num est un numéro de défi
+    	--	dans f, un défi est représenté par une suite d'éléments :
+    	--	* les éléments d'une même pièce (même couleur) sont stockés consécutivement
+    	--	* les deux éléments constituant le virus (couleur rouge) terminent le défi}
+    	-- 			=> {Grille a été mis à jour par lecture dans f de la configuration de numéro num
+    	--					Pieces a été mis à jour en fonction des pièces de cette configuration}
+            elem_new : TR_ElemP := (T_Col'first, T_Lig'first, T_CoulP'last);
+            elem_old : TR_ElemP;
+            counter : integer := 1;
+        begin
+            reset(f,in_file);
+            while not end_of_file(f) and then not(counter > num) loop
+                elem_old := elem_new;
+                read(f,elem_new);
+                if (elem_old.couleur = rouge) and (elem_new.couleur /= rouge) then --Tant que défi actuel != défi passé en param, on skip
+                    counter := counter+1;
+                end if;
+                if (counter = num) then
+                    Grille(elem_new.ligne,elem_new.colonne) := elem_new.couleur; --Placement des pièces sur la grille
+                    Pieces(elem_new.couleur) := true; --Ajout $elem_new.couleur à la liste des couleurs présentes dans cette config
+                end if;
+            end loop;
+        end Configurer;
+
 	procedure PosPiece(Grille : in TV_Grille; coul : in T_coulP) is
 	-- {} => {la position de la pièce de couleur coul a été affichée, si coul appartient à Grille:
 	--				exemple : ROUGE : F4 - G5}
-
-
 	begin
-	ecrire(T_coulP'image(coul) & " : ");
-	for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
-		for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
-				if Grille(i,j) = coul then
-					ecrire(j & integer'image(i) & " ");
-				end if;
-		end loop;
-	end loop;
-	new_line;
+    	ecrire(T_coulP'image(coul) & " : ");
+    	for i in TV_Grille'range(1) loop -- naviguation a travers les lignes de la grille
+    		for j in TV_Grille'range(2) loop-- naviguation a travers les colonnes de la grille
+    				if Grille(i,j) = coul then
+    					ecrire(j & integer'image(i) & " ");
+    				end if;
+    		end loop;
+    	end loop;
+    	new_line;
 	end PosPiece;
 
 	--------------- Contrôle du jeu
@@ -47,9 +86,7 @@ package body p_virus is
 	exception
 		when constraint_error => -- la piece est collé a un bord
 			return false; -- on ne peux donc pas la deplacer
-
 	end Possible;
-
 
 		procedure MajGrille(Grille : in out TV_Grille; coul : in T_CoulP; Dir : in T_Direction) is
 	-- {la pièce de couleur coul peut être déplacée dans la direction Dir}
@@ -92,50 +129,8 @@ package body p_virus is
 		return Grille(1,'A') = ROUGE and Grille(2,'B') = ROUGE;
 	end Guerison;
 
-	procedure InitPartie(Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
-	-- {} => {Tous les éléments de Grille ont été initialisés avec la couleur VIDE, y compris les cases inutilisables
-	--				Tous les élements de Pieces ont été initialisés à false}
-
-    begin
-        for i in TV_Grille'range(1) loop
-            for j in TV_Grille'range(2) loop
-                Grille(i,j) := vide;
-            end loop;
-        end loop;
-        for k in T_coulP'range loop
-            Pieces(k) := false;
-        end loop;
-    end InitPartie;
-
-    procedure Configurer(f : in out p_piece_io.file_type; num : in integer;
-											 Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
-	-- {f ouvert, non vide, num est un numéro de défi
-	--	dans f, un défi est représenté par une suite d'éléments :
-	--	* les éléments d'une même pièce (même couleur) sont stockés consécutivement
-	--	* les deux éléments constituant le virus (couleur rouge) terminent le défi}
-	-- 			=> {Grille a été mis à jour par lecture dans f de la configuration de numéro num
-	--					Pieces a été mis à jour en fonction des pièces de cette configuration}
-        elem_new : TR_ElemP := (T_Col'first, T_Lig'first, T_CoulP'last);
-        elem_old : TR_ElemP;
-        counter : integer := 1;
-    begin
-        reset(f,in_file);
-        while not end_of_file(f) and then not(counter > num) loop
-            elem_old := elem_new;
-            read(f,elem_new);
-            if (elem_old.couleur = rouge) and (elem_new.couleur /= rouge) then --Tant que défi actuel != défi passé en param, on skip
-                counter := counter+1;
-            end if;
-            if (counter = num) then
-                Grille(elem_new.ligne,elem_new.colonne) := elem_new.couleur; --Placement des pièces sur la grille
-                Pieces(elem_new.couleur) := true; --Ajout $elem_new.couleur à la liste des couleurs présentes dans cette config
-            end if;
-        end loop;
-    end Configurer;
-
-
 	function CaseGrille(lig : in T_lig; col : in T_col) return boolean is
-	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utisable}
+	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utilisable}
 	--------------------------------------------------------------------------------------------
 	begin
 		return false;
@@ -164,7 +159,7 @@ package body p_virus is
 	end SupMemoG;
 
         procedure oppose (dir : in out T_Direction) is
-    --Inverse la position de dir :
+    -- Inverse la position de dir :
     -- bg <-> hd; bd <-> hg
     begin
         case dir is
@@ -181,26 +176,26 @@ package body p_virus is
 
     begin
         if (ligne_piece < ligne_cible) and (colonne_piece < colonne_cible) then
-            ecrire_ligne("bd");
+            ecrire_ligne("déplacement -> bd");
             return bd;
         elsif (ligne_piece < ligne_cible) and (colonne_piece > colonne_cible) then
-            ecrire_ligne("bg");
+            ecrire_ligne("déplacement -> bg");
             return bg;
         elsif (ligne_piece > ligne_cible) and (colonne_piece < colonne_cible) then
-            ecrire_ligne("hd");
+            ecrire_ligne("déplacement -> hd");
             return hd;
         elsif (ligne_piece > ligne_cible) and (colonne_piece > colonne_cible) then
-            ecrire_ligne("hg");
+            ecrire_ligne("déplacement -> hg");
             return hg;
         else
-            ecrire_ligne("erreur");
-            null;
+            ecrire_ligne("erreur de déplacement");
+            return hg;
             -- raise error
         end if;
     end calcul_dir;
 
     function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
-    --Teste si déplacement hg, hd, bg, bd sont possibles
+    --Teste si déplacements hg, hd, bg, bd sont possibles
     begin
         return ((Possible(Grille, coul, hg)) or
                 (Possible(Grille, coul, hd)) or
