@@ -102,6 +102,7 @@ begin
                if not Premier_tour then
                    oppose(dir);
                    MajGrille(Grille, Bouton_select_coul, dir);
+                   AfficheGrille(fGrille, Grille);
                    ChangerTexte(FGrille, "info", "Mouvement annulé");
                end if;
                ChangerTexte(FGrille, "info", "Vous n'avez pas joué");
