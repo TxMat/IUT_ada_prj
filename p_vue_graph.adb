@@ -88,7 +88,6 @@ end creegrille;
 procedure creefin (Ffin : in out TR_fenetre; score : in out tr_score ) is
 
   tv_meilleur : TV_Score (1..NB_SCORE_MAX);
-
 begin
   Ffin:=DebutFenetre("Resultats",400,400);
   AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
@@ -104,7 +103,6 @@ begin
   changercouleurfond(Ffin,"Boutonrejouer",FL_PALEGREEN);
   changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
   -- creation d'un tableau de clasement
-
   --vv--vv--vv--vv--vv-- avec le reuf Quentin --vv--
   ajout_score(Score);
   tv_meilleur := recup_score(score.defi);
@@ -123,7 +121,6 @@ a_la_ligne;
     changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
   end loop;
   FinFenetre(ffin);
-
 end creefin;
 
 procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character) is

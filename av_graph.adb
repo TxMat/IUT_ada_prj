@@ -19,6 +19,7 @@ procedure av_graph is
   Bouton_select_coul : T_coulP;
   premier_coup  : boolean := True;
   Premier_tour : boolean := True;
+  nom : string(1..20);
 begin
 
     InitialiserFenetres;
@@ -33,6 +34,7 @@ begin
       begin
         if bouton = "BoutonAnnuler" then --si le bouton annuler est appuié
           cacherfenetre(fmenu); -- on cache la fenetre
+          bouton = "quit";
         elsif  bouton = "BoutonValider" then --si le bouton Valider est appuié
           -- ici controle de la saisie defi
           declare
@@ -48,6 +50,7 @@ begin
         exit when (bouton = "BoutonValider" and defichoisie ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
       end;
     end loop;
+    cacherFenetre(fmenu);
     --------------- Fin du Menu -------------------------
 
     --------------- Debut init grille -------------------
@@ -116,12 +119,18 @@ begin
         end;
     end loop;
     if Guerison(Grille) then
-      Score := (NumD,"ca bug ici          ",13.37,50);
-        creefin(FFin, Score);
-        MontrerFenetre(FFin);
-        pause;
-    end if;
-    cacherFenetre(fGrille);
-    MontrerFenetre(Fmenu);
+        declare
+          temp_string : string (1..20-ConsulterContenu(fmenu,"ChampNom")'length);
+        begin
+          temp_string := (others => ' ');
+        nom := ConsulterContenu(fmenu,"ChampNom") & temp_string ;
+            end;
+        Score := (NumD,nom,13.37,49);
+          creefin(FFin, Score);
+          MontrerFenetre(FFin);
+          pause;
+      end if;
+      cacherFenetre(fGrille);
+      MontrerFenetre(Fmenu);
 
 end av_graph;
