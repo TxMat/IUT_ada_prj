@@ -116,8 +116,10 @@ begin
         end;
     end loop;
     if Guerison(Grille) then
+      Score := (NumD,"ca bug ici          ",13.37,50);
         creefin(FFin, Score);
         MontrerFenetre(FFin);
+        pause;
     end if;
     cacherFenetre(fGrille);
     MontrerFenetre(Fmenu);
