@@ -48,6 +48,7 @@ begin
         exit when (bouton = "BoutonValider" and defichoisie ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
       end;
     end loop;
+    cacherFenetre(fmenu);
     --------------- Fin du Menu -------------------------
 
     --------------- Debut init grille -------------------

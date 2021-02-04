@@ -109,7 +109,7 @@ begin
    AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110+(I * 70),110,250,30); -- affichage du nombre de mouvements
    changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
   end loop;
-
+  FinFenetre(ffin);
 end creefin;
 
 procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character) is
