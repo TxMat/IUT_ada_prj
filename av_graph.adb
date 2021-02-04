@@ -56,12 +56,13 @@ begin
     while not Guerison(Grille) loop
         declare
            Bouton : String := (Attendrebouton(fGrille));
-           I, J : integer;
+           I, J : character;
         begin
            if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
                ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
-               I:=Character'Pos(Bouton(Bouton'First)) - Character'Pos('0');
-               J:=Character'Pos(Bouton(Bouton'Last)) - Character'Pos('0');
+               ecrire_ligne(Bouton);
+               I := Bouton(bouton'last);
+               J := Bouton(boutons'last - 1);
                ecrire_ligne(I);
                ecrire_ligne(J);
            elsif Bouton = "Reset" then
