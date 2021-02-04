@@ -10,6 +10,7 @@ procedure av_graph is
 
   numd : integer range 1..20 ; -- numero defi
   Fmenu, FGrille, Ffin : TR_fenetre;
+  Score : tr_score;
   Grille : TV_Grille;
   Pieces : TV_Pieces;
   defichoisie : boolean := false;
@@ -73,7 +74,7 @@ begin
                    ecrire_ligne(J);
                    Bouton_select_coul := Grille(Num_lig, Num_col);  -- select coul bouton cliqué
                    if checkpossible(Grille, Bouton_select_coul) then -- pour eviter de select une piece contrainte
-                       Preparation_Grille();
+                       Preparation_Grille(FGrille);
                        premier_coup := False; -- pour passer a la phase 2
                    else
                        ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en un autre");
@@ -90,24 +91,31 @@ begin
                    AfficheGrille(fGrille, Grille);
                    Premier_tour := False;
            elsif Bouton = "Reset" then
-               loop
-                   declare
-                       Bouton : String := (Attendrebouton(fGrille));
-                   begin
-                       
-                   end;
-               end loop;
-               exit;
+                   Configurer(f, numd, Grille, Pieces);
+                   AfficheGrille(fGrille, Grille);
            elsif Bouton = "Annul" then
                if not Premier_tour then
                    oppose(dir);
                    MajGrille(Grille, Bouton_select_coul, dir);
                    ChangerTexte(FGrille, "info", "Mouvement annulé");
                end if;
+               ChangerTexte(FGrille, "info", "Vous n'avez pas joué");
            elsif Bouton = "Quit" then
+               ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 3");
+               delay 1.0;
+               ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 2");
+               delay 1.0;
+               ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 1");
+               delay 1.0;
                exit;
            end if;
         end;
     end loop;
+    if Guerison(Grille) then
+        creefin(FFin, Score);
+        MontrerFenetre(FFin);
+    end if;
+    cacherFenetre(fGrille);
+    MontrerFenetre(Fmenu);
 
 end av_graph;
