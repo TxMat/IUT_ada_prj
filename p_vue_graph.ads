@@ -26,6 +26,6 @@ package p_vue_graph is
     -- création des champs & boutons
     procedure creefin (Ffin : in out TR_fenetre; score : tr_score );
 
-
+    procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character);
 
 end p_vue_graph;

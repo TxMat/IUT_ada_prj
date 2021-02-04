@@ -84,7 +84,7 @@ end creegrille;
 
 
 procedure creefin (Ffin : in out TR_fenetre; score : tr_score ) is
-tv_meilleur;
+-- tv_meilleur : TR_Score;
 begin
   Ffin:=DebutFenetre("Resultats",400,400);
   AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
@@ -101,30 +101,30 @@ begin
   changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
   -- creation d'un tableau de clasement
   --vv--vv--vv--vv--vv-- en attentente de Quentin --vv--
-  (Score.defi,tv_meilleur);
-  for I in 0..2 loop  -- 150 310
-   AjouterTexte(Ffin,"txtnomclas" & string(I),tv_meilleur(I).nom & " : " & tv_meilleur(I).temps,150+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
-   changercouleurfond(Ffin,"txtnomclas" & string(I),FL_BOTTOM_BCOL)
-   AjouterTexte(Ffin,"txtmouvclas" & string(I),tv_meilleur(I).nb_moves & " mouvements.",180+(I * 70),110,250,30); -- affichage du nombre de mouvements
-   changercouleurfond(Ffin,"txtmouvclas" & string(I),FL_BOTTOM_BCOL)
-  end loop;
+  -- (Score.defi,tv_meilleur);
+  -- for I in 0..2 loop  -- 150 310
+  --  AjouterTexte(Ffin,"txtnomclas" & string(I),tv_meilleur(I).nom & " : " & tv_meilleur(I).temps,150+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
+  --  changercouleurfond(Ffin,"txtnomclas" & string(I),FL_BOTTOM_BCOL);
+  --  AjouterTexte(Ffin,"txtmouvclas" & string(I),tv_meilleur(I).nb_moves & " mouvements.",180+(I * 70),110,250,30); -- affichage du nombre de mouvements
+  --  changercouleurfond(Ffin,"txtmouvclas" & string(I),FL_BOTTOM_BCOL);
+  -- end loop;
 
 end creefin;
 
-procedure Preparation_Grille(fGrille, Grille, coul, lig, col);
+procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character) is
 begin
     if Possible(grille, coul, hg) then
-        ChangerCouleurFond(fGrille, "Case" & integer'image(l - 1) & col'pred, FL_PALEGREEN);
-        ChangerEtatBouton(FGrille, "Case" & integer'image(l - 1) & col'pred, Marche);
+        ChangerCouleurFond(fGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), FL_PALEGREEN);
+        ChangerEtatBouton(FGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), Marche);
     elsif Possible(grille, coul, bg) then
-        ChangerCouleurFond(fGrille, "Case" & integer'image(l + 1) & col'pred, FL_PALEGREEN);
-        ChangerEtatBouton(FGrille, "Case" & integer'image(l + 1) & col'pred, Marche);
+        ChangerCouleurFond(fGrille, "Case" & integer'image(lig + 1) & T_Col'pred(col), FL_PALEGREEN);
+        ChangerEtatBouton(FGrille, "Case" & integer'image(lig + 1) & T_Col'pred(col), Marche);
     elsif Possible(grille, coul, hd) then
-        ChangerCouleurFond(fGrille, "Case" & integer'image(l - 1) & col'succ, FL_PALEGREEN);
-        ChangerEtatBouton(FGrille, "Case" & integer'image(l - 1) & col'succ, Marche);
+        ChangerCouleurFond(fGrille, "Case" & integer'image(lig - 1) & T_Col'succ(col), FL_PALEGREEN);
+        ChangerEtatBouton(FGrille, "Case" & integer'image(lig - 1) & T_Col'succ(col), Marche);
     elsif Possible(grille, coul, bd) then
-        ChangerCouleurFond(fGrille, "Case" & integer'image(l + 1) & col'succ, FL_PALEGREEN);
-        ChangerEtatBouton(FGrille, "Case" & integer'image(l + 1) & col'succ, Marche);
+        ChangerCouleurFond(fGrille, "Case" & integer'image(lig + 1) & T_Col'succ(col), FL_PALEGREEN);
+        ChangerEtatBouton(FGrille, "Case" & integer'image(lig + 1) & T_Col'succ(col), Marche);
     end if;
 end Preparation_Grille;
 

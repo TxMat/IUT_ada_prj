@@ -63,19 +63,19 @@ package body p_virus is
 					if Grille(i,j) = coul then --sélectionne la case avec la pièce de la bonne coul
                         counter := counter+1;
 						if Dir = hg then
-                            nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- haut (ligne-1) gauche (colonne -1)
+              nouv_pos_vect(counter) := (t_col'pred(j), i-1, coul); -- haut (ligne-1) gauche (colonne -1)
 							Grille(i,j) := VIDE; --la case est de nouveau vide
 
 						elsif Dir = hd then
-                            nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); --haut (ligne-1) droite (colonne+1)
+              nouv_pos_vect(counter) := (t_col'succ(j), i-1, coul); --haut (ligne-1) droite (colonne+1)
 							Grille(i,j) := VIDE;
 
 						elsif Dir = bg then
-                            nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); --bas (ligne+1) droite (colonne-1)
+              nouv_pos_vect(counter) := (t_col'pred(j), i+1, coul); --bas (ligne+1) droite (colonne-1)
 							Grille(i,j) := VIDE;
 
 						else
-                            nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); --bas (ligne+1) droite (colonne+1)
+              nouv_pos_vect(counter) := (t_col'succ(j), i+1, coul); --bas (ligne+1) droite (colonne+1)
 							Grille(i,j) := VIDE;
 						end if;
 					end if;
