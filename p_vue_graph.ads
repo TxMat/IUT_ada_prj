@@ -18,7 +18,7 @@ package p_vue_graph is
     procedure creemenu (fmenu : in out TR_fenetre);
 
     -- affiche & màj la grille
-    procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille);
+    procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille; nbcoups: in integer);
 
     -- création de la grille
     procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille);
