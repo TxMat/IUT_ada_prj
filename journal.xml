@@ -52,9 +52,11 @@ debut procedure creemenu
 <Mathieu>
 ajout mode optimisé pour AV txt
 debug av txt
+fin av txt
+concaténation partie graph elsa / partie graph Emmanuel
 </Mathieu>
 <Quentin>
-Finition package score; en attente de tests  
+Finition package score; en attente de tests
 </Quentin>
 <François></François>
 <Elsa>
@@ -66,3 +68,22 @@ fin procedure creemenu
 gestion du menu dans av_graph
 </Emmanuel>
 </03-02-2021>
+
+
+<02-02-2021>
+<Mathieu>
+
+</Mathieu>
+<Quentin>
+
+</Quentin>
+<François>
+
+</François>
+<Elsa>
+
+</Elsa>
+<Emmanuel>
+
+</Emmanuel>
+</04-02-2021>
