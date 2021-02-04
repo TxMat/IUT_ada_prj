@@ -4,6 +4,7 @@ with p_fenbase; use p_fenbase;
 with Forms; use Forms;
 with sequential_io;
 with p_virus; use p_virus;
+with p_score; use p_score;
 use p_virus.p_piece_io;
 
 procedure av_graph is
@@ -15,8 +16,9 @@ procedure av_graph is
   Pieces : TV_Pieces;
   defichoisie : boolean := false;
   f : p_piece_io.file_type;
-  Bouton_select_coul := T_coulP
-
+  Bouton_select_coul : T_coulP;
+  premier_coup  : boolean := True;
+  Premier_tour : boolean := True;
 begin
 
     InitialiserFenetres;
@@ -61,35 +63,38 @@ begin
            Num_col_pred, Num_col_succ : character;
            Num_lig_pred, Num_lig_succ : Integer;
            dir : T_Direction;
-           premier_coup  : boolean := True;
-           Premier_tour : boolean := True;
+           temp : string(1..3);
         begin
            if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
                if premier_coup then
                    ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
                    ecrire_ligne(Bouton);
-                   Num_lig_pred := Character'Value(Bouton(bouton'last)); -- ligne 1..7
-                   Num_col_pred := Bouton(bouton'last - 1); -- colonne A..G
-                   ecrire_ligne(I);
-                   ecrire_ligne(J);
+                   temp := Bouton(bouton'last - 1)'image;
+                   Num_lig_pred := Integer'Value ((1 => temp(2))); -- ligne 1..7
+                   Num_col_pred := Bouton(bouton'last); -- colonne A..G
+                   ecrire_ligne("1");
+                   ecrire_ligne(premier_coup);
                    Bouton_select_coul := Grille(Num_lig_pred, Num_col_pred);  -- select coul bouton cliqué
+                   ecrire_ligne("2");
                    if checkpossible(Grille, Bouton_select_coul) then -- pour eviter de select une piece contrainte
                        Preparation_Grille(FGrille, Grille, Bouton_select_coul, Num_lig_pred, Num_col_pred);
                        premier_coup := False; -- pour passer a la phase 2
                    else
-                       ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en un autre");
+                       ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en une autre");
+                   end if;
                else
                    ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitée");
                    ChangerCouleurFond(fGrille, Bouton, FL_DARKVIOLET);
                    ecrire_ligne(Bouton);
-                   Num_lig_succ := Character'Value(Bouton(bouton'last)); -- ligne 1..7
-                   Num_col_succ := Bouton(bouton'last - 1); -- colonne A..G
-                   ecrire_ligne(I); -- log
-                   ecrire_ligne(J);
-                   dir := Calcul_Dir(Num_lig_pred, Num_col_pred, Num_lig_succ, Num_col_succ); -- calcul dir
+                   temp := Bouton(bouton'last - 1)'image;
+                   Num_lig_succ := Integer'Value ((1 => temp(2))); -- ligne 1..7
+                   Num_col_succ := Bouton(bouton'last); -- colonne A..G
+                   dir := Calcul_Dir(Num_lig_pred, Num_lig_succ, Num_col_pred, Num_col_succ); -- calcul dir
+                   ecrire("cc");
                    MajGrille(Grille, Bouton_select_coul, dir);
                    AfficheGrille(fGrille, Grille);
-                   Premier_tour := False;
+                   Premier_coup := False;
+                 end if;
            elsif Bouton = "Reset" then
                    Configurer(f, numd, Grille, Pieces);
                    AfficheGrille(fGrille, Grille);
