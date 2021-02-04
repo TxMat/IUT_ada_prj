@@ -5,7 +5,7 @@ procedure creemenu (fmenu : in out TR_fenetre)is
 begin
   Fmenu:=DebutFenetre("Menu",400,400);
   -- création des champs/boutons/messages
-    AjouterChamp(Fmenu,"ChampNom","Votre Nom","Dindu",120,30,200,30);
+    AjouterChamp(Fmenu,"ChampNom","Votre Nom","Quentin",120,30,200,30);
     AjouterChamp(Fmenu,"ChampDefi","Numero de defi","1",120,70,200,30);
     AjouterTexte(fmenu,"mesmenu_defi","",95,110,250,30);
     AjouterBouton(Fmenu,"BoutonValider","valider",250,200,75,30);
@@ -50,6 +50,7 @@ procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille) is
         elsif Grille(l,c)'Valid then
             AjouterBouton(FGrille,"Case" & image(l) & c," ",70+ligne,100+colonne,taillebout,taillebout);
             ChangerCouleurFond(FGrille,"Case" & image(l) & c,Couleur_Bouton(Grille(l,c)));
+            ChangerEtatBouton(FGrille, "Case" & image(l) & c, Marche);
             ligne:=ligne+taillebout;
         end if;
       end loop;
@@ -84,7 +85,7 @@ end creegrille;
 
 
 procedure creefin (Ffin : in out TR_fenetre; score : tr_score ) is
-  tv_meilleur : TV_Score (1..NB_SCORE_MAX);
+-- tv_meilleur : TR_Score;
 begin
   Ffin:=DebutFenetre("Resultats",400,400);
   AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
@@ -101,19 +102,24 @@ begin
   changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
   -- creation d'un tableau de clasement
   --vv--vv--vv--vv--vv-- en attentente de Quentin --vv--
-  tv_meilleur := recup_score(score.defi);
-  tri_score(1,tv_meilleur);
-  for I in 1..3 loop
-   AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & image(tv_meilleur(I).temps),80+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
-   changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
-   AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110+(I * 70),110,250,30); -- affichage du nombre de mouvements
-   changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
-  end loop;
-  FinFenetre(ffin);
+  -- (Score.defi,tv_meilleur);
+  -- for I in 0..2 loop  -- 150 310
+  --  AjouterTexte(Ffin,"txtnomclas" & string(I),tv_meilleur(I).nom & " : " & tv_meilleur(I).temps,150+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
+  --  changercouleurfond(Ffin,"txtnomclas" & string(I),FL_BOTTOM_BCOL);
+  --  AjouterTexte(Ffin,"txtmouvclas" & string(I),tv_meilleur(I).nb_moves & " mouvements.",180+(I * 70),110,250,30); -- affichage du nombre de mouvements
+  --  changercouleurfond(Ffin,"txtmouvclas" & string(I),FL_BOTTOM_BCOL);
+  -- end loop;
+
 end creefin;
 
 procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character) is
+
 begin
+    for l in T_Lig'range loop
+      for c in T_Col'range loop
+          ChangerEtatBouton(FGrille, "Case" & image(l) & c, Arret);
+      end loop;
+    end loop;
     if Possible(grille, coul, hg) then
         ChangerCouleurFond(fGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), FL_PALEGREEN);
         ChangerEtatBouton(FGrille, "Case" & integer'image(lig - 1) & T_Col'pred(col), Marche);

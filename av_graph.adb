@@ -48,7 +48,6 @@ begin
         exit when (bouton = "BoutonValider" and defichoisie ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
       end;
     end loop;
-    cacherFenetre(fmenu);
     --------------- Fin du Menu -------------------------
 
     --------------- Debut init grille -------------------
@@ -68,6 +67,7 @@ begin
         begin
            if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
                if premier_coup then
+                   ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
                    ecrire_ligne(Bouton);
                    temp := Bouton(bouton'last - 1)'image;
                    Num_lig_pred := Integer'Value ((1 => temp(2))); -- ligne 1..7
@@ -78,12 +78,13 @@ begin
                    ecrire_ligne("2");
                    if checkpossible(Grille, Bouton_select_coul) then -- pour eviter de select une piece contrainte
                        Preparation_Grille(FGrille, Grille, Bouton_select_coul, Num_lig_pred, Num_col_pred);
-                       premier_coup := False; -- pour passer a la phase 2
+                       premier_coup := false; -- pour passer a la phase 2
                    else
                        ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en une autre");
                    end if;
                else
                    ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitée");
+                   ChangerCouleurFond(fGrille, Bouton, FL_DARKVIOLET);
                    ecrire_ligne(Bouton);
                    temp := Bouton(bouton'last - 1)'image;
                    Num_lig_succ := Integer'Value ((1 => temp(2))); -- ligne 1..7
@@ -92,27 +93,24 @@ begin
                    ecrire("cc");
                    MajGrille(Grille, Bouton_select_coul, dir);
                    AfficheGrille(fGrille, Grille);
-                   Premier_coup := True;
-                   Premier_tour := False;
+                   Premier_coup := true;
+                   Premier_tour := false;
                  end if;
            elsif Bouton = "Reset" then
-                   Configurer(f, numd, Grille, Pieces);
-                   AfficheGrille(fGrille, Grille);
+              InitPartie(Grille, Pieces);
+              Configurer(f, numd, Grille, Pieces);
+              AfficheGrille(fGrille, Grille);
+              Premier_coup := true;
+              Premier_tour := false;
            elsif Bouton = "Annul" then
                if not Premier_tour then
                    oppose(dir);
                    MajGrille(Grille, Bouton_select_coul, dir);
-                   AfficheGrille(fGrille, Grille);
+                   AfficheGrille(FGrille, grille);
                    ChangerTexte(FGrille, "info", "Mouvement annulé");
                end if;
                ChangerTexte(FGrille, "info", "Vous n'avez pas joué");
            elsif Bouton = "Quit" then
-               -- ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 3");
-               -- delay 1.0;
-               -- ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 2");
-               -- delay 1.0;
-               -- ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 1");
-               -- delay 1.0;
                exit;
            end if;
         end;
