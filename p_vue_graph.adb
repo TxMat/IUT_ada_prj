@@ -23,14 +23,13 @@ begin
   FinFenetre(Fmenu);
 end creemenu;
 
-procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille) is
+procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille; nbcoups: in integer) is
         ligne, colonne : natural := 0;
         taillebout : positive := 50; --Taille des cases
     begin
     --Création de la Grille
     for l in T_Lig'range loop
       for c in T_Col'range loop
-
         if Grille(l,c) = VIDE then
           if (l mod 2 = T_Col'pos(c) mod 2) then  --case vide où les pièces peuvent bouger
             AjouterBouton(FGrille,"Case" & image(l) & c," ",70+ligne,100+colonne,taillebout,taillebout);
@@ -57,6 +56,7 @@ procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille) is
       colonne:=colonne+taillebout;
       ligne:=0;
     end loop;
+    ChangerTexte(FGrille,"nbcoups","Nombre de coups :" & image(nbcoups));
 end AfficheGrille;
 
 
@@ -78,7 +78,7 @@ begin
     ChangerCouleurFond(FGrille,"Quit",FL_TOMATO);
 
     --Création grille de jeu
-    AfficheGrille(FGrille,Grille);
+    AfficheGrille(FGrille,Grille,0);
     ChangerTexte(FGrille,"Case 1A", "S");
     FinFenetre(FGrille);
 end creegrille;
@@ -87,38 +87,38 @@ end creegrille;
 
 procedure creefin (Ffin : in out TR_fenetre; score : in out tr_score ) is
 
-  tv_meilleur : TV_Score (1..NB_SCORE_MAX);
+    tv_meilleur : TV_Score (1..NB_SCORE_MAX);
 begin
-  Ffin:=DebutFenetre("Resultats",400,400);
-  AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
-  AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n°" & integer'image(score.defi),120,70,200,30);
-  AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & integer'image(score.nb_moves) & " mouvements.",120,110,250,30);
-  AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,350,75,30);
-  AjouterBouton(Ffin,"Boutonquitter","quitter",100,350,75,30);
-  -- ajout des couleurs
-  changercouleurfond(Ffin,"fond",FL_BOTTOM_BCOL);
-  changercouleurfond(Ffin,"txtnom",FL_BOTTOM_BCOL);
-  changercouleurfond(Ffin,"txtdefi",FL_BOTTOM_BCOL);
-  changercouleurfond(Ffin,"txtnbcoups",FL_BOTTOM_BCOL);
-  changercouleurfond(Ffin,"Boutonrejouer",FL_PALEGREEN);
-  changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
-  -- creation d'un tableau de clasement
-  --vv--vv--vv--vv--vv-- avec le reuf Quentin --vv--
-  ajout_score(Score);
-  tv_meilleur := recup_score(score.defi);
-  tri_score(1,tv_meilleur);
+    Ffin:=DebutFenetre("Resultats",400,400);
+    AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
+    AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n°" & integer'image(score.defi),120,70,200,30);
+    AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & integer'image(score.nb_moves) & " mouvements.",120,110,250,30);
+    AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,350,75,30);
+    AjouterBouton(Ffin,"Boutonquitter","quitter",100,350,75,30);
+    -- ajout des couleurs
+    changercouleurfond(Ffin,"fond",FL_BOTTOM_BCOL);
+    changercouleurfond(Ffin,"txtnom",FL_BOTTOM_BCOL);
+    changercouleurfond(Ffin,"txtdefi",FL_BOTTOM_BCOL);
+    changercouleurfond(Ffin,"txtnbcoups",FL_BOTTOM_BCOL);
+    changercouleurfond(Ffin,"Boutonrejouer",FL_PALEGREEN);
+    changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
+    -- creation d'un tableau de clasement
+    --vv--vv--vv--vv--vv-- avec le reuf Quentin --vv--
+    ajout_score(Score);
+    tv_meilleur := recup_score(score.defi);
+    tri_score(nb_coups,tv_meilleur);
 
-  for I in 1..3 loop
-    ecrire_ligne("indice n°"&image(i));
-ecrire_ligne("défi : " &image(tv_meilleur(i).defi));
-ecrire_ligne("nom : " &tv_meilleur(i).nom);
-ecrire_ligne("temps : ");
-ecrire_ligne("moves : "&image(tv_meilleur(i).nb_moves));
-a_la_ligne;
-    AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & Float'Image(tv_meilleur(I).temps),110,(80+(I * 70)),250,30);-- affichage du nom du joueur et du temps
-    changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
-    AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110,(110+(I * 70)),250,30); -- affichage du nombre de mouvements
-    changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
+    for I in 1..3 loop
+        ecrire_ligne("indice n°"&image(i));
+        ecrire_ligne("défi : " &image(tv_meilleur(i).defi));
+        ecrire_ligne("nom : " &tv_meilleur(i).nom);
+        ecrire_ligne("temps : ");
+        ecrire_ligne("moves : "&image(tv_meilleur(i).nb_moves));
+        a_la_ligne;
+        AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & Float'Image(tv_meilleur(I).temps),110,(80+(I * 70)),250,30);-- affichage du nom du joueur et du temps
+        changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
+        AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110,(110+(I * 70)),250,30); -- affichage du nombre de mouvements
+        changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
   end loop;
   FinFenetre(ffin);
 end creefin;
