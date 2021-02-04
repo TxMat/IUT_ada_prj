@@ -88,9 +88,29 @@ begin
   AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & integer'image(score.nb_moves) & " mouvements.",120,110,250,30);
   AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,200,75,30);
   AjouterBouton(Ffin,"Boutonquitter","quitter",100,200,75,30);
-
-
 end creefin;
+
+Preparation_Grille(fGrille, Grille, coul, lig, col);
+    type Cliquable is array (integer range <>) of Bouton;
+    ok : Cliquable(1..4);
+begin
+    if Possible(grille, coul, hg) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l - 1) & col'pred, FL_PALEGREEN);
+
+    elsif Possible(grille, coul, bg) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l + 1) & col'pred, FL_PALEGREEN);
+    elsif Possible(grille, coul, hd) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l - 1) & col'succ, FL_PALEGREEN);
+    elsif Possible(grille, coul, bd) then
+        ChangerCouleurFond(fGrille, "Case" & integer'image(l + 1) & col'succ, FL_PALEGREEN);
+    end if;
+    for I in T_lig loop
+        for J in T_col loop
+            if
+        end loop;
+
+    end loop;
+end Preparation_Grille;
 
 
 end p_vue_graph;
