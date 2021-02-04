@@ -1,26 +1,29 @@
-with sequential_io; with p_esiut; use p_esiut;
+with sequential_io;
+with p_esiut; use p_esiut;
 
 package p_virus is
 
-	--------------- Types pour representer la grille de jeu
+	-- Types pour representer la grille de jeu
 	subtype T_Col is character range 'A'..'G';
 	subtype T_Lig is integer range 1..7;
 	type T_Coul is (rouge, turquoise, orange, rose, marron, bleu, violet, vert, jaune, blanc, vide);
 	type TV_Grille is array (T_lig,T_col) of T_Coul;
 
-	---- type pour les pièces du jeu
+	-- type pour les pièces du jeu
 	subtype T_CoulP is T_Coul range rouge..blanc; -- couleurs des pièces
-	package p_coul_io is new p_enum(T_CoulP); use p_coul_io;
+	package p_coul_io is new p_enum(T_CoulP); use p_coul_io; --
 
-	-- élément constitutif d'une pièce
+    -- type vecteur contraint pour mémoriser les pièces d'un défi donné
+    type TV_Pieces is array(T_coulP) of boolean;
+
+	-- éléments constitutif d'une pièce
 	type TR_ElemP is record	-- 	un élément constituant une pièce
 		colonne	:	T_Col;			-- 	la colonne qu'il occupe dans la grille
 		ligne	:	T_Lig;				-- 	la ligne qu'il occupe dans la grille
 		couleur	:	T_CoulP;		--	sa couleur
 	end record;
 
-	-- type vecteur contraint pour mémoriser les picèes d'un défi donné
-	type TV_Pieces is array(T_coulP) of boolean;
+    type TV_ElemP is array (1..3) of TR_ElemP;
 
 	---- Instanciation de sequential_io pour un fichier de TR_ElemP
 	package p_piece_io is new sequential_io (TR_ElemP); use p_piece_io;
@@ -84,11 +87,14 @@ package p_virus is
 	--{fg ouvert, nbelem est le nombre d'éléments de fg, nbelm > 1}  =>
 	--		{G = dernier élement de fg, le dernier élément de fg a été supprimé, nbelem est décrémenté}
 	--------------------------------------------------------------------------------------------
-	
-	-- Oppose la direction de dir (bg <-> hd; bd <-> hg)
+
+    -- Oppose la direction de dir (bg <-> hd; bd <-> hg)
     procedure oppose (dir : in out T_Direction);
 
     -- Calcule la direction dans laquelle l'utilisateur veut déplacer sa pièce
     function calcul_dir(ligne_piece, ligne_cible : in integer; colonne_piece, colonne_cible : in character) return T_Direction;
+
+    -- Vérifie si la pièce peut bouger dans au moins une direction
+    function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean;
 
 end p_virus;
