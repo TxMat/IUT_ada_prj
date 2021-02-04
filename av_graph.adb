@@ -72,9 +72,9 @@ begin
                    Num_col_pred := Bouton(bouton'last - 1); -- colonne A..G
                    ecrire_ligne(I);
                    ecrire_ligne(J);
-                   Bouton_select_coul := Grille(Num_lig, Num_col);  -- select coul bouton cliqué
+                   Bouton_select_coul := Grille(Num_lig_pred, Num_col_pred);  -- select coul bouton cliqué
                    if checkpossible(Grille, Bouton_select_coul) then -- pour eviter de select une piece contrainte
-                       Preparation_Grille(FGrille);
+                       Preparation_Grille(FGrille, Grille, Bouton_select_coul, Num_lig_pred, Num_col_pred);
                        premier_coup := False; -- pour passer a la phase 2
                    else
                        ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en un autre");
