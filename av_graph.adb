@@ -17,6 +17,7 @@ procedure av_graph is
   defichoisie : boolean := false;
   f : p_piece_io.file_type;
   Bouton_select_coul : T_coulP;
+  nb_coups : integer := 0;
   premier_coup  : boolean := True;
   Premier_tour : boolean := True;
   nom : string(1..20);
@@ -50,6 +51,9 @@ begin
         exit when (bouton = "BoutonValider" and defichoisie ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
       end;
     end loop;
+    if bouton = "BoutonAnnuler" then
+        exit;
+    end if;
     cacherFenetre(fmenu);
     --------------- Fin du Menu -------------------------
 
@@ -86,14 +90,12 @@ begin
                        ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en une autre");
                    end if;
                else
-                   ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitée");
-                   ChangerCouleurFond(fGrille, Bouton, FL_DARKVIOLET);
+                   ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitee");
                    ecrire_ligne(Bouton);
                    temp := Bouton(bouton'last - 1)'image;
                    Num_lig_succ := Integer'Value ((1 => temp(2))); -- ligne 1..7
                    Num_col_succ := Bouton(bouton'last); -- colonne A..G
                    dir := Calcul_Dir(Num_lig_pred, Num_lig_succ, Num_col_pred, Num_col_succ); -- calcul dir
-                   ecrire("cc");
                    MajGrille(Grille, Bouton_select_coul, dir);
                    AfficheGrille(fGrille, Grille);
                    Premier_coup := true;
@@ -109,10 +111,10 @@ begin
                if not Premier_tour then
                    oppose(dir);
                    MajGrille(Grille, Bouton_select_coul, dir);
-                   AfficheGrille(FGrille, grille);
-                   ChangerTexte(FGrille, "info", "Mouvement annulé");
+                   ChangerTexte(FGrille, "info", "Mouvement annule");
+                   AfficheGrille(fGrille, Grille, nb_coups);
                end if;
-               ChangerTexte(FGrille, "info", "Vous n'avez pas joué");
+               ChangerTexte(FGrille, "info", "Vous n'avez pas joue");
            elsif Bouton = "Quit" then
                exit;
            end if;
