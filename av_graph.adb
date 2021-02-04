@@ -14,6 +14,7 @@ procedure av_graph is
   Pieces : TV_Pieces;
   defichoisie : boolean := false;
   f : p_piece_io.file_type;
+  Bouton_select_coul := T_coulP
 
 begin
 
@@ -56,19 +57,53 @@ begin
     while not Guerison(Grille) loop
         declare
            Bouton : String := (Attendrebouton(fGrille));
-           I, J : character;
+           Num_col_pred, Num_col_succ : character;
+           Num_lig_pred, Num_lig_succ : Integer;
+           dir : T_Direction;
+           premier_coup  : boolean := True;
+           Premier_tour : boolean := True;
         begin
            if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
-               ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
-               ecrire_ligne(Bouton);
-               I := Bouton(bouton'last);
-               J := Bouton(boutons'last - 1);
-               ecrire_ligne(I);
-               ecrire_ligne(J);
+               if premier_coup then
+                   ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
+                   ecrire_ligne(Bouton);
+                   Num_lig_pred := Character'Value(Bouton(bouton'last)); -- ligne 1..7
+                   Num_col_pred := Bouton(bouton'last - 1); -- colonne A..G
+                   ecrire_ligne(I);
+                   ecrire_ligne(J);
+                   Bouton_select_coul := Grille(Num_lig, Num_col);  -- select coul bouton cliqué
+                   if checkpossible(Grille, Bouton_select_coul) then -- pour eviter de select une piece contrainte
+                       Preparation_Grille();
+                       premier_coup := False; -- pour passer a la phase 2
+                   else
+                       ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en un autre");
+               else
+                   ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitée");
+                   ChangerCouleurFond(fGrille, Bouton, FL_DARKVIOLET);
+                   ecrire_ligne(Bouton);
+                   Num_lig_succ := Character'Value(Bouton(bouton'last)); -- ligne 1..7
+                   Num_col_succ := Bouton(bouton'last - 1); -- colonne A..G
+                   ecrire_ligne(I); -- log
+                   ecrire_ligne(J);
+                   dir := Calcul_Dir(Num_lig_pred, Num_col_pred, Num_lig_succ, Num_col_succ); -- calcul dir
+                   MajGrille(Grille, Bouton_select_coul, dir);
+                   AfficheGrille(fGrille, Grille);
+                   Premier_tour := False;
            elsif Bouton = "Reset" then
+               loop
+                   declare
+                       Bouton : String := (Attendrebouton(fGrille));
+                   begin
+                       
+                   end;
+               end loop;
                exit;
            elsif Bouton = "Annul" then
-               exit;
+               if not Premier_tour then
+                   oppose(dir);
+                   MajGrille(Grille, Bouton_select_coul, dir);
+                   ChangerTexte(FGrille, "info", "Mouvement annulé");
+               end if;
            elsif Bouton = "Quit" then
                exit;
            end if;

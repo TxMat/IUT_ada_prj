@@ -63,7 +63,7 @@ begin
     --Fenetre jeu
     FGrille :=DebutFenetre("Grille" & image(numd),650,500);
     AjouterTexte(FGrille, "nomj","Nom du joueur : " & nom,10,10,280,30);
-    AjouterTexte(FGrille, "info","Cliquez sur la piece a deplacer.",30,40,280,30);
+    AjouterTexte(FGrille, "info","Cliquez sur la piece a deplacer.",70,40,280,30);
     AjouterTexte(FGrille, "nbcoups","Nombre de coups : 0",450,100,280,30);
 
     --Boutons sur le côté
