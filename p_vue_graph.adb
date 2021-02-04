@@ -5,7 +5,7 @@ procedure creemenu (fmenu : in out TR_fenetre)is
 begin
   Fmenu:=DebutFenetre("Menu",400,400);
   -- création des champs/boutons/messages
-    AjouterChamp(Fmenu,"ChampNom","Votre Nom","Quentin",120,30,200,30);
+    AjouterChamp(Fmenu,"ChampNom","Votre Nom","Dindu",120,30,200,30);
     AjouterChamp(Fmenu,"ChampDefi","Numero de defi","1",120,70,200,30);
     AjouterTexte(fmenu,"mesmenu_defi","",95,110,250,30);
     AjouterBouton(Fmenu,"BoutonValider","valider",250,200,75,30);
