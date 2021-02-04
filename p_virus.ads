@@ -84,5 +84,11 @@ package p_virus is
 	--{fg ouvert, nbelem est le nombre d'éléments de fg, nbelm > 1}  =>
 	--		{G = dernier élement de fg, le dernier élément de fg a été supprimé, nbelem est décrémenté}
 	--------------------------------------------------------------------------------------------
+	
+	-- Oppose la direction de dir (bg <-> hd; bd <-> hg)
+    procedure oppose (dir : in out T_Direction);
+
+    -- Calcule la direction dans laquelle l'utilisateur veut déplacer sa pièce
+    function calcul_dir(ligne_piece, ligne_cible : in integer; colonne_piece, colonne_cible : in character) return T_Direction;
 
 end p_virus;
