@@ -97,14 +97,16 @@ begin
                    Num_col_succ := Bouton(bouton'last); -- colonne A..G
                    dir := Calcul_Dir(Num_lig_pred, Num_lig_succ, Num_col_pred, Num_col_succ); -- calcul dir
                    MajGrille(Grille, Bouton_select_coul, dir);
-                   AfficheGrille(fGrille, Grille);
+                   nb_coups := nb_coups + 1;
+                   AfficheGrille(fGrille, Grille, nb_coups);
                    Premier_coup := true;
                    Premier_tour := false;
                  end if;
            elsif Bouton = "Reset" then
+              nb_coups := 0;
               InitPartie(Grille, Pieces);
               Configurer(f, numd, Grille, Pieces);
-              AfficheGrille(fGrille, Grille);
+              AfficheGrille(fGrille, Grille, nb_coups);
               Premier_coup := true;
               Premier_tour := false;
            elsif Bouton = "Annul" then
