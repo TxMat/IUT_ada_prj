@@ -22,10 +22,6 @@ procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille);
 
 procedure creefin (Ffin : in out TR_fenetre; score : tr_score );
 
-function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean;
-
-procedure oppose (dir : in out T_Direction);
-
 
 
 
