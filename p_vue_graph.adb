@@ -83,7 +83,8 @@ begin
 end creegrille;
 
 
-procedure creefin (Ffin : in out TR_fenetre; score : tr_score ) is
+procedure creefin (Ffin : in out TR_fenetre; score : in out tr_score ) is
+
   tv_meilleur : TV_Score (1..NB_SCORE_MAX);
 begin
   Ffin:=DebutFenetre("Resultats",400,400);
@@ -100,14 +101,22 @@ begin
   changercouleurfond(Ffin,"Boutonrejouer",FL_PALEGREEN);
   changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
   -- creation d'un tableau de clasement
-  --vv--vv--vv--vv--vv-- en attentente de Quentin --vv--
+  --vv--vv--vv--vv--vv-- avec le reuf Quentin --vv--
+  ajout_score(Score);
   tv_meilleur := recup_score(score.defi);
   tri_score(1,tv_meilleur);
+
   for I in 1..3 loop
-   AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & image(tv_meilleur(I).temps),80+(I * 70),110,250,30);-- affichage du nom du joueur et du temps
-   changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
-   AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110+(I * 70),110,250,30); -- affichage du nombre de mouvements
-   changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
+    ecrire_ligne("indice n°"&image(i));
+ecrire_ligne("défi : " &image(tv_meilleur(i).defi));
+ecrire_ligne("nom : " &tv_meilleur(i).nom);
+ecrire_ligne("temps : ");
+ecrire_ligne("moves : "&image(tv_meilleur(i).nb_moves));
+a_la_ligne;
+    AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & Float'Image(tv_meilleur(I).temps),110,(80+(I * 70)),250,30);-- affichage du nom du joueur et du temps
+    changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
+    AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110,(110+(I * 70)),250,30); -- affichage du nombre de mouvements
+    changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
   end loop;
   FinFenetre(ffin);
 end creefin;
