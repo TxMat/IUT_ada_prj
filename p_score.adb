@@ -2,6 +2,15 @@ with sequential_io;
 with p_esiut; use p_esiut;
 package body p_score is
 
+    procedure permut(i,j : in out TR_Score) is
+    --{} =>{Permute les éléments i et j}
+        tmp : TR_Score;
+    begin
+        tmp := i;
+        i := j;
+        j := tmp;
+    end permut;
+
     -- ouverture du fichier score, création sinon inexsitant
     procedure ouvrir_fichier(io_type : in integer) is --Permet d'accéder au fichier même si l'utilisateur de supprime en pleine partie
     begin
@@ -106,10 +115,10 @@ package body p_score is
 
     -- Pour debug & co
     procedure afficher_scores is
-        scores : TV_Score(1..400);
+        scores : TV_Score(1..NB_SCORE_MAX);
         j : integer := 0;
     begin
-        for i in 1..400 loop
+        for i in 1..NB_SCORE_MAX loop
             scores(i).defi := 2;
             scores(i).nom := "test                ";
             scores(i).temps := 1.0;
@@ -134,7 +143,32 @@ package body p_score is
 
     -- Tri $scores selon les critères passés par $mode
     procedure tri_score(mode : in integer; scores : in out TV_Score) is
+        score_tmp : TV_Score(1..NB_SCORE_MAX);
+        i : TR_Score := V'first;
+        onapermute : boolean := true;
     begin
+        case mode is
+            when 1 => -- meilleur nb_moves
+                while onapermute loop
+                    onapermute := false;
+                    for j in reverse i+1..scores'last loop
+                        if scores(j).nb_moves < scores(j-1).nb_moves then
+                            permut(scores(j), scores(j-1));
+                            onapermute := true;
+                        end if;
+                    end loop;i := i+1;
+                end loop;
+            when 2 => -- meilleur temps
+                while onapermute loop
+                    onapermute := false;
+                    for j in reverse i+1..V'last loop
+                        if scores(j).temps < scores(j-1).temps then
+                            permut(scores(j), scores(j-1));
+                            onapermute := true;
+                        end if;
+                    end loop;i := i+1;
+                end loop;
+        end case;
         null;
     end tri_score;
 
