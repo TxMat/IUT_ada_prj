@@ -12,6 +12,12 @@ package p_score is
 
     type TV_Score is array (integer range <>) of TR_Score;
 
+    type io_type is (lecture, ecriture, append); -- Pour rendre le code plus lisible
+
+    type get_type is (ajout, tous_defi, tous_joueur, joueur_defi); -- Pour rendre le code plus lisible
+
+    type tri_type is (nb_coups, temps); -- Pour rendre le code plus lisible
+
     NB_SCORE_MAX : constant integer := 400; --Nombre de scores différents supportés dans le fichier
 
     NOM_FICHIER : constant string := "score";
@@ -23,15 +29,15 @@ package p_score is
 
     -- A remplacer par un quicksort dès que j'aurais compris comment ça marche
     procedure permut(i,j : in out TR_Score);
-    
+
     -- ouverture du fichier score, création sinon
-    procedure ouvrir_fichier(io_type : in integer);
+    procedure ouvrir_fichier(io_option : in io_type);
 
     -- fermeture du fichier (nécessaire car infaisable depuis l'extérieur)
     procedure fermer_fichier;
 
     -- fonction privée (à rendre privée) Récupère les scores *relevant*
-    function analyse_fichier(mode,defi : in integer := 0; nom : in string := ""; tableau_score : in out TV_Score) return integer;
+    function analyse_fichier(mode : in get_type; defi : in integer; nom : in string; tableau_score : in out TV_Score) return integer;
 
     -- Écriture du score dans le fichier
     procedure ajout_score(score : in TR_Score);
@@ -49,7 +55,7 @@ package p_score is
     procedure afficher_scores;
 
     -- Tri $scores selon les critères passés par $mode
-    procedure tri_score(mode : in integer; scores : in out TV_Score);
+    procedure tri_score(mode : in tri_type; scores : in out TV_Score);
 
 
 end p_score;
