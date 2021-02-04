@@ -67,7 +67,6 @@ begin
         begin
            if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
                if premier_coup then
-                   ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
                    ecrire_ligne(Bouton);
                    temp := Bouton(bouton'last - 1)'image;
                    Num_lig_pred := Integer'Value ((1 => temp(2))); -- ligne 1..7
@@ -84,7 +83,6 @@ begin
                    end if;
                else
                    ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitée");
-                   ChangerCouleurFond(fGrille, Bouton, FL_DARKVIOLET);
                    ecrire_ligne(Bouton);
                    temp := Bouton(bouton'last - 1)'image;
                    Num_lig_succ := Integer'Value ((1 => temp(2))); -- ligne 1..7
@@ -93,7 +91,8 @@ begin
                    ecrire("cc");
                    MajGrille(Grille, Bouton_select_coul, dir);
                    AfficheGrille(fGrille, Grille);
-                   Premier_coup := False;
+                   Premier_coup := True;
+                   Premier_tour := False;
                  end if;
            elsif Bouton = "Reset" then
                    Configurer(f, numd, Grille, Pieces);
@@ -106,12 +105,12 @@ begin
                end if;
                ChangerTexte(FGrille, "info", "Vous n'avez pas joué");
            elsif Bouton = "Quit" then
-               ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 3");
-               delay 1.0;
-               ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 2");
-               delay 1.0;
-               ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 1");
-               delay 1.0;
+               -- ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 3");
+               -- delay 1.0;
+               -- ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 2");
+               -- delay 1.0;
+               -- ChangerTexte(FGrille, "info", "Vous avez quitté le jeu, sortie dans : 1");
+               -- delay 1.0;
                exit;
            end if;
         end;
