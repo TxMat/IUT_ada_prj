@@ -162,7 +162,7 @@ package body p_virus is
 	begin
 		put_line("todo");
 	end SupMemoG;
-    
+
         procedure oppose (dir : in out T_Direction) is
     --Inverse la position de dir :
     -- bg <-> hd; bd <-> hg
@@ -193,4 +193,14 @@ package body p_virus is
             -- raise error
         end if;
     end calcul_dir;
+
+	function checkpossible (Grille : in TV_Grille; coul : in T_coulP) return boolean is
+	--Teste si déplacement hg, hd, bg, bd sont possibles
+	begin
+		return ((Possible(Grille, coul, hg)) or
+				(Possible(Grille, coul, hd)) or
+				(Possible(Grille, coul, bg)) or
+				(Possible(Grille, coul, bd)));
+	end checkpossible;
+
 end p_virus;
