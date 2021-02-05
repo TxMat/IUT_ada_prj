@@ -64,11 +64,10 @@ begin
     --------------- Fin du Menu -------------------------
 
 
-
+    open(f, in_file, "Defis.bin");
     while Play loop
         --------------- Debut init grille ------------------
         InitPartie(Grille, Pieces);
-        open(f, in_file, "Defis.bin");
         Configurer(f, numd, Grille, Pieces);
         creegrille (FGrille, numd, ConsulterContenu(FMenu, "ChampNom"),Grille);
         MontrerFenetre(FGrille);
@@ -117,6 +116,7 @@ begin
                     if not Premier_tour then
                         oppose(dir);
                         MajGrille(Grille, Bouton_select_coul, dir);
+                        nb_coups := nb_coups + 1;
                         ChangerTexte(FGrille, "info", "Mouvement annule");
                         AfficheGrille(fGrille, Grille, nb_coups);
                     end if;
