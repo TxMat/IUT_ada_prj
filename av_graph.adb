@@ -57,9 +57,9 @@ begin
             exit when (bouton = "BoutonValider" and defichoisi ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
         end;
     end loop;
-    -- if bouton = "BoutonAnnuler" then
-    --     exit;
-    -- end if;
+    if bouton = "BoutonAnnuler" then
+         Play := false;
+    end if;
     cacherFenetre(FMenu);
     --------------- Fin du Menu -------------------------
 
@@ -67,6 +67,7 @@ begin
     open(f, in_file, "Defis.bin");
     while Play loop
         --------------- Debut init grille ------------------
+        nb_coups := 0;
         InitPartie(Grille, Pieces);
         Configurer(f, numd, Grille, Pieces);
         creegrille (FGrille, numd, ConsulterContenu(FMenu, "ChampNom"),Grille);
@@ -91,6 +92,7 @@ begin
                             Preparation_Grille(FGrille, Grille, Bouton_select_coul, Num_lig_pred, Num_col_pred);
                             Premier_coup := false; -- pour passer a la phase 2
                             ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitee");
+                            ChangerEtatBouton(FGrille, "Annul", Arret);
                         else
                             ChangerTexte(FGrille, "info", "La piece ne peux pas bouger, prenez en une autre");
                         end if;
@@ -104,6 +106,7 @@ begin
                         AfficheGrille(fGrille, Grille, nb_coups);
                         Premier_coup := true;
                         Premier_tour := false;
+                        ChangerEtatBouton(FGrille, "Annul", Marche);
                     end if;
                 elsif Bouton = "Reset" then
                     nb_coups := 0;
