@@ -1,6 +1,6 @@
 package body p_vue_graph is
 
-procedure creemenu (fmenu : in out TR_fenetre)is
+procedure creemenu (fmenu : in out TR_fenetre)is --fen menu
 
 begin
   Fmenu:=DebutFenetre("Menu",400,400);
@@ -8,8 +8,9 @@ begin
     AjouterChamp(Fmenu,"ChampNom","Votre Nom","Quentin",120,30,200,30);
     AjouterChamp(Fmenu,"ChampDefi","Numero de defi","1",120,70,200,30);
     AjouterTexte(fmenu,"mesmenu_defi","",95,110,250,30);
-    AjouterBouton(Fmenu,"BoutonValider","valider",250,200,75,30);
-    AjouterBouton(Fmenu,"BoutonAnnuler","annuler",100,200,75,30);
+    AjouterBouton(Fmenu,"BoutonValider","Valider",235,200,75,30);
+    AjouterBouton(Fmenu,"BoutonAnnuler","Annuler",85,200,75,30);
+    AjouterBouton(Fmenu,"Regles","Regles",160,250,75,30);
 -- changement des couleurs de fond
     changercouleurfond(fmenu,"BoutonValider",FL_PALEGREEN);
     changercouleurfond(fmenu,"BoutonAnnuler",FL_INDIANRED);
@@ -23,9 +24,51 @@ begin
   FinFenetre(Fmenu);
 end creemenu;
 
+procedure FenetreRegles(FRegles : in out TR_Fenetre) is --page de règles
+  NewLine : constant Character := Character'Val (10); -- retour chariot
+begin
+  FRegles:=DebutFenetre("Regles",400,400);
+  AjouterTexte(FRegles,"Titre", "AntiVirus, le jeu !",140,40,150,30);
+  AjouterTexte(FRegles,"Regles","AntiVirus est un jeu de logique et de " & NewLine & "resolution de problemes."
+                      & NewLine
+                      & NewLine & "Le but est de faire sortir le virus (la piece rouge)" & NewLine & "de la cellule (la grille), en l'ammenant" & NewLine & "au coin en haut a gauche, designee par un S."
+                      & NewLine & "Les pieces colorees se deplacent en diagonales" & NewLine & "lorsque cela est possible, les pieces blanches" & NewLine & "ne peuvent bouger."
+                      & NewLine & "La configuration initiale est determinee par " & NewLine & "un numero de defi, de 1 a 20, niveau croissant."
+                      & NewLine & NewLine & "Il faut donc gagner en un minimum de deplacements !", 30, 80, 320, 180);
+  AjouterBouton(FRegles,"Ok", "Ok !", 180, 270, 40, 30);
+  ChangerStyleContenu(FRegles, "Titre", FL_BOLD_STYLE);
+  ChangerTailleTexte(FRegles, "Titre", FL_MEDIUM_SIZE);
+  ChangerCouleurFond(FRegles, "Ok", FL_CHARTREUSE);
+
+  FinFenetre(FRegles);
+end FenetreRegles;
+
+procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille) is --fen jeu
+
+begin
+  --Fenetre jeu
+  FGrille :=DebutFenetre("Grille" & image(numd),650,500);
+  AjouterTexte(FGrille, "nomj","Nom du joueur : " & nom,10,10,280,30);
+  AjouterTexte(FGrille, "info","Bienvenue ! Cliquez sur une piece pour la deplacer.",70,60,450,30);
+  AjouterTexte(FGrille, "nbcoups","Nombre de coups : 0",450,100,280,30);
+
+  --Boutons sur le côté
+  AjouterBouton(FGrille,"Annul","Annuler le coup",450,140,150,30);
+  AjouterBouton(FGrille,"Reset","Recommencer la grille",450,180,150,30);
+  AjouterBouton(FGrille,"Quit","Quitter",450,260,150,30);
+  ChangerCouleurFond(FGrille,"Annul",FL_SLATEBLUE);
+  ChangerCouleurFond(FGrille,"Reset",FL_INDIANRED);
+  ChangerCouleurFond(FGrille,"Quit",FL_TOMATO);
+
+  --Création grille de jeu
+  AfficheGrille(FGrille,Grille,0);
+  ChangerTexte(FGrille,"Case 1A", "S");
+  FinFenetre(FGrille);
+end creegrille;
+
 procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille; nbcoups: in integer) is
         ligne, colonne : natural := 0;
-        taillebout : positive := 50; --Taille des cases
+        taillebout : constant positive := 50; --Taille des cases
     begin
     --Création de la Grille
     for l in T_Lig'range loop
@@ -57,51 +100,29 @@ procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille; nbco
       ligne:=0;
     end loop;
     ChangerTexte(FGrille,"nbcoups","Nombre de coups :" & image(nbcoups));
+    ChangerStyleContenu(FGrille,"nbcoups",FL_BOLD_STYLE);
 end AfficheGrille;
 
 
-procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille) is
-
-begin
-    --Fenetre jeu
-    FGrille :=DebutFenetre("Grille" & image(numd),650,500);
-    AjouterTexte(FGrille, "nomj","Nom du joueur : " & nom,10,10,280,30);
-    AjouterTexte(FGrille, "info","Cliquez sur la piece a deplacer.",70,40,280,30);
-    AjouterTexte(FGrille, "nbcoups","Nombre de coups : 0",450,100,280,30);
-
-    --Boutons sur le côté
-    AjouterBouton(FGrille,"Annul","Annuler le coup",450,140,150,30);
-    AjouterBouton(FGrille,"Reset","Recommencer la grille",450,170,150,30);
-    AjouterBouton(FGrille,"Quit","Quitter",450,200,150,30);
-    ChangerCouleurFond(FGrille,"Annul",FL_SLATEBLUE);
-    ChangerCouleurFond(FGrille,"Reset",FL_INDIANRED);
-    ChangerCouleurFond(FGrille,"Quit",FL_TOMATO);
-
-    --Création grille de jeu
-    AfficheGrille(FGrille,Grille,0);
-    ChangerTexte(FGrille,"Case 1A", "S");
-    FinFenetre(FGrille);
-end creegrille;
-
-
-
-procedure creefin (Ffin : in out TR_fenetre; score : in out tr_score ) is
-
+procedure creefin (Ffin : in out TR_fenetre; score : in out TR_Score ) is    --fen résultats
     tv_meilleur : TV_Score (1..NB_SCORE_MAX);
 begin
     Ffin:=DebutFenetre("Resultats",400,400);
-    AjouterTexte(Ffin,"txtnom","joueur " & score.nom,120,30,200,30);
-    AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n°" & integer'image(score.defi),120,70,200,30);
-    AjouterTexte(Ffin,"txtnbcoups","Vous avez fait " & integer'image(score.nb_moves) & " mouvements.",120,110,250,30);
-    AjouterBouton(Ffin,"Boutonrejouer","rejouer",250,350,75,30);
-    AjouterBouton(Ffin,"Boutonquitter","quitter",100,350,75,30);
-    -- ajout des couleurs
+    AjouterTexte(Ffin,"txtnom","Joueur : " & score.nom,50,20,200,30);
+    AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n'" & integer'image(score.defi),50,50,200,30);
+    AjouterTexte(Ffin,"txtnbcoups","Vous avez fait" & integer'image(score.nb_moves) & " mouvements.",50,70,250,30);
+    AjouterTexte(Ffin,"class", "Voici les scores precedents :", 50,100,250,30);
+    AjouterBouton(Ffin,"Boutonrejouer","Rejouer",235,350,75,30);
+    AjouterBouton(Ffin,"Boutonquitter","Quitter",85,350,75,30);
+    -- ajout des couleurs et mise en forme
     changercouleurfond(Ffin,"fond",FL_BOTTOM_BCOL);
     changercouleurfond(Ffin,"txtnom",FL_BOTTOM_BCOL);
     changercouleurfond(Ffin,"txtdefi",FL_BOTTOM_BCOL);
     changercouleurfond(Ffin,"txtnbcoups",FL_BOTTOM_BCOL);
+    changercouleurfond(Ffin,"class",FL_BOTTOM_BCOL);
     changercouleurfond(Ffin,"Boutonrejouer",FL_PALEGREEN);
     changercouleurfond(Ffin,"Boutonquitter",FL_INDIANRED);
+    ChangerStyleContenu(Ffin,"class",FL_BOLD_STYLE);
     -- creation d'un tableau de clasement
     --vv--vv--vv--vv--vv-- avec le reuf Quentin --vv--
     ajout_score(Score);
@@ -115,9 +136,9 @@ begin
         ecrire_ligne("temps : ");
         ecrire_ligne("moves : "&image(tv_meilleur(i).nb_moves));
         a_la_ligne;
-        AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & Float'Image(tv_meilleur(I).temps),110,(80+(I * 70)),250,30);-- affichage du nom du joueur et du temps
+        AjouterTexte(Ffin,"txtnomclas" & image(I),tv_meilleur(I).nom & " : " & Float'Image(tv_meilleur(I).temps),90,(60+(I * 70)),250,30);-- affichage du nom du joueur et du temps
         changercouleurfond(Ffin,"txtnomclas" & image(I),FL_BOTTOM_BCOL);
-        AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",110,(110+(I * 70)),250,30); -- affichage du nombre de mouvements
+        AjouterTexte(Ffin,"txtmouvclas" & image(I),image(tv_meilleur(I).nb_moves) & " mouvements.",90,(90+(I * 70)),250,30); -- affichage du nombre de mouvements
         changercouleurfond(Ffin,"txtmouvclas" & image(I),FL_BOTTOM_BCOL);
   end loop;
   FinFenetre(ffin);

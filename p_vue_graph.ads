@@ -17,14 +17,17 @@ package p_vue_graph is
     -- création des menus
     procedure creemenu (fmenu : in out TR_fenetre);
 
-    -- affiche & màj la grille
-    procedure AfficheGrille(fGrille : in out TR_fenetre; grille : in tv_grille; nbcoups: in integer);
+    --Création pop up règles
+    procedure FenetreRegles(FRegles : in out TR_Fenetre);
 
     -- création de la grille
     procedure creegrille (FGrille : in out TR_fenetre; numd : in integer; nom : in string; grille : in tv_grille);
 
-    -- création des champs & boutons
-    procedure creefin (Ffin : in out TR_fenetre; score : in out tr_score );
+    -- affiche & màj la grille
+    procedure AfficheGrille(FGrille : in out TR_fenetre; grille : in tv_grille; nbcoups: in integer);
+
+    -- création des resultats
+    procedure creefin (Ffin : in out TR_fenetre; score : in out TR_Score );
 
     procedure Preparation_Grille(FGrille : in out TR_Fenetre; Grille : in TV_Grille; coul : in T_CoulP; lig : in integer; col : in character);
 

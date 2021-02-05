@@ -8,59 +8,65 @@ with p_score; use p_score;
 use p_virus.p_piece_io;
 
 procedure av_graph is
-    numd : integer range 1..20 ; -- numero defi
-    Fmenu, FGrille, Ffin : TR_fenetre;
-    Score : tr_score;
+    Score : TR_Score;
     Grille : TV_Grille;
     Pieces : TV_Pieces;
-    defichoisie : boolean := false;
-    f : p_piece_io.file_type;
     Bouton_select_coul : T_coulP;
-    nb_coups : integer := 0;
-    premier_coup  : boolean := True;
+    FMenu, FGrille, Ffin, FRegles : TR_fenetre;
+    defichoisi : boolean := false;
+    Premier_coup  : boolean := True;
     Premier_tour : boolean := True;
+    numd : integer range 1..20 ; -- numero defi
+    nb_coups : integer := 0;
     nom : string(1..20);
+    f : p_piece_io.file_type;
 begin
 
     InitialiserFenetres;
 
     --------------- gestion du menu -------------------------
-    creemenu(Fmenu);-- procedure créant le Menu
-    montrerfenetre(Fmenu);--affichage du Menu
+    CreeMenu(FMenu);-- procedure créant le Menu
+    FenetreRegles(FRegles);-- procédure de création des règles
+    MontrerFenetre(FMenu);--affichage du Menu
 
     loop
         declare
-            Bouton : String := (Attendrebouton(Fmenu)); -- recuperation du bouton préssé
+            Bouton : String := (Attendrebouton(FMenu)); -- recuperation du bouton préssé
         begin
             if bouton = "BoutonAnnuler" then --si le bouton annuler est appuié
-                cacherfenetre(fmenu); -- on cache la fenetre
+                cacherfenetre(FMenu); -- on cache la fenetre
                 bouton := "quit";
             elsif  bouton = "BoutonValider" then --si le bouton Valider est appuié
             -- ici controle de la saisie defi
                 declare
-                    NumDefi: string :=  ConsulterContenu(Fmenu,"ChampDefi"); -- NumDefi prend la valeur de ChampDefi
+                    NumDefi: string :=  ConsulterContenu(FMenu,"ChampDefi"); -- NumDefi prend la valeur de ChampDefi
                 begin
                     numd := integer'value(NumDefi);-- si le defi n'est pas correct on as une erreur
-                    defichoisie := true; -- variable permettant de controler la boucle
+                    defichoisi := true; -- variable permettant de controler la boucle
                 exception
                     when others => -- l'erreur sugit quand le numero defi n'est pas valide
-                        changertexte(fmenu,"mesmenu_defi","ce n'est pas un numero de defi"); --affichage d'un messsage pour l'utilisateur
+                        changertexte(FMenu,"mesmenu_defi","ce n'est pas un numero de defi"); --affichage d'un messsage pour l'utilisateur
                 end;
+              elsif bouton = "Regles" then --si le bouton règles est appuyé
+                  MontrerFenetre(FRegles);
+                if AttendreBouton(FRegles) = "Ok" then
+                  cacherFenetre(FRegles);
+                end if;
             end if;
-            exit when (bouton = "BoutonValider" and defichoisie ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
+            exit when (bouton = "BoutonValider" and defichoisi ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
         end;
     end loop;
     -- if bouton = "BoutonAnnuler" then
     --     exit;
     -- end if;
-    cacherFenetre(fmenu);
+    cacherFenetre(FMenu);
     --------------- Fin du Menu -------------------------
 
     --------------- Debut init grille -------------------
     InitPartie(Grille, Pieces);
     open(f, in_file, "Defis.bin");
     Configurer(f, numd, Grille, Pieces);
-    creegrille (FGrille, numd, ConsulterContenu(Fmenu, "ChampNom"),Grille);
+    creegrille (FGrille, numd, ConsulterContenu(FMenu, "ChampNom"),Grille);
     MontrerFenetre(FGrille);
     --------------- Fin init ---------------------------
     while not Guerison(Grille) loop
@@ -72,24 +78,24 @@ begin
             temp : string(1..3);
         begin
             if Bouton /= "Quit" and Bouton /= "Annul" and Bouton /= "Reset" then
-                if premier_coup then
-                    ChangerCouleurFond(fGrille, Bouton, FL_DEEPPINK);
+                if Premier_coup then
+                    ChangerCouleurFond(fGrille, Bouton, FL_DARKGOLD);
                     ecrire_ligne(Bouton);
                     temp := Bouton(bouton'last - 1)'image;
                     Num_lig_pred := Integer'Value ((1 => temp(2))); -- ligne 1..7
                     Num_col_pred := Bouton(bouton'last); -- colonne A..G
                     ecrire_ligne("1");
-                    ecrire_ligne(premier_coup);
+                    ecrire_ligne(Premier_coup);
                     Bouton_select_coul := Grille(Num_lig_pred, Num_col_pred);  -- select coul bouton cliqué
                     ecrire_ligne("2");
                     if checkpossible(Grille, Bouton_select_coul) then -- pour eviter de select une piece contrainte
                         Preparation_Grille(FGrille, Grille, Bouton_select_coul, Num_lig_pred, Num_col_pred);
-                        premier_coup := false; -- pour passer a la phase 2
+                        Premier_coup := false; -- pour passer a la phase 2
+                        ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitee");
                     else
-                        ChangerTexte(FGrille, "info", "La piece ne peux pas bouger prenez en une autre");
+                        ChangerTexte(FGrille, "info", "La piece ne peux pas bouger, prenez en une autre");
                     end if;
                 else
-                    ChangerTexte(FGrille, "info", "Selectionnez la direction souhaitee");
                     ecrire_ligne(Bouton);
                     temp := Bouton(bouton'last - 1)'image;
                     Num_lig_succ := Integer'Value ((1 => temp(2))); -- ligne 1..7
@@ -115,18 +121,21 @@ begin
                     ChangerTexte(FGrille, "info", "Mouvement annule");
                     AfficheGrille(fGrille, Grille, nb_coups);
                 end if;
-                ChangerTexte(FGrille, "info", "Vous n'avez pas joue");
+                ChangerTexte(FGrille, "info", "Vous n'avez encore pas joue, selectionnez une piece puis sa direction");
             elsif Bouton = "Quit" then
                 exit;
             end if;
         end;
+        if not Premier_tour then
+          ChangerTexte(FGrille, "info", "Cliquez sur une piece a deplacer.");
+        end if;
     end loop;
     if Guerison(Grille) then
         declare --Déclaration dynamique d'un string pour intégrer le nom du joueur dans un string(1..20)
-            temp_string : string (1..20-ConsulterContenu(fmenu,"ChampNom")'length);
+            temp_string : string (1..20-ConsulterContenu(FMenu,"ChampNom")'length);
         begin
             temp_string := (others => ' ');
-            nom := ConsulterContenu(fmenu,"ChampNom") & temp_string ;
+            nom := ConsulterContenu(FMenu,"ChampNom") & temp_string ;
         end;
         Score := (NumD,nom,13.37,nb_coups);
         creefin(FFin, Score);
@@ -134,6 +143,6 @@ begin
         pause;
     end if;
     cacherFenetre(fGrille);
-    MontrerFenetre(Fmenu);
+    MontrerFenetre(FMenu);
 
 end av_graph;
