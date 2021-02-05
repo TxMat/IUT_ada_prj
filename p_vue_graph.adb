@@ -112,7 +112,7 @@ begin
     AjouterTexte(Ffin,"txtdefi","Vous avez battu le defi n'" & integer'image(score.defi),50,50,200,30);
     AjouterTexte(Ffin,"txtnbcoups","Vous avez fait" & integer'image(score.nb_moves) & " mouvements.",50,70,250,30);
     AjouterTexte(Ffin,"class", "Voici les scores precedents :", 50,100,250,30);
-    AjouterBouton(Ffin,"Boutonrejouer","Rejouer",235,350,75,30);
+    AjouterBouton(Ffin,"Boutonnext","Suivant",235,350,75,30);
     AjouterBouton(Ffin,"Boutonquitter","Quitter",85,350,75,30);
     -- ajout des couleurs et mise en forme
     changercouleurfond(Ffin,"fond",FL_BOTTOM_BCOL);
