@@ -27,15 +27,15 @@ end creemenu;
 procedure FenetreRegles(FRegles : in out TR_Fenetre) is --page de règles
   NewLine : constant Character := Character'Val (10); -- retour chariot
 begin
-  FRegles:=DebutFenetre("Regles",400,400);
-  AjouterTexte(FRegles,"Titre", "AntiVirus, le jeu !",140,40,150,30);
-  AjouterTexte(FRegles,"Regles","AntiVirus est un jeu de logique et de " & NewLine & "resolution de problemes."
-                      & NewLine
-                      & NewLine & "Le but est de faire sortir le virus (la piece rouge)" & NewLine & "de la cellule (la grille), en l'ammenant" & NewLine & "au coin en haut a gauche, designee par un S."
-                      & NewLine & "Les pieces colorees se deplacent en diagonales" & NewLine & "lorsque cela est possible, les pieces blanches" & NewLine & "ne peuvent bouger."
-                      & NewLine & "La configuration initiale est determinee par " & NewLine & "un numero de defi, de 1 a 20, niveau croissant."
-                      & NewLine & NewLine & "Il faut donc gagner en un minimum de deplacements !", 30, 80, 320, 180);
-  AjouterBouton(FRegles,"Ok", "Ok !", 180, 270, 40, 30);
+FRegles:=DebutFenetre("Regles",400,400);
+AjouterTexte(FRegles,"Titre", "AntiVirus, le jeu !",140,30,150,30);
+AjouterTexte(FRegles,"Regles","AntiVirus est un jeu de logique et de " & NewLine & "resolution de problemes."
+                    & NewLine
+                    & NewLine & "Le but est de faire sortir le virus (la piece rouge)" & NewLine & "de la cellule (la grille), en l'ammenant" & NewLine & "au coin en haut a gauche, designee par un S."
+                    & NewLine & "Les pieces colorees se deplacent en diagonales" & NewLine & "lorsque cela est possible, les pieces blanches" & NewLine & "ne peuvent bouger."
+                    & NewLine & "La configuration initiale est determinee par " & NewLine & "un numero de defi, de 1 a 20, niveau croissant."
+                    & NewLine & NewLine & "Il faut donc gagner en un minimum de deplacements !", 30, 80, 340, 220);
+AjouterBouton(FRegles,"Ok", "Ok !", 180, 300, 40, 30);
   ChangerStyleContenu(FRegles, "Titre", FL_BOLD_STYLE);
   ChangerTailleTexte(FRegles, "Titre", FL_MEDIUM_SIZE);
   ChangerCouleurFond(FRegles, "Ok", FL_CHARTREUSE);
