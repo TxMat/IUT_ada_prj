@@ -111,8 +111,8 @@ begin
                     InitPartie(Grille, Pieces);
                     Configurer(f, numd, Grille, Pieces);
                     AfficheGrille(fGrille, Grille, nb_coups);
-                    Premier_coup := true;
-                    Premier_tour := false;
+                    Premier_coup := false;
+                    Premier_tour := true;
                 elsif Bouton = "Annul" then
                     if not Premier_tour then
                         oppose(dir);
