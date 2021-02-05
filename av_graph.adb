@@ -102,19 +102,19 @@ begin
                         MajGrille(Grille, Bouton_select_coul, dir);
                         nb_coups := nb_coups + 1;
                         AfficheGrille(fGrille, Grille, nb_coups);
-                        Premier_coup := true;
-                        Premier_tour := false;
+                        Premier_coup := true;  -- pour repasser en phase 1
+                        Premier_tour := false; -- pour pouvoir annuler apres avoir joué
                         ChangerEtatBouton(FGrille, "Annul", Marche);
                     end if;
-                elsif Bouton = "Reset" then
+                elsif Bouton = "Reset" then -- partie reset
                     nb_coups := 0;
                     InitPartie(Grille, Pieces);
                     Configurer(f, numd, Grille, Pieces);
                     AfficheGrille(fGrille, Grille, nb_coups);
                     Premier_coup := true;
                     Premier_tour := true;
-                elsif Bouton = "Annul" then
-                    if not Premier_tour then
+                elsif Bouton = "Annul" then -- partie annuler mouvement
+                    if not Premier_tour then -- pour eviter d'annuler un mouvement impossible
                         oppose(dir);
                         MajGrille(Grille, Bouton_select_coul, dir);
                         nb_coups := nb_coups + 1;
@@ -122,7 +122,7 @@ begin
                         AfficheGrille(fGrille, Grille, nb_coups);
                     end if;
                     ChangerTexte(FGrille, "info", "Vous n'avez encore pas joue, selectionnez une piece puis sa direction");
-                elsif Bouton = "Quit" then
+                elsif Bouton = "Quit" then -- pour quitter
                     Play := false;
                     exit;
                 end if;
@@ -144,7 +144,7 @@ begin
             declare
                 bouton : String := (Attendrebouton(FFin));
             begin
-                if Bouton = "Boutonnext" then
+                if Bouton = "Boutonnext" then -- niveau suivant
                     numd := numd + 1;
                     cacherFenetre(ffin);
                 else
