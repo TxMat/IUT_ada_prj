@@ -26,6 +26,7 @@ package body p_score is
         end case;
         exception
             when NAME_ERROR => -- Si le fichier n'existe pas
+                ecrire_ligne("Fichier inexistant. Création du fichier.");
                 create(f, out_file, NOM_FICHIER);
                 close(f);
                 case io_option is
@@ -54,7 +55,7 @@ package body p_score is
         ouvrir_fichier(lecture);
         while not end_of_file(f) loop
             read(f,tmp);
-            if  (mode = ajout and then ((tmp.nom /= nom) and (tmp.defi /= defi))) or -- ajout_score
+            if  (mode = ajout and then ((tmp.nom /= nom) and (tmp.defi = defi))) or -- ajout_score
             (mode = tous_defi and then (tmp.defi = defi)) or --Tous scores pour défi
             (mode = tous_joueur and then (tmp.nom = nom)) or --Tous scores pour joueur
             (mode = joueur_defi and then ((tmp.nom = nom) and (tmp.defi = defi))) then -- score du joueur pour ce défi
