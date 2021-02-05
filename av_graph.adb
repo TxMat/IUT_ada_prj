@@ -92,6 +92,7 @@ begin
                             ChangerEtatBouton(FGrille, "Annul", Arret);
                         else
                             ChangerTexte(FGrille, "info", "La piece ne peux pas bouger, prenez en une autre");
+                            ChangerEtatBouton(FGrille, "Annul", Arret);
                         end if;
                     else
                         temp := Bouton(bouton'last - 1)'image;
