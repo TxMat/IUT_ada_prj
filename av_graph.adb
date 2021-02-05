@@ -37,7 +37,6 @@ begin
             if bouton = "BoutonAnnuler" then --si le bouton annuler est appuié
                 cacherfenetre(FMenu);
                 Play := false; -- on cache la fenetre
-                bouton := "quit";
             elsif  bouton = "BoutonValider" then --si le bouton Valider est appuié
             -- ici controle de la saisie defi
                 declare
@@ -123,6 +122,7 @@ begin
                     end if;
                     ChangerTexte(FGrille, "info", "Vous n'avez encore pas joue, selectionnez une piece puis sa direction");
                 elsif Bouton = "Quit" then
+                    Play := false;
                     exit;
                 end if;
             end;
