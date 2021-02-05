@@ -104,7 +104,7 @@ begin
                         nb_coups := nb_coups + 1;
                         AfficheGrille(fGrille, Grille, nb_coups);
                         Premier_coup := true;
-                        Premier_tour := false;
+                        Premier_tour := true;
                     end if;
                 elsif Bouton = "Reset" then
                     nb_coups := 0;
