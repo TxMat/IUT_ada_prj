@@ -5,7 +5,7 @@ package p_score is
     -- Représentation des scores
     type TR_Score is record
         defi : integer range 1..21 := 21;
-        nom : string(1..20) := "testtesttesttesttest";
+        nom : string(1..20) := "ordi                ";
         temps : float := 9999.99;
         nb_moves : integer := 9999;
     end record;
