@@ -66,28 +66,6 @@ package p_virus is
 	function Guerison(Grille : in TV_Grille) return boolean;
 	-- {} => {résultat = vrai si Grille(1,A) = Grille(2,B) = ROUGE}
 
-	--------------------------------------------------------------------------------------------
-	-- AJOUTS pour gestion partie et gestion annulations en vue graphique
-	--------------------------------------------------------------------------------------------
-	-- Pour gérer les fichiers contenant les configs de la grille de jeu au fil d'une partie
-	package p_Grille_io is new sequential_io(TV_Grille); use p_Grille_io;
-	--------------------------------------------------------------------------------------------
-	function CaseGrille(lig : in T_lig; col : in T_col) return boolean;
-	--	{} => {résultat = vrai si la case en colonne col et en ligne lig est utilisable}
-	--------------------------------------------------------------------------------------------
-	procedure InitMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : out positive);
-	--{fg ouvert}  =>
-	--		{fg a été resetté en position d'écriture, G a été écrit dans fg, nbelem = 1}
-	--------------------------------------------------------------------------------------------
-	procedure AddMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : in out positive);
-	--{fg ouvert, nbelem est le nombre d'éléments de fg}  =>
-	--		{G a été ajouté en fin de fg, nbelem a été incrémenté}
-	--------------------------------------------------------------------------------------------
-	procedure SupMemoG(fg : in out p_grille_io.file_type; G : in out TV_Grille; nbelem : in out positive);
-	--{fg ouvert, nbelem est le nombre d'éléments de fg, nbelm > 1}  =>
-	--		{G = dernier élement de fg, le dernier élément de fg a été supprimé, nbelem est décrémenté}
-	--------------------------------------------------------------------------------------------
-
     -- Oppose la direction de dir (bg <-> hd; bd <-> hg)
     procedure oppose (dir : in out T_Direction);
 
