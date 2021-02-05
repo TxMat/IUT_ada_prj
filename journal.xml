@@ -77,7 +77,9 @@ Preparation_Grille (allume les cases valides pour deplacer une piece)
 BEAUCOUP de debug
 </Mathieu>
 <Quentin>
-
+Finition module score / debug
+cleanup du code du projet
+fix de l'indentation du projet
 </Quentin>
 <François>
 
@@ -96,6 +98,7 @@ debug de last minute
 </Mathieu>
 <Quentin>
 dodo ?
+modif p_score.ads pour pas me faire tu... "suicider" par Elsa
 </Quentin>
 <François>
 oui
