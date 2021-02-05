@@ -129,10 +129,6 @@ package body p_virus is
 		return Grille(1,'A') = ROUGE and Grille(2,'B') = ROUGE;
 	end Guerison;
 
-	begin
-		put_line("todo");
-	end SupMemoG;
-
         procedure oppose (dir : in out T_Direction) is
     -- Inverse la position de dir :
     -- bg <-> hd; bd <-> hg
