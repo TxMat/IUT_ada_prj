@@ -35,7 +35,8 @@ begin
             Bouton : String := (Attendrebouton(FMenu)); -- recuperation du bouton préssé
         begin
             if bouton = "BoutonAnnuler" then --si le bouton annuler est appuié
-                cacherfenetre(FMenu); -- on cache la fenetre
+                cacherfenetre(FMenu);
+                Play := false; -- on cache la fenetre
                 bouton := "quit";
             elsif  bouton = "BoutonValider" then --si le bouton Valider est appuié
             -- ici controle de la saisie defi
@@ -57,9 +58,6 @@ begin
             exit when (bouton = "BoutonValider" and defichoisi ) or bouton = "BoutonAnnuler"; -- sortie si bouton bouton valider et defi correct ou bouton annuler
         end;
     end loop;
-    if bouton = "BoutonAnnuler" then
-         Play := false;
-    end if;
     cacherFenetre(FMenu);
     --------------- Fin du Menu -------------------------
 
