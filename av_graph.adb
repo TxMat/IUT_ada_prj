@@ -104,14 +104,14 @@ begin
                         nb_coups := nb_coups + 1;
                         AfficheGrille(fGrille, Grille, nb_coups);
                         Premier_coup := true;
-                        Premier_tour := true;
+                        Premier_tour := false;
                     end if;
                 elsif Bouton = "Reset" then
                     nb_coups := 0;
                     InitPartie(Grille, Pieces);
                     Configurer(f, numd, Grille, Pieces);
                     AfficheGrille(fGrille, Grille, nb_coups);
-                    Premier_coup := false;
+                    Premier_coup := true;
                     Premier_tour := true;
                 elsif Bouton = "Annul" then
                     if not Premier_tour then
@@ -146,8 +146,9 @@ begin
                     numd := numd + 1;
                     cacherFenetre(ffin);
                 else
-                    Play := False
+                    Play := False;
                     cacherFenetre(ffin);
+                end if;
             end;
         else
             cacherFenetre(fGrille);
