@@ -1,3 +1,3 @@
 # IUT_ada_prj
 
-pour le projet d'ada finalement
+a simple ada game developed for a school project
