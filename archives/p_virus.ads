@@ -39,6 +39,9 @@ package p_virus is
 	-- {} => {Tous les éléments de Grille ont été initialisés avec la couleur VIDE, y compris les cases inutilisables
 	--				Tous les élements de Pieces ont été initialisés à false}
 
+	procedure PrintAllFromFile(f : in out p_piece_io.file_type);
+    -- {} => {Toutes les pièces sont affichées dans la console}
+
 	procedure Configurer(f : in out p_piece_io.file_type; num : in integer;
 											 Grille : in out TV_Grille; Pieces : in out TV_Pieces);
 	-- {f ouvert, non vide, num est un numéro de défi

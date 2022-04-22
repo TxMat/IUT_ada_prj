@@ -1,5 +1,6 @@
 with text_io; use text_io;
 with p_esiut; use p_esiut;
+with Ada.Text_IO;
 with sequential_io;
 
 package body p_virus is
@@ -18,6 +19,24 @@ package body p_virus is
                 Pieces(k) := false;
             end loop;
         end InitPartie;
+
+        procedure PrintAllFromFile(f : in out p_piece_io.file_type) is
+        elem_new : TR_ElemP;
+        begin
+            reset(f,in_file);
+            while not end_of_file(f) loop
+                read(f,elem_new);
+                Ada.Text_Io.Put(elem_new.ligne'image);
+                Ada.Text_Io.Put(" ");
+                Ada.Text_Io.Put(elem_new.colonne);
+                Ada.Text_Io.Put(" ");
+                Ada.Text_Io.Put(elem_new.couleur'image);
+                Ada.Text_Io.New_Line;
+                -- Ada.Text_Io.Put_Line(elem_new'image);
+                    -- Grille(elem_new.ligne,elem_new.colonne) := elem_new.couleur; --Placement des pièces sur la grille
+                    -- Pieces(elem_new.couleur) := true; --Ajout $elem_new.couleur à la liste des couleurs présentes dans cette config
+            end loop;
+        end PrintAllFromFile;
 
         procedure Configurer(f : in out p_piece_io.file_type; num : in integer;
     											 Grille : in out TV_Grille; Pieces : in out TV_Pieces) is
